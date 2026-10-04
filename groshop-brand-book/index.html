@@ -1,0 +1,1522 @@
+<title>GROSHOP Brand Book</title>
+<meta name="description" content="GROSHOP Brand Book V3: the consolidated identity, design system and content rules for every GROSHOP design.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;600&display=swap">
+<style>
+/* Layout: sticky chapter rail, one 1120px reading column, brand specimens on fixed GROSHOP "stages" inside it. Dark-first like the brand. */
+:root{
+  /* GROSHOP brand constants: specimens never change with the viewer's theme */
+  --gro-red:#f02443; --gro-red-hover:#d61e3a; --gro-red-active:#bd1a33;
+  --gro-navy-900:#102533; --gro-navy-700:#17344c; --gro-navy-border:#24455f;
+  --gro-gray-100:#dfebf7; --gro-cyan:#43dde6; --gro-white:#ffffff;
+  --gro-gray-80:rgba(223,235,247,.8); --gro-gray-65:rgba(223,235,247,.65);
+  --gro-ui-bg:#edf3f9; --gro-navy-80:rgba(16,37,51,.8); --gro-navy-65:rgba(16,37,51,.65);
+  --daily:linear-gradient(160deg,#102533 0%,#17344c 100%);
+
+  /* page chrome, dark (default) */
+  --bg:#102533; --surface:#17344c; --surface-2:#142f45; --line:#24455f;
+  --fg:#ffffff; --fg-2:rgba(223,235,247,.8); --fg-3:rgba(223,235,247,.65);
+  --chip:rgba(255,255,255,.07); --link:#43dde6; --link-hover:#69e6ed; --cyan-ui:#43dde6;
+  --show-dark:block; --show-light:none;
+
+  --display:'Degular Variable','Degular',Poppins,system-ui,sans-serif;
+  --body:Urbane,Inter,system-ui,sans-serif;
+  --arabic:'IBM Plex Sans Arabic',Tahoma,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#edf3f9; --surface:#ffffff; --surface-2:#f4f8fb; --line:rgba(16,37,51,.13);
+  --fg:#102533; --fg-2:rgba(16,37,51,.8); --fg-3:rgba(16,37,51,.65);
+  --chip:rgba(16,37,51,.06); --link:#bd1a33; --link-hover:#102533; --cyan-ui:#0f767d;
+  --show-dark:none; --show-light:block; color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#edf3f9; --surface:#ffffff; --surface-2:#f4f8fb; --line:rgba(16,37,51,.13);
+  --fg:#102533; --fg-2:rgba(16,37,51,.8); --fg-3:rgba(16,37,51,.65);
+  --chip:rgba(16,37,51,.06); --link:#bd1a33; --link-hover:#102533; --cyan-ui:#0f767d;
+  --show-dark:none; --show-light:block; color-scheme:light}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--link);text-underline-offset:3px}
+a:hover{color:var(--link-hover)}
+:focus-visible{outline:2px solid var(--link);outline-offset:3px;border-radius:4px}
+img{max-width:100%;height:auto}
+h1,h2,h3,h4{text-wrap:balance}
+p{margin:0 0 12px;max-width:68ch}
+code,.mono{font-family:var(--mono);font-size:.9em}
+code{background:var(--chip);padding:1px 6px;border-radius:4px}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--fg-2)}
+.small{font-size:14px}
+.on-dark{display:var(--show-dark)} .on-light{display:var(--show-light)}
+
+/* top rail */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);border-bottom:1px solid var(--line)}
+.top-in{max-width:1120px;margin-inline:auto;padding-inline:24px;display:flex;align-items:center;gap:20px;height:60px}
+.top-logo{height:20px;width:auto;flex:none}
+.toc{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1}
+.toc::-webkit-scrollbar{display:none}
+.toc a{flex:none;font-size:13px;font-weight:500;color:var(--fg-2);text-decoration:none;padding:6px 10px;border-radius:999px;white-space:nowrap}
+.toc a:hover{color:var(--fg);background:var(--chip)}
+.toc a[aria-current]{color:var(--fg);background:var(--chip)}
+.toc a[aria-current]::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gro-red);margin-right:6px;vertical-align:2px}
+
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:24px}
+@media (max-width:600px){.wrap,.top-in{padding-inline:16px}.top-in{gap:12px}}
+
+/* cover + intro */
+.cover{margin-top:24px;border-radius:16px;overflow:hidden;background:var(--gro-navy-900);line-height:0}
+.cover img{display:block;width:100%;aspect-ratio:1600/667;object-fit:cover}
+.intro{padding-block:40px 56px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:40px;align-items:end}
+@media (max-width:860px){.intro{grid-template-columns:minmax(0,1fr);gap:24px}}
+.intro h1{font-family:var(--display);font-weight:600;font-size:clamp(36px,6vw,64px);line-height:1.05;letter-spacing:-.02em;margin:0}
+.vchip{display:inline-block;font-weight:600;font-size:.45em;line-height:1;vertical-align:.5em;background:var(--gro-red);color:#fff;border-radius:8px;padding:.18em .4em;margin-left:.15em;letter-spacing:0}
+.lede{font-size:18px;color:var(--fg-2);max-width:60ch;margin:16px 0 0}
+.meta{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 18px;font-size:14px;margin:0}
+.meta dt{color:var(--fg-3)} .meta dd{margin:0}
+
+/* chapters */
+.chapter{padding-block:72px;border-top:1px solid var(--line)}
+@media (max-width:600px){.chapter{padding-block:48px}}
+.ch-head{display:grid;grid-template-columns:88px minmax(0,1fr);gap:4px 16px;margin-bottom:32px}
+.ch-ref{grid-row:span 2;font-family:var(--display);font-weight:300;font-size:44px;line-height:1;color:var(--gro-red);letter-spacing:-.02em}
+.ch-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4vw,40px);line-height:1.1;letter-spacing:-.01em;margin:0}
+.ch-head p{margin:8px 0 0;color:var(--fg-2);font-size:17px;max-width:64ch}
+@media (max-width:600px){.ch-head{grid-template-columns:minmax(0,1fr)}.ch-ref{grid-row:auto;font-size:32px}}
+h3{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.3;margin:48px 0 14px}
+.ch-head + h3,.ch-head + .block > h3:first-child{margin-top:0}
+h4{font-family:var(--display);font-weight:600;font-size:16px;margin:0 0 6px}
+.eyebrow{font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--fg-3);margin:0 0 8px}
+ul.rules,ol.rules{margin:0;padding-left:20px;max-width:74ch}
+ul.rules li,ol.rules li{margin-bottom:8px}
+.rules li::marker{color:var(--fg-3)}
+
+.g2,.g3,.g4{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:900px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.g2,.g3,.g4{grid-template-columns:minmax(0,1fr)}}
+.stack{display:grid;gap:16px}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;min-width:0}
+.panel > :last-child{margin-bottom:0}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:600px}
+th,td{text-align:left;padding:12px 16px;vertical-align:top;border-top:1px solid var(--line)}
+thead th{border-top:0;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);font-weight:600;background:var(--surface-2);white-space:nowrap}
+td b{font-weight:600}
+td .muted{display:block;font-size:13.5px}
+
+/* brand stages (fixed GROSHOP surfaces) */
+.stage{background:var(--daily);color:var(--gro-white);border-radius:12px;padding:24px;position:relative;overflow:hidden;min-width:0}
+.stage.flat{background:var(--gro-navy-900)}
+.stage.light{background:var(--gro-ui-bg);color:var(--gro-navy-900)}
+.stage.white{background:#fff;color:var(--gro-navy-900)}
+.stage .cap{font-size:13px;color:var(--gro-gray-65);margin:12px 0 0}
+.stage.light .cap,.stage.white .cap{color:var(--gro-navy-65)}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+/* changelog */
+.log{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.log-item{display:grid;grid-template-columns:92px minmax(0,1fr) 44px;gap:16px;padding:14px 18px;border-top:1px solid var(--line);align-items:baseline}
+.log-item:first-child{border-top:0}
+.log-item b{font-weight:600}
+.log-item .d{display:block;color:var(--fg-2);font-size:14.5px;margin-top:2px}
+.log-item .ref{font-size:13px;text-align:right;white-space:nowrap}
+.tag{justify-self:start;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:6px;border:1.5px solid var(--line);color:var(--fg);white-space:nowrap}
+.tag.add{background:var(--chip)}
+.tag.dec{border-color:var(--cyan-ui)}
+.tag.fix{border-color:var(--gro-red)}
+@media (max-width:600px){.log-item{grid-template-columns:minmax(0,1fr) auto;gap:6px 12px}.log-item .body{grid-column:1/-1;grid-row:2}}
+
+/* quick reference */
+.qr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--line);gap:1px}
+.qr div{background:var(--surface);padding:16px 18px;min-width:0}
+.qr dt{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);font-weight:600;margin-bottom:4px}
+.qr dd{margin:0;font-size:15px}
+.dot{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:6px;box-shadow:inset 0 0 0 1px rgba(127,127,127,.35)}
+@media (max-width:900px){.qr{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.qr{grid-template-columns:minmax(0,1fr)}}
+
+/* taglines */
+.quote{font-family:var(--display);font-weight:300;font-size:clamp(28px,4.4vw,48px);line-height:1.15;letter-spacing:-.02em;margin:0;max-width:22ch}
+
+/* logo */
+.logo-tile{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;min-width:0}
+.logo-tile .art{height:170px;display:grid;place-items:center;padding:24px}
+.logo-tile .art img{max-height:122px;max-width:88%;width:auto;height:auto;object-fit:contain}
+.logo-tile .art.h img{max-height:44px}
+.logo-tile .art.sym img{max-height:72px}
+.art.dark{background:var(--gro-navy-900)} .art.light{background:#fff} .art.gray{background:var(--gro-ui-bg)}
+.logo-tile .info{padding:14px 16px;font-size:14px}
+.logo-tile .info b{font-family:var(--mono);font-size:13px;font-weight:600}
+.logo-tile .info span:not(.badge-new){display:block;color:var(--fg-2);margin-top:2px}
+.badge-new{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid var(--gro-red);border-radius:5px;padding:1px 6px;margin-left:6px;color:var(--fg)}
+.clear{display:grid;place-items:center;padding:28px;background:var(--gro-navy-900);border-radius:12px}
+.clear-box{position:relative;padding:36px;outline:1.5px dashed rgba(223,235,247,.5);outline-offset:0}
+.clear-box img{display:block;height:40px;width:auto}
+.clear-box i{position:absolute;font-style:normal;font-size:12px;color:var(--gro-gray-80)}
+.dont{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--surface);min-width:0}
+.dont .art{height:120px;display:grid;place-items:center;background:var(--gro-navy-900);overflow:hidden}
+.dont .art img{height:28px;width:auto}
+.dont p{margin:0;padding:12px 14px;font-size:14px}
+.dont p::before{content:"✕";font-weight:700;color:var(--gro-red);margin-right:8px}
+
+/* color */
+.sw{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;min-width:0}
+.sw button{appearance:none;border:0;border-bottom:1px solid var(--line);margin:0;padding:0;height:120px;width:100%;cursor:pointer;display:block}
+.sw button:focus-visible{outline:3px solid var(--link);outline-offset:-6px}
+.sw .info{padding:14px 16px;display:grid;gap:2px;font-size:14px}
+.sw .info b{font-family:var(--display);font-weight:600;font-size:18px}
+.sw .info .mono{color:var(--fg-2)}
+.ratio{display:flex;gap:2px;height:44px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:12px;font-size:14px;color:var(--fg-2)}
+.aa{display:inline-grid;place-items:center;width:44px;height:30px;border-radius:6px;font-family:var(--display);font-weight:600;font-size:15px;margin-right:10px;vertical-align:middle;box-shadow:inset 0 0 0 1px rgba(127,127,127,.3)}
+.v{white-space:nowrap;font-weight:600}
+.v::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:0}
+.v.pass::before{background:#1f9d61}
+.v.large::before{background:linear-gradient(90deg,var(--cyan-ui) 50%,transparent 50%);box-shadow:inset 0 0 0 1.5px var(--cyan-ui)}
+.v.fail::before{box-shadow:inset 0 0 0 2px var(--gro-red)}
+.v.deco::before{box-shadow:inset 0 0 0 1.5px var(--fg-3)}
+
+/* type */
+.spec{display:grid;grid-template-columns:200px minmax(0,1fr);gap:8px 24px;padding-block:18px;border-top:1px solid var(--line);align-items:baseline}
+.spec:first-child{border-top:0;padding-top:0}
+.spec .k{font-size:13px;color:var(--fg-3)}
+.spec .k b{display:block;color:var(--fg);font-size:14px;font-weight:600}
+.spec .s{min-width:0;overflow-wrap:anywhere}
+@media (max-width:640px){.spec{grid-template-columns:minmax(0,1fr)}}
+.ar{font-family:var(--arabic);direction:rtl;text-align:right}
+
+/* spacing, radius, shadow */
+.sp{display:grid;grid-template-columns:96px 52px minmax(0,1fr);gap:12px;align-items:center;font-size:14px;padding-block:5px}
+.sp .bar{height:12px;background:var(--gro-red);border-radius:2px}
+.shape{width:96px;height:60px;background:var(--surface);border:1.5px solid var(--fg-3)}
+.shape-wrap{display:grid;gap:8px;justify-items:start;font-size:13.5px;color:var(--fg-2)}
+
+/* backgrounds + products */
+.tile{aspect-ratio:4/3;border-radius:12px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:12px;max-width:100%}
+.tile .lbl{position:relative;z-index:3;background:rgba(4,12,20,.72);color:#fff;font-size:13px;font-weight:500;padding:5px 10px;border-radius:6px}
+.bg-daily{background:var(--daily)}
+.bg-streaks{background:#102533 url("assets/campaign-streaks.jpg") center/cover no-repeat}
+.bg-ribbed{background:repeating-linear-gradient(90deg,rgba(2,8,14,.62) 0 6px,rgba(2,8,14,0) 6px 13px),linear-gradient(180deg,#040c14 0%,#2a0812 52%,#8f1229 82%,#f02443 118%)}
+.bg-orbs{background:radial-gradient(circle 120px at 18% 82%,rgba(240,36,67,.55),transparent 70%),radial-gradient(circle 170px at 88% 8%,rgba(240,36,67,.35),transparent 70%),radial-gradient(circle 90px at 70% 90%,rgba(143,18,41,.5),transparent 70%),linear-gradient(160deg,#0b1c28 0%,#081420 100%)}
+.grain{position:absolute;inset:0;z-index:1;mix-blend-mode:overlay;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E")}
+.vignette{position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 50% 40%,rgba(255,255,255,.05),transparent 65%),radial-gradient(ellipse 95% 80% at 50% 50%,transparent 55%,rgba(4,12,18,.55) 100%)}
+.prod{aspect-ratio:4/5;container-type:inline-size}
+.phone{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:30cqw;aspect-ratio:9/19;border-radius:4.4cqw;background:linear-gradient(150deg,#2b4257 0%,#0d1b27 55%,#060f17 100%);box-shadow:inset 0 0 0 .8cqw #33506a;z-index:2}
+.phone::after{content:"";position:absolute;top:3cqw;left:50%;width:6cqw;height:1.4cqw;transform:translateX(-50%);border-radius:1cqw;background:#050b11}
+
+/* buttons (V3 spec) */
+.gbtn{position:relative;overflow:hidden;isolation:isolate;font-family:var(--body);font-weight:700;font-size:19px;line-height:1.2;border:0;border-radius:8px;padding:14px 28px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;color:#fff;background:var(--gro-red);box-shadow:0 2px 8px rgba(0,0,0,.28);transition:transform 240ms cubic-bezier(.22,1,.36,1),box-shadow 240ms cubic-bezier(.22,1,.36,1),background-color 160ms linear}
+.gbtn:hover{background:var(--gro-red-hover);box-shadow:0 10px 24px rgba(240,36,67,.32)}
+.gbtn:active,.gbtn.is-pressed{transform:scale(.97)!important;background:var(--gro-red-active);box-shadow:0 2px 8px rgba(0,0,0,.28);transition-duration:90ms}
+.gbtn:focus-visible,.gbtn.is-focus{outline:0;box-shadow:0 0 0 3px rgba(240,36,67,.45),0 10px 24px rgba(240,36,67,.32)}
+.gbtn.is-hover{background:var(--gro-red-hover);box-shadow:0 10px 24px rgba(240,36,67,.32);transform:translateY(-2px)}
+.gbtn.premium{background:#fff;color:var(--gro-navy-900)}
+.gbtn.premium:hover{background:var(--gro-gray-100);box-shadow:0 10px 24px rgba(16,37,51,.22)}
+.gbtn.premium:focus-visible{box-shadow:0 0 0 3px rgba(255,255,255,.4)}
+.gbtn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.7)}
+.gbtn.ghost:hover{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5px #fff}
+.gbtn.web{font-size:15px;padding:11px 20px;min-height:44px;background:var(--gro-red-hover)}
+.gbtn.web:hover{background:var(--gro-red-active)}
+.gbtn.pill{border-radius:999px}
+.gbtn.light2{background:#fff;color:var(--gro-navy-900);box-shadow:inset 0 0 0 1px rgba(16,37,51,.16)}
+.gbtn.light2:hover{background:#f4f8fb}
+.gbtn[disabled],.gbtn.is-disabled{background:#2a4358;color:rgba(223,235,247,.65);box-shadow:none;cursor:not-allowed}
+.gbtn.is-success{background:#1f9d61}
+.gbtn.is-loading{background:var(--gro-red-active);cursor:progress}
+.gbtn::before{content:"";position:absolute;inset:-40% -60%;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.28) 48%,transparent 66%);transform:translateX(-100%);pointer-events:none;z-index:1;opacity:0}
+.gbtn.sheen:hover::before{animation:sheen 640ms cubic-bezier(.4,0,.2,1) forwards}
+@keyframes sheen{0%{transform:translateX(-100%);opacity:1}100%{transform:translateX(100%);opacity:1}}
+.gbtn > *{position:relative;z-index:2}
+.rip{position:absolute;z-index:1;border-radius:50%;background:rgba(255,255,255,.42);transform:translate(-50%,-50%) scale(0);pointer-events:none;animation:rip 420ms cubic-bezier(.22,1,.36,1) forwards}
+.premium .rip{background:rgba(16,37,51,.18)}
+@keyframes rip{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.arrow{display:inline-block;transition:transform 240ms cubic-bezier(.34,1.56,.64,1)}
+.gbtn:hover .arrow{transform:translateX(4px)}
+.spin{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.morph{min-width:240px}
+.morph .slot{display:grid;place-items:center;grid-template-areas:"s"}
+.morph .slot > span{grid-area:s;display:inline-flex;align-items:center;gap:9px;transition:opacity 160ms linear,transform 240ms cubic-bezier(.22,1,.36,1)}
+.morph .s-load,.morph .s-done{opacity:0;transform:translateY(6px)}
+.morph[data-state="load"] .s-idle,.morph[data-state="done"] .s-idle{opacity:0;transform:translateY(-6px)}
+.morph[data-state="load"] .s-load,.morph[data-state="done"] .s-done{opacity:1;transform:none}
+.morph[data-state="load"]{background:var(--gro-red-active)}
+.morph[data-state="done"]{background:#1f9d61}
+.tick path{stroke:#fff;stroke-width:2.6;fill:none;stroke-linecap:round;stroke-dasharray:22;stroke-dashoffset:22}
+.morph[data-state="done"] .tick path{animation:draw 240ms cubic-bezier(.22,1,.36,1) 60ms forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.iconbtn{width:44px;height:44px;border-radius:11px;border:1px solid var(--gro-navy-border);background:rgba(255,255,255,.05);color:#fff;display:grid;place-items:center;cursor:pointer;transition:transform 160ms cubic-bezier(.34,1.56,.64,1),background 160ms linear}
+.iconbtn:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+.iconbtn:active{transform:scale(.92);transition-duration:90ms}
+.iconbtn.on{border-color:var(--gro-red);color:var(--gro-red);background:rgba(240,36,67,.12);animation:pop 420ms cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{0%{transform:scale(.8)}55%{transform:scale(1.14)}100%{transform:scale(1)}}
+.state{display:grid;gap:8px;justify-items:start}
+.state .cap{margin:0}
+
+/* small components */
+.bdg{display:inline-flex;align-items:center;font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.04em;text-transform:uppercase;line-height:1.2;padding:4px 10px;border-radius:6px}
+.bdg.promo{background:var(--gro-red);color:#fff;font-size:14px}
+.bdg.new{background:var(--gro-cyan);color:var(--gro-navy-900)}
+.bdg.dispo{color:var(--gro-gray-80);box-shadow:inset 0 0 0 1px var(--gro-navy-border)}
+.price{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;font-family:var(--display);font-variant-numeric:tabular-nums}
+.price s{font-size:22px;color:var(--gro-gray-65);font-weight:500}
+.price b{font-size:48px;font-weight:700;color:var(--gro-red);line-height:1.1;letter-spacing:-.01em}
+.trust{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--gro-navy-700);box-shadow:inset 0 0 0 1px var(--gro-navy-border);color:var(--gro-gray-80);font-size:14px;font-weight:500;white-space:nowrap}
+.trust svg{width:16px;height:16px;color:var(--gro-cyan);flex:none}
+.ico{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pcard{background:var(--gro-navy-700);border:1px solid var(--gro-navy-border);border-radius:12px;padding:24px;display:grid;gap:14px;width:100%;max-width:280px}
+.pcard .img{position:relative;aspect-ratio:4/3;border-radius:12px;background:radial-gradient(circle at 50% 40%,rgba(255,255,255,.1),transparent 70%);container-type:inline-size}
+.pcard .img .phone{width:22cqw;top:50%}
+.pcard .img .bdg{position:absolute;top:8px;left:8px;z-index:3}
+.pcard .nm{font-weight:500}
+.pcard .price b{font-size:24px;color:#fff}
+.pcard .price s{font-size:14px}
+
+/* status pills (light UI) */
+.st{display:inline-block;padding:3px 12px;border-radius:999px;font-size:13px;font-weight:600}
+.st.ok{background:rgba(31,157,97,.12);color:#187c4d}
+.st.pe{background:rgba(67,221,230,.14);color:#0f767d}
+.st.no{background:rgba(240,36,67,.1);color:#bd1a33}
+
+/* social templates */
+.tpls{display:grid;grid-template-columns:1fr .78fr 1fr;gap:16px;align-items:start}
+@media (max-width:900px){.tpls{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.tpls{grid-template-columns:minmax(0,1fr)}}
+.tpl{container-type:inline-size;position:relative;overflow:hidden;border-radius:10px;background:var(--daily);color:#fff;font-family:var(--body);max-width:100%}
+.r45{aspect-ratio:1080/1350} .r916{aspect-ratio:1080/1920} .rcov{aspect-ratio:1640/924}
+.tpl > *{position:absolute}
+.tpl .t-logo{height:3.7cqw;width:auto;top:5.33%;right:6.67%}
+.tpl .t-badge{top:5.33%;left:6.67%;background:var(--gro-red);color:#fff;font-weight:700;font-size:2.41cqw;letter-spacing:.04em;text-transform:uppercase;padding:.74cqw 1.48cqw;border-radius:.56cqw;line-height:1.2}
+.tpl .t-spot{left:50%;top:42%;width:56cqw;height:64cqw;transform:translate(-50%,-55%);border-radius:50%;background:radial-gradient(ellipse 55% 65% at 50% 40%,rgba(255,255,255,.26),rgba(255,255,255,.06) 55%,transparent 75%)}
+.tpl .t-h{left:6.67%;right:6.67%;font-family:var(--display);font-weight:700;line-height:1.02;letter-spacing:-.02em}
+.tpl .t-price{left:6.67%;display:flex;align-items:baseline;gap:1.5cqw;font-family:var(--display);font-variant-numeric:tabular-nums}
+.tpl .t-price s{font-size:3.7cqw;color:var(--gro-gray-65);font-weight:500}
+.tpl .t-price b{font-size:8.15cqw;color:var(--gro-red);font-weight:700;line-height:1}
+.tpl .t-cta{left:6.67%;bottom:5.33%;background:var(--gro-red);color:#fff;font-weight:700;font-size:2.78cqw;line-height:1.2;padding:2.04cqw 4.07cqw;border-radius:.74cqw;white-space:nowrap}
+.tpl .t-sign{right:6.67%;bottom:6.6%;font-size:2.22cqw;color:var(--gro-gray-80)}
+.tpl .zone{display:none;z-index:5;background:repeating-linear-gradient(135deg,rgba(255,255,255,.12) 0 .8cqw,transparent .8cqw 2.2cqw);color:#fff;font-size:2.4cqw;font-weight:600;align-items:center;justify-content:center;text-align:center}
+.show-safe .tpl .zone{display:flex}
+.tpl .safebox{display:none;z-index:5;border:.2cqw dashed rgba(255,255,255,.75);left:13.41%;top:16.02%;width:73.17%;height:67.97%;color:#fff;font-size:1.3cqw;padding:.6cqw}
+.show-safe .tpl .safebox{display:block}
+.streak{width:56.1%;height:138.5%;mix-blend-mode:screen;opacity:.95;filter:blur(.18cqw);background:repeating-linear-gradient(90deg,rgba(255,255,255,.95) 0 .12cqw,#f02443 .12cqw .37cqw,rgba(240,36,67,.35) .37cqw .85cqw,transparent .85cqw 2.07cqw,rgba(240,36,67,.5) 2.07cqw 2.44cqw,transparent 2.44cqw 3.66cqw)}
+.glow{inset:0;mix-blend-mode:screen;background:radial-gradient(ellipse 16% 75% at 30% 0%,rgba(240,36,67,.75),transparent 72%),radial-gradient(ellipse 30% 55% at 24% 8%,rgba(240,36,67,.35),transparent 70%),radial-gradient(ellipse 4% 40% at 33% 0%,rgba(255,255,255,.55),transparent 70%),radial-gradient(ellipse 15% 70% at 76% 92%,rgba(240,36,67,.7),transparent 72%),radial-gradient(ellipse 28% 50% at 80% 85%,rgba(240,36,67,.32),transparent 70%),radial-gradient(ellipse 3.5% 35% at 72% 100%,rgba(255,255,255,.5),transparent 70%)}
+.tpl-cap{font-size:13.5px;color:var(--fg-2);margin:10px 0 0}
+.tpl-cap b{color:var(--fg);font-weight:600}
+.toggle{display:inline-flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;margin-bottom:16px}
+.toggle input{width:18px;height:18px;accent-color:var(--gro-red)}
+
+/* voice */
+.script{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:10px;min-width:0}
+.script .line{font-size:17px}
+.script .pause{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-3);font-weight:600}
+.script .os{font-family:var(--arabic);font-size:22px;font-weight:600}
+.facts{display:flex;flex-wrap:wrap;gap:8px}
+.fact{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:500}
+.okno{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:560px){.okno{grid-template-columns:minmax(0,1fr)}}
+.okno ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.okno li{font-family:var(--mono);font-size:14.5px;padding:8px 12px;border-radius:8px;background:var(--chip)}
+.okno .y li::before{content:"✓";font-family:var(--body);font-weight:700;color:#1f9d61;margin-right:10px}
+.okno .n li::before{content:"✕";font-family:var(--body);font-weight:700;color:var(--gro-red);margin-right:10px}
+.okno .n li{text-decoration:line-through;text-decoration-color:var(--fg-3);color:var(--fg-2)}
+.tool{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px;align-items:stretch}
+@media (max-width:760px){.tool{grid-template-columns:minmax(0,1fr)}}
+.field{display:grid;gap:6px;margin-bottom:14px}
+.field label{font-size:13px;font-weight:600;color:var(--fg-2)}
+.field input{font:inherit;font-size:16px;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);width:100%}
+.field input:focus-visible{outline:2px solid var(--link);outline-offset:1px}
+.btn-plain{font:inherit;font-size:14px;font-weight:600;padding:9px 14px;border-radius:8px;border:1px solid var(--line);background:var(--chip);color:var(--fg);cursor:pointer}
+.btn-plain:hover{border-color:var(--fg-3)}
+.tl{margin-top:8px}
+.tl-bar{display:flex;height:28px;border-radius:6px;overflow:hidden;gap:2px}
+.tl-ticks{position:relative;height:22px;margin-top:6px;font-size:12px;color:var(--fg-3);font-variant-numeric:tabular-nums}
+.tl-ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.tl-ticks span:first-child{transform:none}
+.tl-ticks span:last-child{transform:translateX(-100%)}
+.key{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:8px;vertical-align:-1px}
+
+/* code */
+.code{position:relative;background:#0b1c28;color:#dfebf7;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.code pre{margin:0;padding:20px;overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.6}
+.code .btn-plain{position:absolute;top:10px;right:10px;background:#17344c;color:#fff;border-color:#24455f}
+
+/* do / don't */
+.dd{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:700px){.dd{grid-template-columns:minmax(0,1fr)}}
+.dd ul{margin:0;padding-left:0;list-style:none;display:grid;gap:10px}
+.dd li{padding-left:28px;position:relative}
+.dd .y li::before,.dd .n li::before{position:absolute;left:0;top:0;font-weight:700}
+.dd .y li::before{content:"✓";color:#1f9d61}
+.dd .n li::before{content:"✕";color:var(--gro-red)}
+.check{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.check li{display:flex;gap:12px;align-items:flex-start}
+.check li::before{content:"";flex:none;width:16px;height:16px;margin-top:4px;border-radius:4px;box-shadow:inset 0 0 0 1.5px var(--fg-3)}
+
+footer{border-top:1px solid var(--line);padding-block:40px 64px;font-size:14px;color:var(--fg-2)}
+.foot{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between}
+.foot img{height:22px;width:auto}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:50;background:#0b1c28;color:#fff;border:1px solid #24455f;padding:10px 16px;border-radius:10px;font-size:14px;box-shadow:0 12px 32px rgba(0,0,0,.35);max-width:calc(100% - 32px)}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important}}
+</style>
+
+<header class="top">
+  <div class="top-in">
+    <img class="top-logo on-dark" src="assets/H-white-GS.png" alt="Groshop">
+    <img class="top-logo on-light" src="assets/H-dark-GS.png" alt="Groshop">
+    <nav class="toc" id="toc" aria-label="Chapters">
+      <a href="#quick">Quick ref</a><a href="#new">What's new</a><a href="#foundation">Foundation</a><a href="#logo">Logo</a><a href="#color">Color</a><a href="#type">Type</a><a href="#layout">Layout</a><a href="#backgrounds">Backgrounds</a><a href="#product">Product</a><a href="#components">Components</a><a href="#motion">Motion</a><a href="#icons">Icons</a><a href="#social">Social</a><a href="#voice">Voice</a><a href="#web">Web UI</a><a href="#rules">Do / Don't</a><a href="#workflow">Workflow</a><a href="#open">Open items</a><a href="#history">History</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <figure class="cover" style="margin-inline:0;margin-bottom:0">
+    <img src="assets/campaign-streaks.jpg" alt="Groshop Facebook cover: 'Grow Beyond' in light type over red light streaks on midnight navy, logo top-right, 'Trust Quality & Reward' bottom-right." width="1600" height="667">
+  </figure>
+
+  <section class="intro" aria-labelledby="title">
+    <div>
+      <p class="eyebrow">Canonical reference · the Facebook cover above</p>
+      <h1 id="title">GROSHOP Brand Book <span class="vchip">V3</span></h1>
+      <p class="lede">One reference for every GROSHOP design: social posts, reels, campaigns, groshop.net and the seller dashboard. V3 keeps the V2 identity, makes every rule we added in the Groshop Design System official, and fixes what failed when we measured it.</p>
+    </div>
+    <dl class="meta">
+      <dt>Version</dt><dd>3.0 · 4 octobre 2026</dd>
+      <dt>Replaces</dt><dd>V2 (août 2026). V1 orange is void.</dd>
+      <dt>Owner</dt><dd>Ilyas, founder</dd>
+      <dt>Applied by</dt><dd>Claude, Khalil (web), freelancers</dd>
+      <dt>Brand</dt><dd>groshop.net · Marrakech</dd>
+    </dl>
+  </section>
+
+  <!-- §0 -->
+  <section class="chapter" id="quick">
+    <div class="ch-head"><span class="ch-ref">§0</span><h2>Quick reference</h2><p>The card to keep open while designing. Every line links back to a full rule further down.</p></div>
+    <dl class="qr">
+      <div><dt>Primary accent</dt><dd><span class="dot" style="background:#f02443"></span>Gro Pulse <code>#f02443</code></dd></div>
+      <div><dt>Foundation</dt><dd><span class="dot" style="background:#102533"></span><code>#102533</code> → <span class="dot" style="background:#17344c"></span><code>#17344c</code>, 160°</dd></div>
+      <div><dt>Light neutral · rare accent</dt><dd><span class="dot" style="background:#dfebf7"></span><code>#dfebf7</code> · <span class="dot" style="background:#43dde6"></span><code>#43dde6</code> ≤5%</dd></div>
+      <div><dt>Type</dt><dd>Degular → Poppins · Urbane → Inter · IBM Plex Sans Arabic</dd></div>
+      <div><dt>Hero weight <span class="badge-new">V3</span></dt><dd>Light on campaigns · Bold on daily & promo</dd></div>
+      <div><dt>Default logo</dt><dd><code>H-white-GS</code>, top-right, on dark</dd></div>
+      <div><dt>CTA</dt><dd>Promo: red, white Bold label · Premium: white, navy label</dd></div>
+      <div><dt>Taglines <span class="badge-new">V3</span></dt><dd>Grow Beyond (hero) · Trust Quality &amp; Reward (sign-off) · Stay GRO. Grow More. (lockup)</dd></div>
+      <div><dt>Price</dt><dd class="num"><code>219,00 DH</code> · <code>1 299,00 DH</code></dd></div>
+      <div><dt>Grid</dt><dd>8px · 72px safe margin · ≥40% empty space</dd></div>
+      <div><dt>Canvas minimums <span class="badge-new">V3</span></dt><dd>Body 30px · fine print 24px · CTA 30px on 1080 canvases</dd></div>
+      <div><dt>Never</dt><dd>Orange · emoji in designs · off-palette colors · two primary CTAs</dd></div>
+    </dl>
+  </section>
+
+  <!-- §1 -->
+  <section class="chapter" id="new">
+    <div class="ch-head"><span class="ch-ref">§1</span><h2>What's new in V3</h2><p>V3 is not a redesign. The identity is the V2 identity. This edition writes down everything added after V2 and corrects the rules that did not hold up when measured. Each item links to the chapter that now owns it.</p></div>
+
+    <h3>Added in the Design System since V2, now official</h3>
+    <div class="log">
+      <div class="log-item"><span class="tag add">Added</span><span class="body"><b>Three more campaign motifs</b><span class="d">Ribbed glass, glowing orbs and a grain overlay, all red on navy, for campaigns only.</span></span><a class="ref" href="#backgrounds">§7</a></div>
+      <div class="log-item"><span class="tag add">Added</span><span class="body"><b>Full button state ladder</b><span class="d">Hover, focus ring, pressed, loading, success, disabled.</span></span><a class="ref" href="#components">§9</a></div>
+      <div class="log-item"><span class="tag add">Added</span><span class="body"><b>Button motion system</b><span class="d">4px magnet, one-pass 640ms sheen, 0.97 press, pointer ripple, morph in place. Timings are tokens.</span></span><a class="ref" href="#motion">§10</a></div>
+      <div class="log-item"><span class="tag add">Added</span><span class="body"><b>Two button shapes</b><span class="d">8px corners for marketing, pill for product UI.</span></span><a class="ref" href="#components">§9</a></div>
+      <div class="log-item"><span class="tag add">Added</span><span class="body"><b>Light UI mode</b><span class="d">groshop.net, the app and the seller dashboard may use light surfaces. Marketing stays dark.</span></span><a class="ref" href="#web">§14</a></div>
+      <div class="log-item"><span class="tag add">Added</span><span class="body"><b>Status colors</b><span class="d">Success, pending and danger, for product UI only.</span></span><a class="ref" href="#web">§14</a></div>
+      <div class="log-item"><span class="tag add">Added</span><span class="body"><b>Icon set: Lucide</b><span class="d">2px stroke, round caps, for trust rows, navigation and UI chrome.</span></span><a class="ref" href="#icons">§11</a></div>
+      <div class="log-item"><span class="tag add">Added</span><span class="body"><b>Numerals and cards</b><span class="d">Tabular figures for prices and stats. Cards are flat Deep Navy with a 1px border and 12px corners.</span></span><a class="ref" href="#type">§5</a></div>
+      <div class="log-item"><span class="tag add">Added</span><span class="body"><b>Four production templates</b><span class="d">Product post, story, pack and campaign cover.</span></span><a class="ref" href="#social">§12</a></div>
+      <div class="log-item"><span class="tag add">Added</span><span class="body"><b>Reel and content system</b><span class="d">Darija-first voice, the two signature hooks, reel beats, weekly pillars, CTA bank.</span></span><a class="ref" href="#voice">§13</a></div>
+    </div>
+
+    <h3>Decisions taken for V3</h3>
+    <div class="log">
+      <div class="log-item"><span class="tag dec">Decision</span><span class="body"><b>Tagline hierarchy</b><span class="d">Grow Beyond is the hero line, Trust Quality &amp; Reward the sign-off, Stay GRO. Grow More. lives in the vertical lockups and the community voice.</span></span><a class="ref" href="#foundation">§2</a></div>
+      <div class="log-item"><span class="tag dec">Decision</span><span class="body"><b>Hero weight split</b><span class="d">Campaign heroes in Light, like the canonical cover. Daily and promo headlines and all prices in Bold.</span></span><a class="ref" href="#type">§5</a></div>
+    </div>
+
+    <h3>Fixed by the October audit</h3>
+    <div class="log">
+      <div class="log-item"><span class="tag fix">Fixed</span><span class="body"><b>White on Gro Pulse is 4.17:1</b><span class="d">V2 said it passes at 16px bold; it does not. Red CTA labels are now Bold and at least 19px. Smaller web buttons rest on Pulse Deep <code>#d61e3a</code> (5.11:1).</span></span><a class="ref" href="#color">§4</a></div>
+      <div class="log-item"><span class="tag fix">Fixed</span><span class="body"><b>Fine print opacity 55% → 65%</b><span class="d">Cool Gray at 55% on Deep Navy measured 4.37:1. At 65% it is 5.45:1.</span></span><a class="ref" href="#color">§4</a></div>
+      <div class="log-item"><span class="tag fix">Fixed</span><span class="body"><b>Light UI text and status colors</b><span class="d">Muted text 45% → 65% (was 2.77:1). Status labels and links get darker text-safe tones.</span></span><a class="ref" href="#web">§14</a></div>
+      <div class="log-item"><span class="tag fix">Fixed</span><span class="body"><b>Logo catalog corrected</b><span class="d"><code>H-logo</code> and <code>V-logo</code> are navy one-color files, not full color. Full color on light is <code>H-dark-GS</code>. The "white" lockups use Cool Light Gray.</span></span><a class="ref" href="#logo">§3</a></div>
+      <div class="log-item"><span class="tag fix">Fixed</span><span class="body"><b>Invisible symbol on dark</b><span class="d"><code>Symbol-01</code> and <code>Symbol-02</code> exist only in navy, and the story template put Symbol-01 on navy. Dark designs now use the red marks cut from the official lockups.</span></span><a class="ref" href="#logo">§3</a></div>
+      <div class="log-item"><span class="tag fix">Fixed</span><span class="body"><b>Both vertical marks documented</b><span class="d">The single arrow and the four-arrow star. <code>Symbol-02</code> is the star, not an alternate arrow.</span></span><a class="ref" href="#logo">§3</a></div>
+      <div class="log-item"><span class="tag fix">Fixed</span><span class="body"><b>Canvas type scale</b><span class="d">V2 used web sizes on 1080px canvases, which a phone shows about 2.7× smaller. A 14px sign-off became 5px. New canvas minimums apply.</span></span><a class="ref" href="#type">§5</a></div>
+      <div class="log-item"><span class="tag fix">Fixed</span><span class="body"><b>Story safe zones</b><span class="d">The story template placed the badge in the top 220px and the sign-off in the bottom 320px, under Instagram's UI.</span></span><a class="ref" href="#social">§12</a></div>
+      <div class="log-item"><span class="tag fix">Fixed</span><span class="body"><b>One button spec</b><span class="d">The motion demo had drifted to 10px corners and the title font. Marketing buttons are 8px with an Urbane/Inter Bold label.</span></span><a class="ref" href="#components">§9</a></div>
+      <div class="log-item"><span class="tag fix">Fixed</span><span class="body"><b>Prices above 999</b><span class="d"><code>1 299,00 DH</code> with a non-breaking space. Never <code>7 499 DH</code> without decimals.</span></span><a class="ref" href="#voice">§13</a></div>
+      <div class="log-item"><span class="tag fix">Fixed</span><span class="body"><b>Arabic script or Arabizi</b><span class="d">Designed visuals and on-screen text use Arabic script, captions use Arabizi. Never both in one text block.</span></span><a class="ref" href="#voice">§13</a></div>
+    </div>
+  </section>
+
+  <!-- §2 -->
+  <section class="chapter" id="foundation">
+    <div class="ch-head"><span class="ch-ref">§2</span><h2>Brand foundation</h2><p>GROSHOP is a Moroccan consumer-electronics retailer and wholesale platform, based in Marrakech, selling verified stock with its own after-sales service.</p></div>
+    <div class="g2">
+      <div class="stack">
+        <div>
+          <h4>Vibe</h4>
+          <p>Dark-first, cinematic, premium. Clean, modern, minimal, energetic, optimistic. Every design carries "Grow Beyond" energy: confidence, progress, opportunity.</p>
+        </div>
+        <div>
+          <h4>Personality</h4>
+          <p>Professional without coldness. Friendly without casualness. Ambitious, trustworthy, Moroccan.</p>
+        </div>
+        <div>
+          <h4>Visual DNA, from the Facebook cover</h4>
+          <ul class="rules">
+            <li>Deep midnight navy with red light streaks bleeding across the frame</li>
+            <li>One huge, confident headline and nothing competing with it</li>
+            <li>Logo small and quiet, top-right</li>
+            <li>One supporting line anchored bottom-right</li>
+            <li>70% or more of the canvas left to breathe</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stage flat" style="display:grid;align-content:center;min-height:280px">
+        <p class="eyebrow" style="color:var(--gro-gray-65)">The rule behind every design</p>
+        <p class="quote">One hero message, cinematic darkness, disciplined restraint.</p>
+      </div>
+    </div>
+
+    <h3>Tagline hierarchy <span class="badge-new">V3</span></h3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Line</th><th>Role</th><th>Where it appears</th><th>How it is set</th></tr></thead>
+        <tbody>
+          <tr><td><b>Grow Beyond</b></td><td>Hero line</td><td>Campaign covers, launches, brand films, banners</td><td>Degular Light, white, centered or on the golden ratio</td></tr>
+          <tr><td><b>Trust Quality &amp; Reward</b></td><td>Sign-off</td><td>Bottom-right anchor on covers, campaign posts and daily posts</td><td>Urbane Regular, Cool Light Gray 80%</td></tr>
+          <tr><td><b>Stay GRO. Grow More.</b></td><td>Lockup and community line</td><td>Built into the vertical lockups. Also bios, reel end cards, captions and packaging inserts. It pairs with the <code>GRO</code> DM keyword.</td><td>Use the lockup file, or caption text. Never retyped as a headline.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="rules" style="margin-top:16px">
+      <li>At most one hero line and one sign-off per design.</li>
+      <li>A vertical lockup already carries "Stay GRO. Grow More.", so it counts as the sign-off. Do not add a second one.</li>
+    </ul>
+  </section>
+
+  <!-- §3 -->
+  <section class="chapter" id="logo">
+    <div class="ch-head"><span class="ch-ref">§3</span><h2>Logo</h2><p>Two marks, the arrow and the four-arrow star, with a Groshop wordmark. The files below are the official set; the V3 audit corrected what each one actually is.</p></div>
+
+    <div class="g3">
+      <div class="logo-tile"><div class="art dark h"><img src="assets/H-white-GS.png" alt="Horizontal logo, red arrow and Cool Light Gray wordmark"></div><div class="info"><b>H-white-GS</b><span>Default on every dark design, top-right. Wordmark is Cool Light Gray, arrow is Gro Pulse.</span></div></div>
+      <div class="logo-tile"><div class="art light h"><img src="assets/H-dark-GS.png" alt="Horizontal logo, red arrow and navy wordmark"></div><div class="info"><b>H-dark-GS</b><span>Full color for light surfaces: site header, invoices, light UI.</span></div></div>
+      <div class="logo-tile"><div class="art gray h"><img src="assets/H-logo.png" alt="Horizontal logo in navy only"></div><div class="info"><b>H-logo</b><span>Navy one-color. Single-ink print, stamps, engraving. Not the full-color logo.</span></div></div>
+      <div class="logo-tile"><div class="art dark"><img src="assets/V-white-GS_1.png" alt="Vertical logo with arrow on dark"></div><div class="info"><b>V-white-GS_1</b><span>Vertical, arrow mark, on dark. Default vertical: it matches the horizontal lockup.</span></div></div>
+      <div class="logo-tile"><div class="art dark"><img src="assets/V-white-GS.png" alt="Vertical logo with four-arrow star on dark"></div><div class="info"><b>V-white-GS</b><span>Vertical, star mark, on dark. Brand-statement formats: profile picture, packaging, event backdrops.</span></div></div>
+      <div class="logo-tile"><div class="art light"><img src="assets/V-Dark-GS_1.png" alt="Vertical logo with arrow on light"></div><div class="info"><b>V-Dark-GS_1</b><span>Vertical, arrow mark, on light.</span></div></div>
+      <div class="logo-tile"><div class="art light"><img src="assets/V-Dark-GS.png" alt="Vertical logo with star on light"></div><div class="info"><b>V-Dark-GS</b><span>Vertical, star mark, on light.</span></div></div>
+      <div class="logo-tile"><div class="art gray"><img src="assets/V-logo.png" alt="Vertical logo in navy only"></div><div class="info"><b>V-logo</b><span>Vertical navy one-color, arrow mark.</span></div></div>
+      <div class="logo-tile"><div class="art dark sym"><img src="assets/symbol-arrow-red.png" alt="Red arrow symbol"></div><div class="info"><b>symbol-arrow-red</b><span class="badge-new">V3</span><span>Arrow alone on dark: story corner, favicon on dark, watermark. Cut from H-white-GS.</span></div></div>
+      <div class="logo-tile"><div class="art dark sym"><img src="assets/symbol-star-red.png" alt="Red four-arrow star symbol"></div><div class="info"><b>symbol-star-red</b><span class="badge-new">V3</span><span>Star alone on dark: pattern accents, app icon. Cut from V-white-GS.</span></div></div>
+      <div class="logo-tile"><div class="art light sym"><img src="assets/Symbol-01.png" alt="Navy arrow symbol"></div><div class="info"><b>Symbol-01</b><span>Navy arrow. Light backgrounds only.</span></div></div>
+      <div class="logo-tile"><div class="art light sym"><img src="assets/Symbol-02.png" alt="Navy four-arrow star symbol"></div><div class="info"><b>Symbol-02</b><span>Navy star. Light backgrounds only.</span></div></div>
+    </div>
+
+    <h3>Placement, space and size</h3>
+    <div class="g2">
+      <ul class="rules">
+        <li><b>Default:</b> <code>H-white-GS</code>, top-right, on every dark design. The logo stays top-right in Arabic RTL layouts too.</li>
+        <li><b>Clear space:</b> the height of the arrow on every side. The arrow is about 90% of the horizontal lockup's height.</li>
+        <li><b>Minimum size on a 1080px canvas:</b> horizontal 96px wide, symbol 32px.</li>
+        <li><b>Stories and tiny formats:</b> the red arrow symbol instead of the full lockup.</li>
+        <li><b>Pairing:</b> light wordmark on dark, navy wordmark on light. One-color navy files only where a single ink is required.</li>
+        <li>Top-right is the logo's corner. Badges go top-left.</li>
+      </ul>
+      <div class="clear">
+        <div class="clear-box"><img src="assets/H-white-GS.png" alt="Logo with clear space marked"><i style="top:10px;left:50%;transform:translateX(-50%)">x</i><i style="bottom:10px;left:50%;transform:translateX(-50%)">x</i><i style="left:12px;top:50%;transform:translateY(-50%)">x</i><i style="right:12px;top:50%;transform:translateY(-50%)">x</i></div>
+      </div>
+    </div>
+
+    <h3>Never</h3>
+    <div class="g4">
+      <div class="dont"><div class="art"><img src="assets/H-white-GS.png" alt="" style="transform:scaleX(1.45)"></div><p>Stretch or squash</p></div>
+      <div class="dont"><div class="art"><img src="assets/H-white-GS.png" alt="" style="transform:rotate(-12deg)"></div><p>Rotate</p></div>
+      <div class="dont"><div class="art"><img src="assets/H-white-GS.png" alt="" style="filter:hue-rotate(150deg) saturate(1.6)"></div><p>Recolor</p></div>
+      <div class="dont"><div class="art"><img src="assets/H-dark-GS.png" alt=""></div><p>Navy wordmark on dark</p></div>
+    </div>
+    <p class="muted small" style="margin-top:12px">Also never: outlines, shadows, glows or other effects on the logo, and never a logo over a busy part of a photo.</p>
+  </section>
+
+  <!-- §4 -->
+  <section class="chapter" id="color">
+    <div class="ch-head"><span class="ch-ref">§4</span><h2>Color</h2><p>Five colors and white. Navy carries the design, red brings the energy, cyan whispers. Click a swatch to copy its hex.</p></div>
+
+    <div class="g3">
+      <div class="sw"><button type="button" style="background:#f02443" data-copy="#f02443" aria-label="Copy #f02443"></button><div class="info"><b>Gro Pulse</b><span class="mono">#f02443 · 240 36 67</span><span>Primary accent. Promo CTAs, discount badges, prices, campaign streaks. 5–10%.</span></div></div>
+      <div class="sw"><button type="button" style="background:#102533" data-copy="#102533" aria-label="Copy #102533"></button><div class="info"><b>Midnight Navy</b><span class="mono">#102533 · 16 37 51</span><span>Foundation. Gradient start, text on light. 65–75% with Deep Navy.</span></div></div>
+      <div class="sw"><button type="button" style="background:#17344c" data-copy="#17344c" aria-label="Copy #17344c"></button><div class="info"><b>Deep Navy</b><span class="mono">#17344c · 23 52 76</span><span>Foundation. Gradient end, cards and surfaces on Midnight.</span></div></div>
+      <div class="sw"><button type="button" style="background:#dfebf7" data-copy="#dfebf7" aria-label="Copy #dfebf7"></button><div class="info"><b>Cool Light Gray</b><span class="mono">#dfebf7 · 223 235 247</span><span>Secondary text on dark, the logo wordmark, light surfaces.</span></div></div>
+      <div class="sw"><button type="button" style="background:#43dde6" data-copy="#43dde6" aria-label="Copy #43dde6"></button><div class="info"><b>Bright Cyan</b><span class="mono">#43dde6 · 67 221 230</span><span>Rare accent, 5% at most. "Nouveau" badges, links on dark, small tech details.</span></div></div>
+      <div class="sw"><button type="button" style="background:#ffffff" data-copy="#ffffff" aria-label="Copy #ffffff"></button><div class="info"><b>White</b><span class="mono">#ffffff · 255 255 255</span><span>Headlines on dark, premium CTA buttons.</span></div></div>
+    </div>
+
+    <h3>Visual weight per design</h3>
+    <div class="ratio" role="img" aria-label="Navy 68%, white and gray 22%, red 7%, cyan 3%">
+      <div style="flex:68;background:#102533"></div><div style="flex:22;background:#dfebf7"></div><div style="flex:7;background:#f02443"></div><div style="flex:3;background:#43dde6"></div>
+    </div>
+    <div class="legend"><span><span class="key" style="background:#102533;box-shadow:inset 0 0 0 1px rgba(127,127,127,.4)"></span>Navy 65–75%</span><span><span class="key" style="background:#dfebf7"></span>White and gray 20–25%</span><span><span class="key" style="background:#f02443"></span>Red 5–10%, more on promos</span><span><span class="key" style="background:#43dde6"></span>Cyan 5% max: if you notice it first, it's too much</span></div>
+
+    <h3>Derived tones</h3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td><code>--gro-red-hover</code> Pulse Deep</td><td class="mono">#d61e3a</td><td>Red hover. <b>V3:</b> resting fill for web buttons with labels under 19px.</td></tr>
+          <tr><td><code>--gro-red-active</code></td><td class="mono">#bd1a33</td><td>Pressed state. <b>V3:</b> red text and links on light surfaces.</td></tr>
+          <tr><td><code>--gro-navy-border</code></td><td class="mono">#24455f</td><td>Dividers and card borders on dark. Decorative only: too faint for control borders.</td></tr>
+          <tr><td><code>--text-secondary-dark</code></td><td class="mono">#dfebf7 · 80%</td><td>Body copy and captions on dark</td></tr>
+          <tr><td><code>--text-muted-dark</code> <span class="badge-new">V3</span></td><td class="mono">#dfebf7 · 65%</td><td>Fine print on dark. Was 55%, which failed on Deep Navy.</td></tr>
+          <tr><td><code>--link-dark</code></td><td class="mono">#43dde6 → #69e6ed</td><td>Links on dark, hover</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Contrast, measured <span class="badge-new">V3</span></h3>
+    <p class="muted">WCAG 2.2 ratios. "Large" means 24px regular or 19px bold and up. On 1080 canvases, use the canvas minimums in §5 as well.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Pair</th><th>Ratio</th><th>Verdict</th><th>Use it for</th></tr></thead>
+        <tbody>
+          <tr><td><span class="aa" style="background:#102533;color:#fff">Aa</span>White on Midnight</td><td class="num">15.74</td><td><span class="v pass">AAA</span></td><td>All text</td></tr>
+          <tr><td><span class="aa" style="background:#17344c;color:#fff">Aa</span>White on Deep Navy</td><td class="num">12.87</td><td><span class="v pass">AAA</span></td><td>Text on cards</td></tr>
+          <tr><td><span class="aa" style="background:#102533;color:rgba(223,235,247,.8)">Aa</span>Gray 80% on Midnight</td><td class="num">8.77</td><td><span class="v pass">AAA</span></td><td>Body copy on dark</td></tr>
+          <tr><td><span class="aa" style="background:#17344c;color:rgba(223,235,247,.65)">Aa</span>Gray 65% on Deep Navy</td><td class="num">5.45</td><td><span class="v pass">AA</span></td><td>Fine print on cards (V3 value)</td></tr>
+          <tr><td><span class="aa" style="background:#17344c;color:rgba(223,235,247,.55)">Aa</span>Gray 55% on Deep Navy</td><td class="num">4.37</td><td><span class="v fail">Fails small</span></td><td>Retired V2 value</td></tr>
+          <tr><td><span class="aa" style="background:#102533;color:#f02443">Aa</span>Gro Pulse on Midnight</td><td class="num">3.78</td><td><span class="v large">Large only</span></td><td>Prices, badges, big numbers</td></tr>
+          <tr><td><span class="aa" style="background:#17344c;color:#f02443">Aa</span>Gro Pulse on Deep Navy</td><td class="num">3.09</td><td><span class="v large">Large only</span></td><td>Prices on cards, 24px and up</td></tr>
+          <tr><td><span class="aa" style="background:#f02443;color:#fff">Aa</span>White on Gro Pulse</td><td class="num">4.17</td><td><span class="v large">Large only</span></td><td>CTA and badge labels, Bold, 19px and up</td></tr>
+          <tr><td><span class="aa" style="background:#d61e3a;color:#fff">Aa</span>White on Pulse Deep</td><td class="num">5.11</td><td><span class="v pass">AA</span></td><td>Small web buttons (V3)</td></tr>
+          <tr><td><span class="aa" style="background:#43dde6;color:#102533">Aa</span>Midnight on Cyan</td><td class="num">9.53</td><td><span class="v pass">AAA</span></td><td>"Nouveau" badge</td></tr>
+          <tr><td><span class="aa" style="background:#fff;color:#102533">Aa</span>Midnight on White</td><td class="num">15.74</td><td><span class="v pass">AAA</span></td><td>Premium CTA, light UI text</td></tr>
+          <tr><td><span class="aa" style="background:#fff;color:#bd1a33">Aa</span>Pulse Active on White</td><td class="num">6.25</td><td><span class="v pass">AA</span></td><td>Red text and links on light (V3)</td></tr>
+          <tr><td><span class="aa" style="background:#fff;color:#f02443">Aa</span>Gro Pulse on White</td><td class="num">4.17</td><td><span class="v large">Large only</span></td><td>Red prices on light, 24px and up</td></tr>
+          <tr><td><span class="aa" style="background:#fff;color:#43dde6">Aa</span>Cyan on White</td><td class="num">1.65</td><td><span class="v fail">Fail</span></td><td>Never cyan text on light</td></tr>
+          <tr><td><span class="aa" style="background:#43dde6;color:#f02443">Aa</span>Gro Pulse on Cyan</td><td class="num">2.53</td><td><span class="v fail">Fail</span></td><td>Never pair red and cyan</td></tr>
+          <tr><td><span class="aa" style="background:#102533;color:#24455f">Aa</span>Navy border on Midnight</td><td class="num">1.57</td><td><span class="v deco">Decorative</span></td><td>Dividers only, never text or control outlines</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Hard bans</h3>
+    <ul class="rules">
+      <li><b>No orange, ever.</b> <code>#FF6B35</code> was V1 and is void. Gold <code>#f0a63f</code> is also off-palette.</li>
+      <li>No colors outside the palette and the derived tones above. Status colors (§14) are for product UI only.</li>
+      <li>No metallic, glossy or rainbow gradients. No blue-purple gradients.</li>
+      <li>Red and cyan never side by side at equal weight. Cyan is never a CTA fill.</li>
+    </ul>
+  </section>
+
+  <!-- §5 -->
+  <section class="chapter" id="type">
+    <div class="ch-head"><span class="ch-ref">§5</span><h2>Typography</h2><p>Degular for titles, Urbane for everything you read, IBM Plex Sans Arabic for Darija. Always declare the licensed fonts first so they take over wherever they are installed.</p></div>
+
+    <div class="stack">
+      <div class="spec"><div class="k"><b>Titles</b>Degular Variable → Poppins</div><div class="s" style="font-family:var(--display);font-size:clamp(32px,5vw,52px);line-height:1.05;letter-spacing:-.02em"><span style="font-weight:300">Grow Beyond</span> · <span style="font-weight:700">Pack Audio</span></div></div>
+      <div class="spec"><div class="k"><b>Body, captions, UI</b>Urbane → Inter</div><div class="s" style="font-size:18px">Livraison 24/48h partout au Maroc, paiement à la livraison et notre propre SAV certifié.</div></div>
+      <div class="spec"><div class="k"><b>Arabic, Darija</b>IBM Plex Sans Arabic</div><div class="s ar" lang="ar" style="font-size:clamp(26px,4vw,40px);font-weight:600;line-height:1.4">خلص منين توصلك</div></div>
+    </div>
+    <div class="code" style="margin-top:16px"><pre>font-family: 'Degular Variable', Poppins, sans-serif;      /* titles */
+font-family: Urbane, Inter, sans-serif;                    /* body */
+font-family: 'IBM Plex Sans Arabic', sans-serif;           /* Arabic */</pre></div>
+
+    <h3>Hero weight: split by context <span class="badge-new">V3</span></h3>
+    <div class="g2">
+      <div>
+        <div class="tpl rcov" role="img" aria-label="Campaign hero example in light weight">
+          <div style="inset:0;background:radial-gradient(ellipse at 50% 45%,#16303f,#050d13 80%)"></div><div class="glow"></div>
+          <div class="streak" style="left:-8.5%;top:-34.6%;transform:rotate(-11deg);-webkit-mask-image:radial-gradient(ellipse 40% 55% at 35% 5%,#000 30%,transparent 75%);mask-image:radial-gradient(ellipse 40% 55% at 35% 5%,#000 30%,transparent 75%)"></div>
+          <div class="streak" style="right:-12.2%;top:8.7%;width:58.5%;height:147.2%;transform:rotate(9deg);-webkit-mask-image:radial-gradient(ellipse 48% 62% at 68% 55%,#000 30%,transparent 75%);mask-image:radial-gradient(ellipse 48% 62% at 68% 55%,#000 30%,transparent 75%)"></div>
+          <div style="left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;font-family:var(--display);font-weight:300;font-size:11cqw;letter-spacing:-.02em;line-height:1">Grow Beyond</div>
+        </div>
+        <p class="tpl-cap"><b>Campaigns, covers, launches:</b> Light 300, tracking −2%, white, lots of air. The cinematic register.</p>
+      </div>
+      <div>
+        <div class="tpl rcov" role="img" aria-label="Promo headline example in bold weight">
+          <div class="vignette" style="inset:0"></div>
+          <div class="t-badge" style="top:9%;left:6%;font-size:2cqw">-27%</div>
+          <div style="left:6%;top:30%;font-family:var(--display);font-weight:700;font-size:8.5cqw;letter-spacing:-.02em;line-height:1">Pack Audio<br>Complet</div>
+          <div class="t-price" style="left:6%;bottom:10%"><s style="font-size:3cqw">549,00 DH</s><b style="font-size:6.5cqw">399,00 DH</b></div>
+        </div>
+        <p class="tpl-cap"><b>Daily posts, promos, prices:</b> Semibold 600 or Bold 700. The commercial register. Prices are always Bold.</p>
+      </div>
+    </div>
+    <ul class="rules" style="margin-top:16px">
+      <li>Still two weights per design at most: a campaign uses Light plus Regular, a promo uses Bold plus Regular.</li>
+      <li>H1 is always Degular (Poppins fallback), never the body face.</li>
+    </ul>
+
+    <h3>Web scale (CSS px)</h3>
+    <div class="panel">
+      <div class="spec"><div class="k"><b>Display</b>72–96 · mobile 44–56 · Degular 600–700 (Light on campaigns) · 1.05 · −2%</div><div class="s" style="font-family:var(--display);font-weight:700;font-size:clamp(40px,7vw,72px);line-height:1.05;letter-spacing:-.02em">Grow Beyond</div></div>
+      <div class="spec"><div class="k"><b>H1</b>48 · mobile 36 · Degular 600 · 1.1 · −1%</div><div class="s" style="font-family:var(--display);font-weight:600;font-size:clamp(32px,5vw,48px);line-height:1.1;letter-spacing:-.01em">Choisissez la Certitude.</div></div>
+      <div class="spec"><div class="k"><b>H2</b>32 · mobile 26 · Degular 500 · 1.2</div><div class="s" style="font-family:var(--display);font-weight:500;font-size:clamp(26px,3.6vw,32px);line-height:1.2">Smartphones &amp; Audio</div></div>
+      <div class="spec"><div class="k"><b>H3</b>24 · mobile 20 · Degular 500 · 1.3</div><div class="s" style="font-family:var(--display);font-weight:500;font-size:clamp(20px,3vw,24px);line-height:1.3">Nouveaux arrivages chaque semaine</div></div>
+      <div class="spec"><div class="k"><b>Body L / Body</b>18 / 16 · mobile 17 / 15 · Urbane 400 · 1.6</div><div class="s" style="font-size:18px;line-height:1.6">Notre propre SAV certifié, garantie jusqu'à 1 an.</div></div>
+      <div class="spec"><div class="k"><b>Caption</b>14 (minimum) · Urbane 400 · 1.5</div><div class="s" style="font-size:14px;color:var(--fg-2)">Stock au Maroc. Prix TTC.</div></div>
+      <div class="spec"><div class="k"><b>Label, badge</b>12 caps · Urbane 600 · +4%</div><div class="s" style="font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--fg-2)">Produits vérifiés. Fiabilité garantie.</div></div>
+      <div class="spec"><div class="k"><b>Price</b>40–56 · mobile 32 · Degular 700 · tabular</div><div class="s"><div class="price" style="font-family:var(--display)"><s style="color:var(--fg-3)">299,00 DH</s><b>219,00 DH</b></div></div></div>
+    </div>
+
+    <h3>Canvas scale (1080px-wide social canvases) <span class="badge-new">V3</span></h3>
+    <p class="muted">Instagram and TikTok show a 1080px canvas at roughly 390px, so every size shrinks about 2.7×. These minimums keep text readable on the phone.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Role</th><th>Canvas px</th><th>On a phone</th><th>Font and weight</th></tr></thead>
+        <tbody>
+          <tr><td><b>Campaign hero</b></td><td class="num">120–160</td><td class="num">≈ 44–59</td><td>Degular Light 300</td></tr>
+          <tr><td><b>Headline</b> (daily, promo)</td><td class="num">72–100</td><td class="num">≈ 27–37</td><td>Degular Bold 700, 5 words max</td></tr>
+          <tr><td><b>New price</b></td><td class="num">72–100</td><td class="num">≈ 27–37</td><td>Degular Bold, red or white</td></tr>
+          <tr><td><b>Old price</b></td><td class="num">36–44</td><td class="num">≈ 13–16</td><td>Degular Medium, struck, gray 65%</td></tr>
+          <tr><td><b>Subhead</b></td><td class="num">40–48</td><td class="num">≈ 15–18</td><td>Degular Medium</td></tr>
+          <tr><td><b>Body</b></td><td class="num">30–34</td><td class="num">≈ 11–13</td><td>Urbane Regular</td></tr>
+          <tr><td><b>CTA label</b></td><td class="num">30–34</td><td class="num">≈ 11–13</td><td>Urbane Bold</td></tr>
+          <tr><td><b>Badge</b></td><td class="num">24–28 caps</td><td class="num">≈ 9–10</td><td>Urbane Bold, +4%</td></tr>
+          <tr><td><b>Fine print, sign-off</b></td><td class="num">24 minimum</td><td class="num">≈ 9</td><td>Urbane Regular, gray 80%</td></tr>
+          <tr><td><b>Video captions, hook text</b></td><td class="num">32 minimum, 56–72 for hooks</td><td class="num">≈ 12, 21–27</td><td>Urbane Bold or IBM Plex Sans Arabic SemiBold</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Rules</h3>
+    <ul class="rules">
+      <li>Headlines are huge and short: five words at most for a hero line. Negative space is part of the typography.</li>
+      <li>No serif fonts, no decorative fonts, no other families (no Sora, Urbanist or Space Grotesk).</li>
+      <li>All caps only for labels, badges and kickers.</li>
+      <li>Web body text never under 14px, line-height 1.5 or more.</li>
+      <li>Prices and stats use tabular figures so digits line up: <code>font-variant-numeric: tabular-nums</code>.</li>
+    </ul>
+
+    <h3>Arabic and Darija (RTL)</h3>
+    <div class="g2">
+      <ul class="rules">
+        <li>IBM Plex Sans Arabic: SemiBold for headlines, Regular for body.</li>
+        <li>Full RTL mirroring: right-aligned, reading order reversed, arrows flipped. The logo stays top-right.</li>
+        <li>Same size scale as Latin, line-height 10% taller.</li>
+        <li>Western digits for prices: <code>219,00 DH</code>.</li>
+        <li>On-screen text is 3–6 words. Pick Arabic script or Arabizi per element, never both in one block.</li>
+      </ul>
+      <div class="stage" lang="ar">
+        <div class="ar" style="font-size:clamp(28px,4vw,40px);font-weight:600;line-height:1.35">الستوك فالمغرب</div>
+        <div class="ar" style="font-size:18px;line-height:1.7;color:var(--gro-gray-80);margin-top:8px">بلا دروبشيبينغ · الضمان ديالنا · خلص منين توصلك</div>
+        <p class="cap" lang="en" style="text-align:right">Pre-checked lines from the on-screen bank, §13</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- §6 -->
+  <section class="chapter" id="layout">
+    <div class="ch-head"><span class="ch-ref">§6</span><h2>Layout, spacing and surfaces</h2><p>An 8px grid, wide margins, and one focal point that reads in under two seconds: headline, then product, then CTA.</p></div>
+    <div class="g2">
+      <div class="panel">
+        <p class="eyebrow">Spacing scale, drawn to size</p>
+        <div class="sp"><code>--space-1</code><span class="num">4</span><span class="bar" style="width:4px"></span></div>
+        <div class="sp"><code>--space-2</code><span class="num">8</span><span class="bar" style="width:8px"></span></div>
+        <div class="sp"><code>--space-3</code><span class="num">16</span><span class="bar" style="width:16px"></span></div>
+        <div class="sp"><code>--space-4</code><span class="num">24</span><span class="bar" style="width:24px"></span></div>
+        <div class="sp"><code>--space-5</code><span class="num">32</span><span class="bar" style="width:32px"></span></div>
+        <div class="sp"><code>--space-6</code><span class="num">48</span><span class="bar" style="width:48px"></span></div>
+        <div class="sp"><code>--space-7</code><span class="num">64</span><span class="bar" style="width:64px"></span></div>
+        <div class="sp"><code>--space-8</code><span class="num">96</span><span class="bar" style="width:96px"></span></div>
+      </div>
+      <div class="stack">
+        <ul class="rules">
+          <li>Every space is a multiple of 8; 4 is allowed for micro gaps.</li>
+          <li>Card padding 24 or more. Section gaps 48 on web, 64 on 1080 canvases.</li>
+          <li>Social safe margin: 72px on every side of a 1080-wide canvas. On 9:16, keep the top 220px and bottom 320px clear for platform UI (§12).</li>
+          <li>Leave 40% or more of the canvas empty. When in doubt, remove an element.</li>
+          <li>Web: 1200px max width. Breakpoints: mobile 360–767, tablet 768–1024, desktop 1025+.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Corners and shadows</h3>
+    <div class="g2">
+      <div class="panel">
+        <div class="row" style="gap:20px;align-items:flex-start">
+          <div class="shape-wrap"><div class="shape" style="border-radius:6px"></div><span><b>6</b> badges</span></div>
+          <div class="shape-wrap"><div class="shape" style="border-radius:8px"></div><span><b>8</b> marketing buttons</span></div>
+          <div class="shape-wrap"><div class="shape" style="border-radius:12px"></div><span><b>12</b> cards, images</span></div>
+          <div class="shape-wrap"><div class="shape" style="border-radius:999px"></div><span><b>pill</b> product UI, chips</span></div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="row" style="gap:24px;justify-content:space-around">
+          <div style="display:grid;gap:10px;justify-items:center"><div style="width:72px;height:72px;border-radius:12px;background:#17344c;box-shadow:0 24px 48px rgba(0,0,0,.45)"></div><span class="cap" style="margin:0">product</span></div>
+          <div style="display:grid;gap:10px;justify-items:center"><div style="width:72px;height:72px;border-radius:12px;background:#17344c;box-shadow:0 8px 24px rgba(0,0,0,.35)"></div><span class="cap" style="margin:0">card (UI)</span></div>
+          <div style="display:grid;gap:10px;justify-items:center"><div style="width:72px;height:72px;border-radius:12px;background:#17344c;box-shadow:0 2px 8px rgba(0,0,0,.25)"></div><span class="cap" style="margin:0">soft</span></div>
+        </div>
+        <p class="cap">Product shadow <code style="background:rgba(255,255,255,.08)">0 24px 48px rgba(0,0,0,.45)</code> sits under cutouts only. Marketing cards are flat: Deep Navy, 1px <code style="background:rgba(255,255,255,.08)">#24455f</code> border, no shadow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- §7 -->
+  <section class="chapter" id="backgrounds">
+    <div class="ch-head"><span class="ch-ref">§7</span><h2>Backgrounds and campaign motifs</h2><p>Every GROSHOP design starts dark. Daily work gets the quiet gradient; the four motifs are saved for moments that deserve them.</p></div>
+    <div class="g4">
+      <div class="tile bg-daily"><div class="vignette"></div><span class="lbl">Daily · navy gradient 160°</span></div>
+      <div class="tile bg-streaks"><span class="lbl">Campaign · red light streaks</span></div>
+      <div class="tile bg-ribbed"><div class="grain" style="opacity:.1"></div><span class="lbl">Campaign · ribbed glass</span></div>
+      <div class="tile bg-orbs"><div class="grain" style="opacity:.16"></div><span class="lbl">Campaign · orbs + grain</span></div>
+    </div>
+    <div class="g2" style="margin-top:24px">
+      <div class="stage flat" style="display:grid;align-content:center">
+        <p class="eyebrow" style="color:var(--gro-gray-65)">Decision rule</p>
+        <p style="font-family:var(--display);font-size:clamp(20px,2.6vw,26px);line-height:1.35;margin:0">Daily post → gradient. Launch, campaign or cover → a motif. Unsure → gradient.</p>
+      </div>
+      <ul class="rules">
+        <li><b>Daily:</b> <code>linear-gradient(160deg, #102533, #17344c)</code>. No texture. One soft radial glow behind the product is allowed.</li>
+        <li><b>Streaks:</b> Midnight base, near-black corners. Red streaks heavily blurred, blend mode Screen, white-hot cores in the strongest ones. They enter from top-left and mid-right and leave the center clear for the headline.</li>
+        <li><b>Ribbed glass, orbs:</b> always red on navy, never orange. Approved from the inspiration review.</li>
+        <li><b>Grain:</b> overlay blend, 16% opacity at most.</li>
+        <li>Motifs are for launches, brand campaigns, covers, seasonal sales (Ramadan, Aïd, Black Friday) and milestones. Never behind dense text or product grids.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- §8 -->
+  <section class="chapter" id="product">
+    <div class="ch-head"><span class="ch-ref">§8</span><h2>Product treatment</h2><p>Three treatments on dark backgrounds, in order of preference. Choose per product and context.</p></div>
+    <div class="g3">
+      <div>
+        <div class="tile prod" style="background:radial-gradient(ellipse 90% 70% at 50% 100%,#0e2434 0%,#081826 55%,#040c14 100%)">
+          <div style="position:absolute;top:0;left:50%;width:70%;height:70%;transform:translateX(-50%);background:linear-gradient(to bottom,rgba(223,235,247,.42),rgba(223,235,247,.12) 65%,transparent);clip-path:polygon(44% 0,56% 0,100% 100%,0 100%)"></div>
+          <div style="position:absolute;bottom:14%;left:50%;width:46%;height:10%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse,rgba(223,235,247,.45),transparent 72%)"></div>
+          <div class="phone" style="top:52%"></div>
+          <span class="lbl">1 · Spotlight, the default</span>
+        </div>
+        <p class="tpl-cap">Product lit in the center, edges falling into navy darkness. Cinematic and premium.</p>
+      </div>
+      <div>
+        <div class="tile prod bg-daily">
+          <div class="phone" style="box-shadow:inset 0 0 0 .8cqw #33506a,0 24px 48px rgba(0,0,0,.45)"></div>
+          <span class="lbl">2 · Cutout + soft shadow</span>
+        </div>
+        <p class="tpl-cap">Floating on the gradient with the product shadow. For packs, grids and catalog clarity.</p>
+      </div>
+      <div>
+        <div class="tile prod" style="background:#0b1c28">
+          <div style="position:absolute;left:50%;top:44%;width:52%;height:62%;transform:translate(-50%,-50%);border-radius:40%;background:radial-gradient(ellipse,rgba(240,36,67,.45),transparent 70%);filter:blur(10px)"></div>
+          <div class="phone" style="box-shadow:inset 0 0 0 .8cqw #33506a,0 0 0 .5cqw rgba(240,36,67,.85),0 0 6cqw rgba(240,36,67,.55)"></div>
+          <span class="lbl">3 · Red rim-light, hero only</span>
+        </div>
+        <p class="tpl-cap">Red edge light and glow. Launches with the streak motif. Use sparingly.</p>
+      </div>
+    </div>
+    <ul class="rules" style="margin-top:20px">
+      <li>Premium photography only. No busy backgrounds inside the shot, no watermarks on product photos.</li>
+      <li>On single-product posts the product fills 45–65% of the canvas height.</li>
+    </ul>
+  </section>
+
+  <!-- §9 -->
+  <section class="chapter" id="components">
+    <div class="ch-head"><span class="ch-ref">§9</span><h2>Components</h2><p>The CTA logic, badges, prices and trust pills that repeat across every GROSHOP design. Buttons on this page are live: hover and click them.</p></div>
+
+    <h3>CTA logic</h3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Context</th><th>Button</th><th>Label</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><b>Promos, deals, urgency</b></td><td>Gro Pulse <code>#f02443</code></td><td>White, Urbane Bold, 19px+</td><td>Commandez maintenant</td></tr>
+          <tr><td><b>Premium, brand, product hero</b></td><td>White</td><td>Midnight Navy, Urbane Bold</td><td>Découvrir</td></tr>
+          <tr><td><b>Secondary</b></td><td>Transparent, 1.5px white border</td><td>White</td><td>Voir plus</td></tr>
+          <tr><td><b>Small web buttons</b> <span class="badge-new">V3</span></td><td>Pulse Deep <code>#d61e3a</code></td><td>White, 14–16px Bold</td><td>Ajouter au panier</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="stage" style="margin-top:16px">
+      <div class="row">
+        <button class="gbtn sheen magnet ripple" type="button">Commandez maintenant</button>
+        <button class="gbtn premium sheen magnet ripple" type="button">Découvrir <span class="arrow">→</span></button>
+        <button class="gbtn ghost magnet ripple" type="button">Voir plus</button>
+        <button class="gbtn web ripple" type="button">Ajouter au panier</button>
+      </div>
+      <p class="cap">8px corners, padding 14×28 (md) or 18×36 (lg), 48px minimum height. One primary CTA per design; never a red and a white primary together.</p>
+    </div>
+
+    <h3>State ladder</h3>
+    <div class="stage">
+      <div class="row" style="gap:20px;align-items:flex-start">
+        <div class="state"><span class="gbtn" style="pointer-events:none">Commander</span><span class="cap">Default</span></div>
+        <div class="state"><span class="gbtn is-hover" style="pointer-events:none">Commander</span><span class="cap">Hover · #d61e3a, lift 2px</span></div>
+        <div class="state"><span class="gbtn is-focus" style="pointer-events:none">Commander</span><span class="cap">Focus · red ring</span></div>
+        <div class="state"><span class="gbtn is-pressed" style="pointer-events:none">Commander</span><span class="cap">Pressed · #bd1a33, 0.97</span></div>
+        <div class="state"><span class="gbtn is-loading" style="pointer-events:none"><i class="spin"></i><span>Envoi…</span></span><span class="cap">Loading · inert</span></div>
+        <div class="state"><span class="gbtn is-success" style="pointer-events:none">Ajouté</span><span class="cap">Success</span></div>
+        <div class="state"><span class="gbtn is-disabled" style="pointer-events:none">Indisponible</span><span class="cap">Disabled</span></div>
+      </div>
+    </div>
+    <div class="stage light" style="margin-top:16px">
+      <div class="row">
+        <button class="gbtn web pill ripple" type="button">+ Ajouter produit</button>
+        <button class="gbtn light2 pill" type="button" style="font-size:15px;padding:11px 20px;min-height:44px">Filtres</button>
+        <button class="gbtn light2 pill" type="button" style="font-size:15px;padding:11px 20px;min-height:44px">Exporter</button>
+      </div>
+      <p class="cap">Product UI on light surfaces: pill shape, 44px tap target, Pulse Deep fill.</p>
+    </div>
+
+    <h3>Badges, price, trust pills, product card</h3>
+    <div class="g2">
+      <div class="stage stack" style="align-content:start">
+        <div class="row"><span class="bdg promo">-20%</span><span class="bdg new">Nouveau</span><span class="bdg dispo">Disponible</span></div>
+        <div class="price"><s>299,00 DH</s><b>219,00 DH</b></div>
+        <div class="row" style="gap:8px">
+          <span class="trust"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>Pas de Dropshipping</span>
+          <span class="trust"><svg class="ico" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Notre propre SAV certifié</span>
+          <span class="trust"><svg class="ico" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Garantie jusqu'à 1 an</span>
+          <span class="trust"><svg class="ico" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>Livraison 24/48h partout au Maroc</span>
+        </div>
+        <ul class="rules" style="color:var(--gro-gray-80);font-size:14.5px">
+          <li>Promo badge: red fill, white Bold. Nouveau: cyan fill, navy Bold. Disponible: outline only, never competes. 6px corners, top-left of the product.</li>
+          <li>Old price struck and smaller, new price the second-largest element after the headline.</li>
+        </ul>
+      </div>
+      <div class="stage flat" style="display:grid;place-items:center">
+        <div class="pcard">
+          <div class="img"><span class="bdg promo" style="font-size:12px">-17%</span><div class="phone"></div></div>
+          <div class="nm">Smartphone 5G</div>
+          <div class="price"><s>2 299,00 DH</s><b>1 899,00 DH</b></div>
+        </div>
+        <p class="cap">Product card: Deep Navy, 1px <code style="background:rgba(255,255,255,.08)">#24455f</code> border, 12px corners, 24px padding, no shadow. Example content.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- §10 -->
+  <section class="chapter" id="motion">
+    <div class="ch-head"><span class="ch-ref">§10</span><h2>Motion</h2><p>Every GROSHOP button reads as one object being pushed: it lifts on approach, light sweeps across, it squashes on press, and its state resolves in place. Timings are tokens, never tuned by hand.</p></div>
+    <div class="g2">
+      <div class="stage stack" style="align-content:start">
+        <div class="row">
+          <button class="gbtn sheen magnet ripple" type="button">Acheter maintenant</button>
+          <button class="gbtn morph ripple" type="button" data-state="idle"><span class="slot"><span class="s-idle">Ajouter au panier</span><span class="s-load"><i class="spin"></i>Traitement…</span><span class="s-done"><svg class="tick" width="17" height="17" viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9"/></svg>Ajouté</span></span></button>
+        </div>
+        <div class="row">
+          <button class="iconbtn fav" type="button" aria-label="Favori" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20.5S3.5 15 3.5 9.2A4.7 4.7 0 0 1 12 6.6a4.7 4.7 0 0 1 8.5 2.6c0 5.8-8.5 11.3-8.5 11.3z"/></svg></button>
+          <button class="iconbtn" type="button" aria-label="Partager"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></button>
+        </div>
+        <p class="cap">Magnet pulls up to 4px toward the pointer. The sheen crosses once per hover. The ripple starts where you click. "Ajouter au panier" keeps its width while the label turns into a spinner, then a drawn tick.</p>
+      </div>
+      <div class="tbl">
+        <table style="min-width:0">
+          <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr><td><code>--dur-instant</code></td><td class="num">90ms</td><td>Press, release</td></tr>
+            <tr><td><code>--dur-fast</code></td><td class="num">160ms</td><td>Color swaps</td></tr>
+            <tr><td><code>--dur-base</code></td><td class="num">240ms</td><td>Lift, slide, cross-fade</td></tr>
+            <tr><td><code>--dur-slow</code></td><td class="num">420ms</td><td>Ripple, toggle pop</td></tr>
+            <tr><td><code>--dur-morph</code></td><td class="num">520ms</td><td>State morphs</td></tr>
+            <tr><td><code>--dur-sheen</code></td><td class="num">640ms</td><td>Light sweep</td></tr>
+            <tr><td><code>--ease-out</code></td><td class="mono">.22,1,.36,1</td><td>Arrivals</td></tr>
+            <tr><td><code>--ease-spring</code></td><td class="mono">.34,1.56,.64,1</td><td>Icons, toggles</td></tr>
+            <tr><td><code>--ease-inout</code></td><td class="mono">.4,0,.2,1</td><td>Sheen, morph</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <ul class="rules" style="margin-top:20px">
+      <li>Micro-interactions stay under 250ms so the UI never feels slow. Nothing loops on a resting UI.</li>
+      <li>Press scale: 0.97 for buttons, 0.92 for 44×44 icon buttons. Icon buttons are 44×44 minimum.</li>
+      <li>Respect <code>prefers-reduced-motion</code>: every animation drops to 1ms.</li>
+      <li>In video, something moves in the first half-second (a hand entering, a slide-in, a zoom), so a muted viewer sees that something is happening.</li>
+    </ul>
+  </section>
+
+  <!-- §11 -->
+  <section class="chapter" id="icons">
+    <div class="ch-head"><span class="ch-ref">§11</span><h2>Iconography</h2><p>Lucide, the open-source stroke set closest to GROSHOP's clean, uncluttered feel. It was adopted because the identity files ship no icons.</p></div>
+    <div class="g2">
+      <div class="stage">
+        <div class="row" style="gap:24px;color:var(--gro-gray-100)">
+          <span style="display:grid;justify-items:center;gap:6px"><svg class="ico" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg><span class="cap" style="margin:0">truck</span></span>
+          <span style="display:grid;justify-items:center;gap:6px"><svg class="ico" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><span class="cap" style="margin:0">shield-check</span></span>
+          <span style="display:grid;justify-items:center;gap:6px"><svg class="ico" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span class="cap" style="margin:0">wrench</span></span>
+          <span style="display:grid;justify-items:center;gap:6px"><svg class="ico" viewBox="0 0 24 24"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"/><path d="m7.5 4.27 9 5.15"/></svg><span class="cap" style="margin:0">package</span></span>
+          <span style="display:grid;justify-items:center;gap:6px"><svg class="ico" viewBox="0 0 24 24"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg><span class="cap" style="margin:0">banknote</span></span>
+          <span style="display:grid;justify-items:center;gap:6px"><svg class="ico" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg><span class="cap" style="margin:0">badge-check</span></span>
+        </div>
+        <p class="cap">Trust row set: delivery, warranty, SAV, stock in Morocco, cash on delivery, verified products.</p>
+      </div>
+      <ul class="rules">
+        <li>24px grid, 2px stroke, round caps and joins. Sizes 16, 18, 20, 24.</li>
+        <li>Icons take the text color. Cyan is allowed on small trust icons, inside the 5% budget.</li>
+        <li>Use them for trust rows, category navigation and UI chrome, never as decoration.</li>
+        <li>No emoji in designed visuals, UI or announcement bars. Emoji may appear in captions only.</li>
+        <li>Web: load a pinned Lucide version, not <code>@latest</code>, so icons do not change under a live page.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- §12 -->
+  <section class="chapter" id="social">
+    <div class="ch-head"><span class="ch-ref">§12</span><h2>Social formats and templates</h2><p>Sizes, the daily-versus-campaign decision table, and the four templates rebuilt to the V3 rules.</p></div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Asset</th><th>Size</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><b>Reels, TikTok</b></td><td class="num">1080×1920 · 9:16 · 15–60s</td><td>Hook in the first 2 seconds. Captions 32px+, center-safe.</td></tr>
+          <tr><td><b>Story, Reels ad</b></td><td class="num">1080×1920</td><td>CTA in the lower third, above the bottom 320px.</td></tr>
+          <tr><td><b>Instagram feed</b></td><td class="num">1080×1350 (4:5) · 1080×1080</td><td>4:5 preferred: more screen.</td></tr>
+          <tr><td><b>Facebook feed ad</b></td><td class="num">1200×628</td><td>Product left, text and CTA right.</td></tr>
+          <tr><td><b>Facebook cover</b></td><td class="num">1640×924, safe 1200×628</td><td>Home of the streak motif.</td></tr>
+          <tr><td><b>Post text</b></td><td>40–125 characters</td><td>Darija-first, Arabizi in captions (§13).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Daily or campaign</h3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Design type</th><th>Background</th><th>Product</th><th>CTA</th><th>Logo</th><th>Hero weight</th></tr></thead>
+        <tbody>
+          <tr><td><b>Daily product post</b></td><td>Gradient</td><td>Spotlight</td><td>White, or red if promo</td><td>H-white-GS top-right</td><td>Bold</td></tr>
+          <tr><td><b>Promo, deal</b></td><td>Gradient</td><td>Spotlight or cutout</td><td>Red</td><td>H-white-GS top-right</td><td>Bold</td></tr>
+          <tr><td><b>Pack, bundle</b></td><td>Gradient</td><td>Cutouts, grouped</td><td>Red</td><td>H-white-GS top-right</td><td>Bold</td></tr>
+          <tr><td><b>Product launch</b></td><td>Streaks</td><td>Red rim-light</td><td>Red</td><td>H-white-GS top-right</td><td>Light</td></tr>
+          <tr><td><b>Brand campaign, cover</b></td><td>Streaks or motif</td><td>Optional</td><td>White</td><td>H-white-GS top-right</td><td>Light</td></tr>
+          <tr><td><b>Tech tip</b></td><td>Gradient</td><td>Small visual or icon</td><td>White secondary</td><td>Red symbol watermark</td><td>Bold</td></tr>
+          <tr><td><b>Story 9:16</b></td><td>Gradient</td><td>Spotlight</td><td>Red or white, lower third</td><td>Red arrow symbol</td><td>Bold</td></tr>
+          <tr><td><b>Website UI</b></td><td>Web tokens</td><td>Cutout on light cards</td><td>Pulse Deep, pill</td><td>H-dark-GS in header</td><td>Semibold</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Templates, V3</h3>
+    <label class="toggle"><input type="checkbox" id="safe-toggle" checked> Show platform safe zones</label>
+    <div class="show-safe" id="tpl-area">
+      <div class="tpls">
+        <div>
+          <div class="tpl r45" role="img" aria-label="Product post template">
+            <div class="vignette" style="inset:0"></div>
+            <img class="t-logo" src="assets/H-white-GS.png" alt="">
+            <span class="t-badge">-17%</span>
+            <div class="t-spot" style="top:38%"></div><div class="phone" style="top:38%;width:28cqw;border-radius:4cqw;box-shadow:inset 0 0 0 .7cqw #33506a"></div>
+            <div class="t-h" style="bottom:24.5%;font-size:8.15cqw">Smartphone 5G</div>
+            <div class="t-price" style="bottom:14.5%"><s>2 299,00 DH</s><b>1 899,00 DH</b></div>
+            <span class="t-cta">Commandez maintenant</span>
+            <span class="t-sign">Trust Quality &amp; Reward</span>
+          </div>
+          <p class="tpl-cap"><b>Product post</b> 1080×1350. Product 47% of height, headline 88, price 88, CTA 30, sign-off 24. Example content.</p>
+        </div>
+        <div>
+          <div class="tpl r916" role="img" aria-label="Story template with safe zones">
+            <div class="vignette" style="inset:0"></div>
+            <span class="t-badge" style="top:12.7%">-17%</span>
+            <img src="assets/symbol-arrow-red.png" alt="" style="top:12.4%;right:6.67%;height:6cqw;width:auto">
+            <div class="t-spot" style="top:36%;width:70cqw;height:84cqw"></div><div class="phone" style="top:36%;width:34cqw;border-radius:4.6cqw;box-shadow:inset 0 0 0 .8cqw #33506a"></div>
+            <div class="t-h" style="bottom:36%;text-align:center;font-size:9.26cqw">Smartphone 5G</div>
+            <div class="t-price" style="bottom:29.5%;left:0;right:0;justify-content:center"><s style="font-size:4cqw">2 299,00 DH</s><b style="font-size:9.26cqw">1 899,00 DH</b></div>
+            <span class="t-cta" style="left:50%;bottom:18.4%;transform:translateX(-50%);font-size:2.96cqw;padding:2.2cqw 5cqw">Commandez maintenant</span>
+            <div class="zone" style="left:0;right:0;top:0;height:11.46%">Platform UI · top 220px</div>
+            <div class="zone" style="left:0;right:0;bottom:0;height:16.67%">Platform UI · bottom 320px</div>
+          </div>
+          <p class="tpl-cap"><b>Story</b> 1080×1920. Badge and red symbol moved below 220px; CTA above 320px.</p>
+        </div>
+        <div>
+          <div class="tpl r45" role="img" aria-label="Pack template">
+            <div class="vignette" style="inset:0"></div>
+            <img class="t-logo" src="assets/H-white-GS.png" alt="">
+            <span class="t-badge">Pack</span>
+            <div class="t-h" style="top:15%;font-size:7.4cqw">Pack Audio Complet</div>
+            <div style="left:6.67%;right:6.67%;top:36%;height:27%;display:flex;align-items:center;justify-content:space-between;gap:2cqw">
+              <div style="flex:1;height:100%;position:relative;container-type:inline-size"><div class="phone" style="width:40cqw;top:50%;border-radius:6cqw;box-shadow:inset 0 0 0 2cqw #33506a,0 4cqw 8cqw rgba(0,0,0,.45)"></div></div>
+              <span style="font-size:4cqw;font-weight:600">+</span>
+              <div style="flex:1;height:100%;display:grid;place-items:center"><div style="width:80%;aspect-ratio:10/7;border-radius:40%;background:linear-gradient(160deg,#f4f8fb,#8fa3b5);box-shadow:0 2cqw 4cqw rgba(0,0,0,.45)"></div></div>
+              <span style="font-size:4cqw;font-weight:600">+</span>
+              <div style="flex:1;height:100%;display:grid;place-items:center"><div style="width:62%;aspect-ratio:1;border-radius:18%;background:linear-gradient(160deg,#f4f8fb,#b9c7d4);box-shadow:0 2cqw 4cqw rgba(0,0,0,.45)"></div></div>
+            </div>
+            <div class="t-price" style="bottom:14.5%"><s>549,00 DH</s><b>399,00 DH</b></div>
+            <span class="t-cta">Commandez maintenant</span>
+            <span class="t-sign">Trust Quality &amp; Reward</span>
+          </div>
+          <p class="tpl-cap"><b>Pack</b> 1080×1350. Grouped cutouts, one combined price.</p>
+        </div>
+      </div>
+      <div style="margin-top:16px">
+        <div class="tpl rcov" role="img" aria-label="Campaign cover template">
+          <div style="inset:0;background:radial-gradient(ellipse at 50% 45%,#16303f,#050d13 80%)"></div><div class="glow"></div>
+          <div class="streak" style="left:-8.5%;top:-34.6%;transform:rotate(-11deg);-webkit-mask-image:radial-gradient(ellipse 40% 55% at 35% 5%,#000 30%,transparent 75%);mask-image:radial-gradient(ellipse 40% 55% at 35% 5%,#000 30%,transparent 75%)"></div>
+          <div class="streak" style="right:-12.2%;top:8.7%;width:58.5%;height:147.2%;transform:rotate(9deg);-webkit-mask-image:radial-gradient(ellipse 48% 62% at 68% 55%,#000 30%,transparent 75%);mask-image:radial-gradient(ellipse 48% 62% at 68% 55%,#000 30%,transparent 75%)"></div>
+          <div style="inset:0;background:radial-gradient(ellipse 75% 65% at 50% 45%,transparent 45%,rgba(3,8,12,.65) 100%)"></div>
+          <img src="assets/H-white-GS.png" alt="" style="top:6.06%;right:3.9%;height:2.2cqw;width:auto">
+          <div style="left:0;right:0;top:45%;transform:translateY(-50%);text-align:center;font-family:var(--display);font-weight:300;font-size:9.15cqw;letter-spacing:-.02em;line-height:1">Grow Beyond</div>
+          <span style="right:3.9%;bottom:6.06%;font-size:1.71cqw;color:var(--gro-gray-80)">Trust Quality &amp; Reward</span>
+          <div class="safebox">Safe area 1200×628</div>
+        </div>
+        <p class="tpl-cap"><b>Campaign cover</b> 1640×924. Streak motif, hero in Light 300 at 150px, logo 36px tall, sign-off 28px.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- §13 -->
+  <section class="chapter" id="voice">
+    <div class="ch-head"><span class="ch-ref">§13</span><h2>Voice and content</h2><p>Everything should sound like a real Moroccan person talking, not like an ad. Premium but human: confident, never arrogant. Funny is allowed; corny is not.</p></div>
+
+    <h3>Which language, where</h3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Element</th><th>Language and script</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><b>Spoken lines in video</b></td><td>Darija, written in Arabizi for the shoot</td><td class="mono">Wait… tqder tkhod…</td></tr>
+          <tr><td><b>Designed visuals, on-screen text</b></td><td>Darija in Arabic script, IBM Plex Sans Arabic, 3–6 words</td><td><span class="ar" lang="ar" style="font-size:18px">نفس الثمن؟</span></td></tr>
+          <tr><td><b>Captions</b></td><td>Arabizi, 40–125 characters, one idea, one CTA</td><td class="mono">Sauvegardi had post 9bel ma t-nsah.</td></tr>
+          <tr><td><b>CTAs, product names, prices</b></td><td>French</td><td>Commandez maintenant · Livraison 24/48h</td></tr>
+          <tr><td><b>groshop.net</b></td><td>French by default, English, العربية</td><td>Choisissez la Certitude.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted small" style="margin-top:12px">Arabizi key: <code>3</code> ع · <code>7</code> ح · <code>9</code> ق · <code>kh</code> خ · <code>gh</code> غ · <code>2</code> ء · <code>ch</code> ش. Stay consistent inside one deliverable. Keep Darija common and Marrakech-neutral: no heavy slang, no Fus'ha, no word-for-word translation from French.</p>
+
+    <h3>Brand facts, use verbatim</h3>
+    <div class="facts">
+      <span class="fact">Pas de Dropshipping</span><span class="fact">Notre propre SAV certifié</span><span class="fact">Garantie jusqu'à 1 an</span><span class="fact">Livraison 24/48h partout au Maroc</span><span class="fact">Stock au Maroc</span><span class="fact">Paiement à la livraison</span><span class="fact">PRODUITS VÉRIFIÉS. FIABILITÉ GARANTIE.</span><span class="fact">Choisissez la Certitude.</span>
+    </div>
+    <p class="muted small" style="margin-top:12px">Never soften or exaggerate them. No invented prices, stock counts or "last 3 pieces". WhatsApp: <span class="mono">wa.me/212703735937</span> · Site: <span class="mono">groshop.net</span></p>
+
+    <h3>Price format <span class="badge-new">V3</span></h3>
+    <div class="okno">
+      <div class="y"><p class="eyebrow">Write</p><ul><li>219,00 DH</li><li>1 299,00 DH</li><li>12 480,00 DH</li></ul></div>
+      <div class="n"><p class="eyebrow">Never</p><ul><li>219 DH</li><li>219.00 DH</li><li>219,00 Dhs</li><li>7 499 DH</li></ul></div>
+    </div>
+    <p class="muted small" style="margin-top:12px">Comma decimal, always two decimals, a non-breaking space between thousands and before "DH" so a price never wraps. Old price struck through, new price big.</p>
+    <div class="tool" style="margin-top:16px">
+      <div class="panel">
+        <p class="eyebrow">Price formatter</p>
+        <div class="field"><label for="p-new">New price</label><input id="p-new" type="text" inputmode="decimal" value="7499"></div>
+        <div class="field"><label for="p-old">Old price (optional)</label><input id="p-old" type="text" inputmode="decimal" value="8999"></div>
+        <button class="btn-plain" type="button" id="p-copy">Copy new price</button>
+      </div>
+      <div class="stage" style="display:grid;align-content:center;gap:14px">
+        <div><span class="bdg promo" id="p-badge">-17%</span></div>
+        <div class="price"><s id="p-old-out">8 999,00 DH</s><b id="p-new-out">7 499,00 DH</b></div>
+        <p class="cap" id="p-note" style="margin:0">Badge: rounded discount, shown only when the old price is higher.</p>
+      </div>
+    </div>
+
+    <h3>The two signature hooks</h3>
+    <p class="muted">A hook is the first 1–2 seconds: the spoken line, the on-screen text and the first frame, together. Lead every batch with at least one of these.</p>
+    <div class="g2">
+      <div class="script">
+        <p class="eyebrow" style="margin:0">Primary · Wait / Pause</p>
+        <div class="line">"Wait… tqder tkhod ghi l-phone b [PRIX]…"</div>
+        <div class="pause">Pause 0.5s · silence · camera holds</div>
+        <div class="line">"…wla takhod l-phone, l-écouteurs o l-chargeur, b <b>nefs taman</b>?"</div>
+        <div class="os ar" lang="ar">نفس الثمن؟</div>
+        <p class="muted small" style="margin:0">The pause is the mechanism: the viewer prices item A, then the reveal breaks their own math. Never cut the silence.</p>
+      </div>
+      <div class="script">
+        <p class="eyebrow" style="margin:0">Secondary · Fake checking</p>
+        <div class="line">"Akha… hadchi ma ymkench ykoun s7i7. Khellini n3awed nchouf."</div>
+        <div class="pause">Visibly re-reads the price on the phone</div>
+        <div class="line">"La… bqa s7i7. [OFFRE] b [PRIX]."</div>
+        <div class="os ar" lang="ar">شفتها بعينيا</div>
+        <p class="muted small" style="margin:0">The check must be seen on camera. Use for humour, lifestyle and testimonial angles, and only on offers strong enough to justify the disbelief.</p>
+      </div>
+    </div>
+    <p class="muted small" style="margin-top:12px">Other patterns: price reveal delay, warning or mistake, objection kill, direct callout, versus, curiosity gap, numbered list (three items), POV, proof or behind the scenes, speed challenge, reseller angle, testimonial, seasonal. In any set of eight hooks, use at least five patterns.</p>
+
+    <h3>Reel structure, 15–30 seconds</h3>
+    <div class="tl" role="img" aria-label="Reel timeline: hook 0 to 2s, tension 2 to 6s, payoff 6 to 18s, proof 18 to 24s, CTA 24 to 30s">
+      <div class="tl-bar">
+        <div style="flex:2;background:#f02443"></div>
+        <div style="flex:4;background:var(--fg-3)"></div>
+        <div style="flex:12;background:var(--fg)"></div>
+        <div style="flex:6;background:var(--fg-3)"></div>
+        <div style="flex:6;background:#f02443"></div>
+      </div>
+      <div class="tl-ticks"><span style="left:0">0s</span><span style="left:6.667%">2</span><span style="left:20%">6</span><span style="left:60%">18</span><span style="left:80%">24</span><span style="left:100%">30s</span></div>
+    </div>
+    <div class="tbl" style="margin-top:12px">
+      <table>
+        <thead><tr><th>Beat</th><th>Time</th><th>Job</th></tr></thead>
+        <tbody>
+          <tr><td><span class="key" style="background:#f02443"></span><b>Hook</b></td><td class="num">0:00–0:02</td><td>Stop the scroll: spoken line, on-screen text and a strong first frame.</td></tr>
+          <tr><td><span class="key" style="background:var(--fg-3)"></span><b>Tension</b></td><td class="num">0:02–0:06</td><td>Sharpen the question. Withhold the price.</td></tr>
+          <tr><td><span class="key" style="background:var(--fg)"></span><b>Payoff</b></td><td class="num">0:06–0:18</td><td>The product, the pack contents, the real number.</td></tr>
+          <tr><td><span class="key" style="background:var(--fg-3)"></span><b>Proof</b></td><td class="num">0:18–0:24</td><td>One trust fact: SAV, garantie, stock au Maroc, paiement à la livraison.</td></tr>
+          <tr><td><span class="key" style="background:#f02443"></span><b>CTA</b></td><td class="num">0:24–0:30</td><td>One CTA only. End on a line that makes the first frame make sense again, so people replay.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>CTA bank, one per video</h3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>CTA</th><th>When</th></tr></thead>
+        <tbody>
+          <tr><td><b>Sift "GRO" f DM</b></td><td>Instagram: starts a conversation and signals the algorithm</td></tr>
+          <tr><td><b>Lien f bio</b></td><td>When the product page is the destination</td></tr>
+          <tr><td><b>Commandez maintenant</b></td><td>Promos, red button</td></tr>
+          <tr><td><b>Découvrir</b></td><td>Premium and brand, white button</td></tr>
+          <tr><td><b>WhatsApp: 0703735937</b></td><td>Resellers, wholesale, high-ticket</td></tr>
+          <tr><td><b>Sauvegardi 9bel ma t-nsah</b></td><td>Asks for a save, the strongest reach signal</td></tr>
+          <tr><td><b>3ayet 3la li m7tajha</b></td><td>Asks for a share, the second strongest</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="g2" style="margin-top:32px">
+      <div>
+        <h4>Weekly mix: 6–8 posts</h4>
+        <ul class="rules">
+          <li>Product showcases ×2</li><li>Deals and promos ×2</li><li>Tech tip ×1</li><li>Reseller story ×1</li><li>Relatable or funny ×1–2</li>
+        </ul>
+        <h4 style="margin-top:20px">Captions and hashtags</h4>
+        <ul class="rules">
+          <li>Put the price in the caption too: people screenshot captions.</li>
+          <li>5–8 hashtags, mixed: local (<code>#maroc #marrakech</code>), category (<code>#xiaomi #tech</code>), brand (<code>#groshop #growbeyond</code>).</li>
+          <li>Ask for a save or a share, not a like.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Sound off by default</h4>
+        <ul class="rules">
+          <li>On-screen text carries the hook in the first frame, not from 0:02.</li>
+          <li>The first frame is a thumbnail: design it like a poster.</li>
+          <li>Captions white or Cool Light Gray on navy, outside the top 220px and bottom 320px.</li>
+        </ul>
+        <h4 style="margin-top:20px">What kills a hook</h4>
+        <ul class="rules">
+          <li>Opening with a greeting or the brand name</li>
+          <li>Stating a feature instead of a stake</li>
+          <li>Fake urgency or invented scarcity</li>
+          <li>Tension that runs past six seconds</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- §14 -->
+  <section class="chapter" id="web">
+    <div class="ch-head"><span class="ch-ref">§14</span><h2>Web and product UI</h2><p>groshop.net, the app and the seller dashboard may use the light UI mode. Marketing never does.</p></div>
+    <div class="g2">
+      <div class="tbl">
+        <table style="min-width:0">
+          <thead><tr><th>Light UI token</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Page background</td><td class="mono">#edf3f9</td></tr>
+            <tr><td>Card surface</td><td class="mono">#ffffff, 1px navy 10% border</td></tr>
+            <tr><td>Text</td><td class="mono">#102533</td></tr>
+            <tr><td>Secondary text <span class="badge-new">V3</span></td><td class="mono">navy 80% (was 65%)</td></tr>
+            <tr><td>Muted text <span class="badge-new">V3</span></td><td class="mono">navy 65% (was 45%, 2.77:1)</td></tr>
+            <tr><td>Links, red text <span class="badge-new">V3</span></td><td class="mono">#bd1a33</td></tr>
+            <tr><td>Primary button</td><td class="mono">#d61e3a, pill</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="stage white stack" style="align-content:start">
+        <p class="eyebrow" style="color:var(--gro-navy-65)">Order status · product UI only</p>
+        <div class="row"><span class="st ok">Livré</span><span class="st pe">En cours</span><span class="st no">Annulé</span></div>
+        <div style="display:grid;gap:4px">
+          <span style="font-size:14px;color:var(--gro-navy-80)">Ventes du jour</span>
+          <span style="font-family:var(--display);font-size:40px;font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums;line-height:1.1">12 480,00 DH</span>
+          <span style="font-size:14px;color:var(--gro-navy-65)"><span class="st ok" style="font-size:12.5px;padding:1px 10px">↑ 36,8%</span> vs hier</span>
+        </div>
+        <p class="cap" style="margin:0">Status fills stay as tints; the text uses darker V3 tones: success <code>#187c4d</code>, pending <code>#0f767d</code>, danger <code>#bd1a33</code>. All pass 4.5:1. Example figures.</p>
+      </div>
+    </div>
+    <ul class="rules" style="margin-top:20px">
+      <li>Status colors never appear in marketing designs.</li>
+      <li>Big numbers: Degular Semibold 40 or 56 with tabular figures (StatCard).</li>
+      <li>Charts: the current period in Gro Pulse, earlier periods in navy 10%.</li>
+      <li>Links on dark surfaces are Bright Cyan; on light surfaces they are <code>#bd1a33</code>.</li>
+    </ul>
+
+    <h3>V3 tokens</h3>
+    <div class="code">
+      <button class="btn-plain" type="button" id="copy-tokens">Copy</button>
+<pre id="tokens-code">:root {
+  /* Palette */
+  --gro-red: #f02443;          /* Gro Pulse */
+  --gro-red-hover: #d61e3a;    /* Pulse Deep: hover, and rest fill for small web buttons */
+  --gro-red-active: #bd1a33;   /* pressed; red text and links on light */
+  --gro-navy-900: #102533;     /* Midnight Navy */
+  --gro-navy-700: #17344c;     /* Deep Navy */
+  --gro-navy-border: #24455f;  /* decorative dividers only */
+  --gro-gray-100: #dfebf7;     /* Cool Light Gray */
+  --gro-cyan: #43dde6;         /* 5% max */
+  --gro-white: #ffffff;
+
+  /* Text on dark */
+  --text-primary-dark: #ffffff;
+  --text-secondary-dark: rgba(223, 235, 247, .80);
+  --text-muted-dark: rgba(223, 235, 247, .65);    /* V3, was .55 */
+  --link-dark: #43dde6;
+  --link-dark-hover: #69e6ed;
+
+  /* Light UI: site, app, dashboard only */
+  --ui-bg-light: #edf3f9;
+  --ui-surface-light: #ffffff;
+  --ui-border-light: rgba(16, 37, 51, .10);
+  --ui-text-light: #102533;
+  --ui-text-secondary-light: rgba(16, 37, 51, .80); /* V3, was .65 */
+  --ui-text-muted-light: rgba(16, 37, 51, .65);     /* V3, was .45 */
+  --ui-link-light: #bd1a33;                          /* V3 */
+  --ui-success: #1f9d61;  --ui-success-text: #187c4d;  --ui-success-bg: rgba(31, 157, 97, .12);
+  --ui-pending: #43dde6;  --ui-pending-text: #0f767d;  --ui-pending-bg: rgba(67, 221, 230, .14);
+  --ui-danger:  #f02443;  --ui-danger-text:  #bd1a33;  --ui-danger-bg:  rgba(240, 36, 67, .10);
+
+  /* Type */
+  --font-title: 'Degular Variable', Poppins, sans-serif;
+  --font-body: Urbane, Inter, sans-serif;
+  --font-arabic: 'IBM Plex Sans Arabic', sans-serif;
+  --fw-hero-campaign: 300;   /* V3 */
+  --fw-hero-promo: 700;      /* V3 */
+
+  /* Surfaces and shape */
+  --bg-daily: linear-gradient(160deg, #102533 0%, #17344c 100%);
+  --shadow-product: 0 24px 48px rgba(0, 0, 0, .45);
+  --radius-badge: 6px;
+  --radius-btn: 8px;
+  --radius-card: 12px;
+  --radius-pill: 999px;
+  --safe-margin-social: 72px;
+
+  /* Motion */
+  --dur-instant: 90ms;  --dur-fast: 160ms;  --dur-base: 240ms;
+  --dur-slow: 420ms;    --dur-morph: 520ms; --dur-sheen: 640ms;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+  --ease-inout: cubic-bezier(.4, 0, .2, 1);
+}</pre>
+    </div>
+  </section>
+
+  <!-- §15 -->
+  <section class="chapter" id="rules">
+    <div class="ch-head"><span class="ch-ref">§15</span><h2>Do and don't</h2><p>The short version of every chapter.</p></div>
+    <div class="dd">
+      <div class="panel y">
+        <h4 style="margin-bottom:14px">Always</h4>
+        <ul>
+          <li>Start dark, on the gradient, unless there is a stated reason not to</li>
+          <li>One huge Degular headline, few words: Light for campaigns, Bold for promos</li>
+          <li>H-white-GS top-right on dark; the red arrow symbol on stories</li>
+          <li>Red for promo energy, white for premium calm, cyan as a whisper</li>
+          <li>40% or more empty space, 8px grid, 72px margins, 9:16 safe zones</li>
+          <li>Canvas minimums: body 30, fine print 24, CTA 30</li>
+          <li>Darija-first copy; Arabic script on visuals, Arabizi in captions</li>
+          <li>Prices as <code>219,00 DH</code>, true claims only</li>
+        </ul>
+      </div>
+      <div class="panel n">
+        <h4 style="margin-bottom:14px">Never</h4>
+        <ul>
+          <li>Orange, gold, off-palette colors, rainbow or metallic gradients</li>
+          <li>Campaign motifs on daily posts or behind dense content</li>
+          <li>Two primary CTAs, cyan CTAs, red and cyan at equal weight</li>
+          <li>Stretched, recolored or effected logos; navy logos on dark</li>
+          <li>Navy-only symbol files on dark backgrounds</li>
+          <li>More than two weights, decorative or off-brand fonts</li>
+          <li>Thin or small white text on red; fine print under 65% opacity</li>
+          <li>Emoji in designed visuals; watermarks on product photos</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- §16 -->
+  <section class="chapter" id="workflow">
+    <div class="ch-head"><span class="ch-ref">§16</span><h2>Workflow and QC</h2><p>How Claude, Khalil and freelancers apply this book, in order, and the check every design passes before it ships.</p></div>
+    <div class="g2">
+      <div>
+        <h4>Workflow</h4>
+        <ol class="rules">
+          <li><b>Identify the asset type</b> and pull its size and rules from §12.</li>
+          <li><b>Pick the background:</b> daily → gradient; campaign → confirm the motif if it is ambiguous (§7).</li>
+          <li><b>Set the type:</b> Degular headline, five words at most, weight by context; Urbane support; IBM Plex Sans Arabic for Darija; canvas sizes from §5.</li>
+          <li><b>Place the logo:</b> H-white-GS top-right, or the red arrow symbol on stories and tiny formats (§3).</li>
+          <li><b>Treat the product:</b> spotlight, then cutout, then rim-light (§8).</li>
+          <li><b>CTA and badges:</b> red or white logic, one primary, badges top-left, <code>XXX,00 DH</code> (§9, §13).</li>
+          <li><b>Run the QC checklist.</b></li>
+          <li><b>Scope discipline:</b> deliver exactly what was asked; no unrequested redesign of shared elements.</li>
+        </ol>
+      </div>
+      <div class="panel">
+        <h4 style="margin-bottom:12px">QC checklist</h4>
+        <ul class="check">
+          <li>Palette and derived tones only; no orange, no gold</li>
+          <li>Contrast pairs from the §4 table; red text only at large sizes</li>
+          <li>Text at or above the canvas minimums</li>
+          <li>40% or more empty space, 8px grid, 72px margins</li>
+          <li>9:16: nothing important in the top 220px or bottom 320px</li>
+          <li>Correct logo file for the background, top-right</li>
+          <li>Exactly one primary CTA</li>
+          <li>Prices formatted <code>XXX,00 DH</code>, claims true</li>
+          <li>Two font weights at most, hero weight by context</li>
+          <li>Darija checked by a native speaker when unsure</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- §17 -->
+  <section class="chapter" id="open">
+    <div class="ch-head"><span class="ch-ref">§17</span><h2>Open items</h2><p>What the book still needs to go from good to production-complete.</p></div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Item</th><th>Why it matters</th><th>Needed from</th></tr></thead>
+        <tbody>
+          <tr><td><b>Adobe Fonts kit link</b> for Degular Variable and Urbane</td><td>Generated designs and the web still fall back to Poppins and Inter.</td><td>Ilyas</td></tr>
+          <tr><td><b>Vector logo exports</b> (SVG), including red and Cool Light Gray symbols</td><td>Every logo file is PNG; the V3 red symbols are cut from PNG lockups.</td><td>Illustrator source file</td></tr>
+          <tr><td><b>Star or arrow roles</b> for the vertical lockup</td><td>V3 sets the arrow as the default vertical and the star for brand-statement formats. Confirm or change.</td><td>Ilyas</td></tr>
+          <tr><td><b>Product photography library</b></td><td>Templates still use placeholders.</td><td>Ilyas, photographer</td></tr>
+          <tr><td><b>groshop.net code or Figma</b></td><td>The web UI kit is an approximation built from the brand doc.</td><td>Khalil</td></tr>
+          <tr><td><b>Rebuild off-brand pages</b></td><td>The Itel Buds 11 landing page uses Sora and Urbanist, cyan CTAs, gold and emoji.</td><td>Claude</td></tr>
+          <tr><td><b>Update the Design System artifact to V3</b></td><td>Its templates, tokens and README still carry the V2 values fixed here.</td><td>Claude, on request</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- §18 -->
+  <section class="chapter" id="history">
+    <div class="ch-head"><span class="ch-ref">§18</span><h2>Version history</h2><p>A living document: update it when the brand evolves. Packaging, dark-mode web and full motion guidelines are the natural next chapters.</p></div>
+    <div class="log">
+      <div class="log-item"><span class="tag fix">V3.0</span><span class="body"><b>4 octobre 2026 · this book</b><span class="d">Consolidates V2, every Design System addition and the October audit fixes. Tagline hierarchy and hero weight decided.</span></span><span></span></div>
+      <div class="log-item"><span class="tag add">V2.x</span><span class="body"><b>Août – septembre 2026</b><span class="d">Added inside the Groshop Design System: campaign motifs, button states and motion, light UI mode, status colors, Lucide, numerals, templates, Reel content system.</span></span><span></span></div>
+      <div class="log-item"><span class="tag add">V2.0</span><span class="body"><b>Août 2026</b><span class="d">Real identity: Gro Pulse palette, Degular and Urbane, dark-first with the streak motif, logo catalog, CTA and badge logic, site tokens, RTL rules.</span></span><span></span></div>
+      <div class="log-item"><span class="tag">V1.0</span><span class="body"><b>Août 2026 · void</b><span class="d">Orange draft from before the identity. Never use.</span></span><span></span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <img class="on-dark" src="assets/H-white-GS.png" alt="Groshop">
+    <img class="on-light" src="assets/H-dark-GS.png" alt="Groshop">
+    <span>GROSHOP Brand Book V3 · groshop.net · Grow Beyond</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(() => {
+  const toast = document.getElementById('toast');
+  let timer;
+  const say = (msg) => { toast.textContent = msg; toast.hidden = false; clearTimeout(timer); timer = setTimeout(() => { toast.hidden = true; }, 2000); };
+  const copy = (text, label) => {
+    try {
+      navigator.clipboard.writeText(text).then(() => say('Copied ' + (label || text)), () => say('Copy blocked. ' + (label || text) + ': select it and copy.'));
+    } catch (e) { say('Copy blocked. ' + (label || text) + ': select it and copy.'); }
+  };
+  document.querySelectorAll('[data-copy]').forEach((el) => el.addEventListener('click', () => copy(el.dataset.copy)));
+
+  const tokens = document.getElementById('tokens-code');
+  document.getElementById('copy-tokens').addEventListener('click', () => {
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(tokens); const s = getSelection(); s.removeAllRanges(); s.addRange(r); say('Copy blocked. The code is selected: press Ctrl or Cmd + C.'); };
+    try { navigator.clipboard.writeText(tokens.textContent).then(() => say('Tokens copied'), fallback); } catch (e) { fallback(); }
+  });
+
+  // button motion
+  const MAG = 4;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.magnet').forEach((b) => {
+    if (reduce) return;
+    b.addEventListener('pointermove', (e) => {
+      const r = b.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+      const dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+      b.style.transform = 'translate(' + (dx * MAG).toFixed(2) + 'px,' + (dy * MAG - 2).toFixed(2) + 'px)';
+    });
+    b.addEventListener('pointerleave', () => { b.style.transform = ''; });
+  });
+  document.querySelectorAll('.ripple').forEach((b) => {
+    b.addEventListener('pointerdown', (e) => {
+      const r = b.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2.2;
+      const s = document.createElement('span');
+      s.className = 'rip';
+      s.style.width = s.style.height = d + 'px';
+      s.style.left = (e.clientX - r.left) + 'px';
+      s.style.top = (e.clientY - r.top) + 'px';
+      b.appendChild(s);
+      setTimeout(() => s.remove(), 460);
+    });
+  });
+  document.querySelectorAll('.morph').forEach((b) => {
+    b.addEventListener('click', () => {
+      if (b.dataset.state !== 'idle') return;
+      b.dataset.state = 'load';
+      setTimeout(() => { b.dataset.state = 'done'; setTimeout(() => { b.dataset.state = 'idle'; }, 1600); }, 1100);
+    });
+  });
+  document.querySelectorAll('.fav').forEach((b) => {
+    b.addEventListener('click', () => {
+      const on = b.classList.toggle('on');
+      b.setAttribute('aria-pressed', String(on));
+      b.querySelector('path').setAttribute('fill', on ? 'currentColor' : 'none');
+    });
+  });
+
+  // safe zones
+  const area = document.getElementById('tpl-area');
+  document.getElementById('safe-toggle').addEventListener('change', (e) => { area.classList.toggle('show-safe', e.target.checked); });
+
+  // price formatter: 7499 -> "7 499,00 DH" with non-breaking spaces
+  const NB = ' ';
+  const parse = (raw) => {
+    let s = String(raw || '').replace(/[\s  ]/g, '').replace(/(dhs?|mad)$/i, '');
+    if (!s) return NaN;
+    if (s.includes(',') && s.includes('.')) s = s.replace(/\./g, '').replace(',', '.');
+    else s = s.replace(',', '.');
+    return /^\d+(\.\d+)?$/.test(s) ? parseFloat(s) : NaN;
+  };
+  const fmt = (v) => {
+    const [i, d] = (Math.round(v * 100) / 100).toFixed(2).split('.');
+    return i.replace(/\B(?=(\d{3})+(?!\d))/g, NB) + ',' + d + NB + 'DH';
+  };
+  const pNew = document.getElementById('p-new'), pOld = document.getElementById('p-old');
+  const oNew = document.getElementById('p-new-out'), oOld = document.getElementById('p-old-out');
+  const badge = document.getElementById('p-badge'), note = document.getElementById('p-note');
+  const render = () => {
+    const n = parse(pNew.value), o = parse(pOld.value);
+    if (isNaN(n)) { oNew.textContent = '—'; oOld.hidden = true; badge.hidden = true; note.textContent = 'Type a price in numbers, for example 219 or 1299,5.'; return; }
+    oNew.textContent = fmt(n);
+    if (!isNaN(o) && o > n) {
+      oOld.hidden = false; oOld.textContent = fmt(o);
+      badge.hidden = false; badge.textContent = '-' + Math.round((o - n) / o * 100) + '%';
+      note.textContent = 'Badge: rounded discount, shown only when the old price is higher.';
+    } else {
+      oOld.hidden = true; badge.hidden = true;
+      note.textContent = pOld.value.trim() ? 'No badge: the old price must be higher than the new one.' : 'No old price: no badge, no strikethrough.';
+    }
+  };
+  pNew.addEventListener('input', render); pOld.addEventListener('input', render); render();
+  document.getElementById('p-copy').addEventListener('click', () => { const t = oNew.textContent; if (t && t !== '—') copy(t); });
+
+  // chapter rail
+  const nav = document.getElementById('toc');
+  const links = Array.from(nav.querySelectorAll('a'));
+  const byId = new Map(links.map((a) => [a.getAttribute('href').slice(1), a]));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        const a = byId.get(en.target.id);
+        if (!a) return;
+        links.forEach((l) => l.removeAttribute('aria-current'));
+        a.setAttribute('aria-current', 'true');
+        nav.scrollLeft = a.offsetLeft - nav.clientWidth / 2 + a.clientWidth / 2;
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    document.querySelectorAll('.chapter').forEach((s) => io.observe(s));
+  }
+})();
+</script>
