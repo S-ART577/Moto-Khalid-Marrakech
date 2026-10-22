@@ -193,18 +193,44 @@
     }
 }
 
-/* Printing / "Save as PDF": white paper, no navigation. */
+/* Printing / "Save as PDF": same colours as on screen (like the printed plan), no navigation. */
 @media print {
-    body {
-        background: #fff !important;
-        color: #102533 !important;
+    @page {
+        size: A4 landscape;
+        margin: 8mm;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 
     .no-print {
         display: none !important;
     }
 
-    .print-area {
-        color: #102533;
+    body {
+        background: var(--pf-bg) !important;
+    }
+
+    main {
+        padding: 0 !important;
+        max-width: none !important;
+    }
+
+    .card,
+    #calendar-sheet .min-h-32 {
+        break-inside: avoid;
+    }
+
+    /* A whole month on one landscape page. */
+    #calendar-sheet {
+        zoom: 0.68;
+        margin: 0 !important;
+        width: 96%;
+    }
+
+    #calendar-sheet .min-h-32 {
+        min-height: 5.25rem;
     }
 }

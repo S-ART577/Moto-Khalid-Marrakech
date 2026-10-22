@@ -16,6 +16,7 @@
 <div class="max-w-5xl">
     <x-page-header :title="__('Seasons')" :subtitle="__('Moroccan and commercial dates, with the date to shoot and to design for each one.')">
         <x-slot:actions>
+            <x-export-menu target="seasons-sheet" filename="seasons" />
             @can('admin')
                 <button type="button" wire:click="create" class="btn btn-primary"><x-icon name="plus" class="size-4" /> {{ __('Add a date') }}</button>
             @endcan
@@ -80,6 +81,7 @@
         </form>
     @endif
 
+    <div id="seasons-sheet" class="bg-bg">
     @foreach ($sections as $key => $label)
         @continue($groups[$key]->isEmpty())
         <section class="mb-8" aria-labelledby="seasons-{{ $key }}" @if ($key === 'past') x-data="{ open: false }" @endif>
@@ -147,4 +149,5 @@
             </ul>
         </section>
     @endforeach
+    </div>
 </div>

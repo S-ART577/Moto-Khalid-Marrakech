@@ -75,6 +75,18 @@ class ExportController extends Controller
         return Csv::download('postflow-posts-'.$from->format('Y-m-d').'-'.$to->format('Y-m-d').'.csv', self::POST_COLUMNS, $rows);
     }
 
+    /** An example file to start from: the export columns with two GROSHOP lines. */
+    public function template(): StreamedResponse
+    {
+        $example = [
+            ['2026-11-03', '20:00', 'GROSHOP', 'Wait... same price? Power bank vs pack', 'Wait... same price?', 'Accessoires', 'video', '', 'brief', '', 'TikTok', 'video', '9:16', "Wait... nefs taman, pack kamel? Sift 'GRO' f DM.", '#groshop #maroc', '', '', '', '', '', '', '', '', '', ''],
+            ['2026-11-03', '20:00', 'GROSHOP', 'Wait... same price? Power bank vs pack', 'Wait... same price?', 'Accessoires', 'video', '', 'brief', '', 'Instagram', 'reel', '9:16', 'Wait... nefs taman? Sauvegardi had reel.', '#groshop #maroc', '', '', '', '', '', '', '', '', '', ''],
+            ['2026-11-05', '20:00', 'GROSHOP', 'Verified by Groshop: power bank test', 'Verified by Groshop', 'Accessoires', 'static', '', 'brief', '', 'Instagram', 'carousel', '4:5', '', '', '', '', '', '', '', '', '', '', '', ''],
+        ];
+
+        return Csv::download('postflow-example.csv', self::POST_COLUMNS, $example);
+    }
+
     /** The month's posted platforms with their numbers, to fill in Google Sheets and import back. */
     public function metrics(Request $request): StreamedResponse
     {

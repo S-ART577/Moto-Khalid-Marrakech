@@ -47,6 +47,19 @@ Change both passwords in **Settings** before going live.
 
 To start over with fresh demo data: `php artisan migrate:fresh --seed`.
 
+### Demo data
+
+- **GROSHOP** with the October 2026 plan: 6 posts from Tue 20 Oct (4 video, 2 static, the Black Friday
+  early-access offer), Tue video · Thu static · Sat video at 20:00, the five series, four product families,
+  targets, and the Theme / Offer focus / Key dates notes of the printed plan.
+- **Moto Khalid Marrakech** as a second brand, to test switching and brand colours.
+- Moroccan seasonal dates (Hijri dates are estimates, marked "to confirm").
+- **Sample September history with made-up numbers** (`DemoHistorySeeder`) so the Performance screen has
+  something to show. Remove that line from `database/seeders/DatabaseSeeder.php` to skip it.
+
+The demo is set around **Thu 22 Oct 2026**. On another day the Today screen may be empty: open a post in the
+calendar and set its date to today.
+
 ### Tests
 
 ```bash
@@ -125,7 +138,39 @@ WhatsApp reminders are a later step (they need a WhatsApp Business API account).
 
 ---
 
-## 4. Build log (slices)
+## 4. A normal month
+
+1. **Brands**: check each brand's targets (e.g. 3 posts a week: 2 video + 1 static) and weekly rhythm.
+2. **Calendar > Fill empty slots**: drafts appear on every slot of the rhythm. Rename them, pick the series,
+   drag them around, write the month notes. Ideas without a date wait under the calendar.
+3. **Radar**: fix what it lists ("Week of 2 Nov: 1 video missing", "Smartphones not featured for 3 weeks",
+   "Black Friday: shoot by Fri 6 Nov").
+4. **Pipeline**: move each post from Brief to Scheduled. Captions and the Drive link go in the post panel.
+   The community manager can move cards up to Review; you approve.
+5. **Today** (community manager, on the phone): copy, open the file, open the app, post, Mark as posted.
+6. **Performance**: enter the numbers (or import the sheet), look at what works, plan next month.
+
+---
+
+## 5. What to test, slice by slice
+
+Log in as the admin unless written otherwise. Use FR/EN at the top right to switch language.
+
+| Slice | What | How to test |
+|---|---|---|
+| 0 | Login, roles, colours, FR/EN, installable app | Log in, switch FR/EN, change your name in **Settings**, add a person in **Team**. On a phone (HTTPS): browser menu > Add to home screen. |
+| 1 | Multi-brand workspace | **Brands > GROSHOP**: change a colour and watch the preview + readability check, add a series, a slot, a target. Click the brand pills at the top: the app takes each brand's colours. "All brands" shows everything. |
+| 2 | Calendar + post panel | **Calendar**, October 2026: drag the 27 Oct post to the 28th (open it: every platform kept its time). Switch Month / Week / List, filter by series. Click a post: edit a caption in Arabic, change the time (all platforms move), add a checklist step and a Drive link, comment, **Copy to next week**. **Fill empty slots** on November. **Export > Image (PNG)**. |
+| 3 | Radar | **Radar**: "Needs attention" lists the late Snapchat story, captions missing this week, empty weeks, families not featured, seasonal deadlines. Delete the 31 Oct post: "Week of 26 Oct: 1 video missing" appears. |
+| 4 | Pipeline | **Pipeline**: drag a card to another column. Log in as the community manager: move a card to Review (works), to Scheduled (refused, toast). Try the arrow button and the List view. |
+| 5 | Today + reminders | As the community manager on a phone (or a narrow window): **Today** shows the overdue Snapchat story in red, then Instagram 18:00, Facebook 18:30, TikTok 20:00. On a card: Copy caption, Download, Open Instagram, Mark as posted, paste a link, Confirm. Run `php artisan postflow:remind` and look at `storage/logs/laravel.log` for the emails. |
+| 6 | Seasons | **Seasons**: countdowns and shoot-by / design-by dates; add a date (e.g. your shop anniversary); **Plan a post** from Black Friday. |
+| 7 | Performance | **Performance**: switch Views / Engagement / Saves / WhatsApp orders. **Enter numbers** for October 2026, type numbers, save. **Download this month's sheet**, change numbers, import it back. |
+| 8 | Import / export | **Import / export**: download the example file, change a title, import it (check the preview first). Export October as CSV and open it in Google Sheets. Import your own Google Sheet (File > Download > CSV). |
+
+---
+
+## 6. Build log (slices)
 
 | Slice | What | Status |
 |---|---|---|
@@ -137,4 +182,6 @@ WhatsApp reminders are a later step (they need a WhatsApp Business API account).
 | 5 | Today screen + reminders | Done |
 | 6 | Seasonal and offer calendar | Done |
 | 7 | Performance log | Done |
-| 8 | Import / export | |
+| 8 | Import / export | Done |
+
+Later (not in v1): WhatsApp reminders, auto-publishing, platform APIs, paid ads, AI captions.

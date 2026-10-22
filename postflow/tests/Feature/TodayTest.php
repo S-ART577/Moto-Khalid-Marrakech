@@ -91,7 +91,7 @@ class TodayTest extends TestCase
     {
         $secret = Brand::create(['name' => 'Secret', 'slug' => 'secret']);
         $post = $secret->posts()->create(['title' => 'Secret', 'format' => 'video', 'planned_at' => '2026-10-22 15:00']);
-        $variant = $post->variants()->create(['platform_id' => 1, 'publish_at' => '2026-10-22 15:00']);
+        $variant = $post->variants()->create(['platform_id' => \App\Models\Platform::first()->id, 'publish_at' => '2026-10-22 15:00']);
 
         Livewire::actingAs($this->cm)->test(Today::class)
             ->assertDontSee('Secret')

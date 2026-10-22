@@ -12,13 +12,18 @@
     $showBrand = \App\Support\BrandContext::make()->current() === null;
 @endphp
 <div>
-    <x-page-header :title="__('Performance')" :subtitle="__('Enter the numbers after posting, see what works, plan better next month.')" />
+    <x-page-header :title="__('Performance')" :subtitle="__('Enter the numbers after posting, see what works, plan better next month.')">
+        <x-slot:actions>
+            <x-export-menu target="performance-sheet" filename="performance" :csv="route('export.metrics', ['month' => $month])" />
+        </x-slot:actions>
+    </x-page-header>
 
     <div role="tablist" class="flex gap-1 border-b border-line mb-6">
         <button type="button" role="tab" wire:click="$set('tab', 'leaderboard')" aria-selected="{{ $tab === 'leaderboard' ? 'true' : 'false' }}" class="tab">{{ __('What works') }}</button>
         <button type="button" role="tab" wire:click="$set('tab', 'enter')" aria-selected="{{ $tab === 'enter' ? 'true' : 'false' }}" class="tab">{{ __('Enter numbers') }}</button>
     </div>
 
+    <div id="performance-sheet" class="bg-bg">
     @if ($tab === 'leaderboard')
         @php
             $board = $this->leaderboard;
@@ -188,4 +193,5 @@
             @endif
         </section>
     @endif
+    </div>
 </div>

@@ -39,24 +39,8 @@
                     <x-icon name="plus" class="size-4" /> {{ __('New post') }}
                 </button>
             @endcan
-            <div class="relative" x-data="{ open: false }" x-on:keydown.escape="open = false">
-                <button type="button" class="btn btn-secondary" x-on:click="open = ! open" x-bind:aria-expanded="open" aria-haspopup="true">
-                    <x-icon name="download" class="size-4" /> {{ __('Export') }}
-                </button>
-                <div x-show="open" x-cloak x-on:click.outside="open = false" class="absolute right-0 z-30 mt-1 w-56 card p-1 shadow-xl">
-                    <button type="button" class="w-full text-left rounded-[8px] px-3 py-2.5 hover:bg-light/5 flex items-center gap-2"
-                            x-on:click="open = false; window.pfExportPng(document.getElementById('calendar-sheet'), @js($fileName.'.png'))">
-                        <x-icon name="image" class="size-4" /> {{ __('Image (PNG)') }}
-                    </button>
-                    <button type="button" class="w-full text-left rounded-[8px] px-3 py-2.5 hover:bg-light/5 flex items-center gap-2" x-on:click="open = false; window.print()">
-                        <x-icon name="printer" class="size-4" /> {{ __('PDF (print)') }}
-                    </button>
-                    @if (Route::has('export.posts'))
-                        <a href="{{ route('export.posts', ['from' => $this->range[0]->toDateString(), 'to' => $this->range[1]->toDateString(), 'platform' => $platform, 'series' => $series, 'owner' => $owner, 'stage' => $stage]) }}"
-                           class="w-full rounded-[8px] px-3 py-2.5 hover:bg-light/5 flex items-center gap-2"><x-icon name="list" class="size-4" /> {{ __('Spreadsheet (CSV)') }}</a>
-                    @endif
-                </div>
-            </div>
+            <x-export-menu target="calendar-sheet" :filename="$fileName"
+                :csv="route('export.posts', ['from' => $this->range[0]->toDateString(), 'to' => $this->range[1]->toDateString(), 'platform' => $platform, 'series' => $series, 'owner' => $owner, 'stage' => $stage])" />
         </div>
     </div>
 
@@ -307,7 +291,7 @@
                     </div>
                 </form>
             @else
-                <div class="mt-5 grid gap-3 lg:grid-cols-3">
+                <div class="mt-5 grid gap-3 lg:grid-cols-3 print:grid-cols-3">
                     @foreach (['theme' => __('Theme'), 'offer' => __('Offer focus'), 'dates' => __('Key dates')] as $part => $label)
                         <section class="card p-4">
                             <h2 class="eyebrow text-muted">{{ $label }}</h2>

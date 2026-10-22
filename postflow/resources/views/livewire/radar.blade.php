@@ -12,7 +12,12 @@
     ];
 @endphp
 <div>
-    <x-page-header :title="__('Radar')" :subtitle="__('What is missing, compared with the targets you set in Brands.')" />
+    <x-page-header :title="__('Radar')" :subtitle="__('What is missing, compared with the targets you set in Brands.')">
+        <x-slot:actions>
+            <x-export-menu target="radar-sheet" :filename="'radar-'.$month->format('Y-m')" />
+        </x-slot:actions>
+    </x-page-header>
+    <div id="radar-sheet" class="bg-bg">
 
     {{-- Needs attention --}}
     <section class="mb-8" aria-labelledby="attention-title">
@@ -153,5 +158,6 @@
                 </div>
             </section>
         @endforeach
+    </div>
     </div>
 </div>

@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/export/posts.csv', [ExportController::class, 'posts'])->name('export.posts');
     Route::get('/export/numbers.csv', [ExportController::class, 'metrics'])->name('export.metrics');
+    Route::get('/export/example.csv', [ExportController::class, 'template'])->name('export.template');
+    Route::livewire('/import-export', Livewire\ImportExport::class)->name('import-export');
     Route::livewire('/settings', Livewire\Settings::class)->name('settings');
 
     Route::middleware('can:admin')->group(function () {

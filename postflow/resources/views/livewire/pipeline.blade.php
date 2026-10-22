@@ -19,6 +19,7 @@
                     </button>
                 @endforeach
             </div>
+            <x-export-menu target="pipeline-sheet" filename="pipeline" :csv="route('export.posts', ['from' => now()->subMonths(3)->toDateString(), 'to' => now()->addMonths(3)->toDateString()])" />
             @can('admin')
                 <button type="button" x-on:click="$dispatch('new-post', {})" class="btn btn-primary"><x-icon name="plus" class="size-4" /> {{ __('New post') }}</button>
             @endcan
@@ -43,6 +44,7 @@
         </select>
     </div>
 
+    <div id="pipeline-sheet" class="bg-bg">
     @if ($view === 'board')
         <div class="-mx-4 lg:-mx-8 px-4 lg:px-8 relative overflow-x-auto pb-4 snap-x snap-mandatory lg:snap-none">
             <div class="grid grid-flow-col auto-cols-[minmax(260px,82vw)] sm:auto-cols-[minmax(260px,300px)] gap-3 items-start">
@@ -124,4 +126,5 @@
             </div>
         @endif
     @endif
+    </div>
 </div>

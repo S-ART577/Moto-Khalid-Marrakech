@@ -34,14 +34,34 @@ window.pfPaste = async (input) => {
 }
 
 // Save an element as a PNG image (calendar, radar...). The library is loaded only when needed.
+// We render a cleaned copy: attributes like x-on:click or wire:key are not valid in the SVG
+// the library builds, and would make the export fail.
 window.pfExportPng = async (element, filename) => {
     let { toPng } = await import('html-to-image')
     let background = getComputedStyle(document.documentElement).getPropertyValue('--pf-bg').trim() || '#102533'
-    let dataUrl = await toPng(element, { pixelRatio: 2, backgroundColor: background, cacheBust: true })
-    let link = document.createElement('a')
-    link.download = filename
-    link.href = dataUrl
-    link.click()
+
+    let clone = element.cloneNode(true)
+    for (let el of [clone, ...clone.querySelectorAll('*')]) {
+        for (let attribute of [...el.attributes]) {
+            if (/^(x-|wire:|@|:)/.test(attribute.name) || attribute.name.includes(':')) el.removeAttribute(attribute.name)
+        }
+    }
+    clone.querySelectorAll('.no-print, template').forEach((el) => el.remove())
+
+    let holder = document.createElement('div')
+    holder.style.cssText = `position:fixed;left:-100000px;top:0;width:${element.offsetWidth}px`
+    holder.appendChild(clone)
+    document.body.appendChild(holder)
+
+    try {
+        let dataUrl = await toPng(clone, { pixelRatio: 2, backgroundColor: background, cacheBust: true })
+        let link = document.createElement('a')
+        link.download = filename
+        link.href = dataUrl
+        link.click()
+    } finally {
+        holder.remove()
+    }
 }
 
 // Browser push: ask permission, subscribe, send the subscription to the server.
