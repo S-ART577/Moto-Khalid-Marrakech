@@ -1,0 +1,12 @@
+PostFlow - mode d'emploi
+=========================
+
+1. Dezippez ce dossier, par exemple dans C:\PostFlow
+2. Double-cliquez sur "Lancer PostFlow.bat"
+   (Si Windows affiche "Windows a protege votre ordinateur" : Informations complementaires > Executer quand meme.)
+3. Le premier lancement telecharge PHP (environ 30 Mo, une seule fois).
+4. PostFlow s'ouvre dans votre navigateur : http://127.0.0.1:8000
+   Connexion : admin@postflow.test  /  password  (changez-le dans Reglages)
+
+Gardez la fenetre noire ouverte pendant que vous travaillez. Fermez-la pour arreter.
+Vos donnees sont dans app\database\database.sqlite : copiez ce fichier pour faire une sauvegarde.
