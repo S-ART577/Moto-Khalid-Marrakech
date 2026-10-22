@@ -12,3 +12,4 @@ Read `README.md` first (setup, roles, where things are).
 - Captions may be Arabic/Darija: use `dir="auto"` on caption inputs and outputs.
 - Access: `App\Support\BrandContext` gives the brands in scope; `App\Policies\PostPolicy` holds the rules.
 - Tests: `php artisan test` (SQLite in memory). The app itself runs on MySQL.
+- Blade: never use the one-line `@php(...)`; use `@php ... @endphp` blocks (mixing both breaks the compiler).

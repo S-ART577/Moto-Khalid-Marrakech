@@ -34,17 +34,6 @@ window.pfExportPng = async (element, filename) => {
     link.click()
 }
 
-// Chart.js, loaded only on screens with charts.
-window.pfChart = async (canvas, config) => {
-    let { default: Chart } = await import('chart.js/auto')
-    Chart.defaults.font.family = 'Inter, "IBM Plex Sans Arabic", sans-serif'
-    Chart.defaults.font.size = 14
-    Chart.defaults.color = getComputedStyle(document.documentElement).getPropertyValue('--pf-light').trim()
-    if (canvas._pfChart) canvas._pfChart.destroy()
-    canvas._pfChart = new Chart(canvas, config)
-    return canvas._pfChart
-}
-
 // Browser push: ask permission, subscribe, send the subscription to the server.
 window.pfEnablePush = async (vapidPublicKey, url) => {
     if (! ('serviceWorker' in navigator) || ! ('PushManager' in window)) return 'unsupported'

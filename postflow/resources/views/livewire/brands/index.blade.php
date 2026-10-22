@@ -11,7 +11,9 @@
 
     <ul class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         @foreach ($this->brands as $brand)
-            @php($colors = $brand->colors())
+            @php
+                $colors = $brand->colors();
+            @endphp
             <li wire:key="brand-{{ $brand->id }}" class="card overflow-hidden flex flex-col">
                 {{-- Colour strip: the brand's own palette --}}
                 <div class="flex h-2" aria-hidden="true">

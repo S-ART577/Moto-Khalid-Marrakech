@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 
     Route::livewire('/calendar', Livewire\Calendar::class)->name('calendar');
+    Route::livewire('/radar', Livewire\Radar::class)->name('radar');
     Route::livewire('/settings', Livewire\Settings::class)->name('settings');
 
     Route::middleware('can:admin')->group(function () {
