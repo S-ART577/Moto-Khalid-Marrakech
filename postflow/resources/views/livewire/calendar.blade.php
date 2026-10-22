@@ -46,7 +46,7 @@
 
     {{-- Filters --}}
     <div class="no-print grid grid-cols-2 sm:grid-cols-4 lg:flex lg:flex-wrap items-center gap-2 mb-5" aria-label="{{ __('Filters') }}">
-        <select wire:model.live="platform" class="select lg:w-44" aria-label="{{ __('Platform') }}">
+        <select wire:model.live="platform" class="select lg:w-56" aria-label="{{ __('Platform') }}">
             <option value="">{{ __('All platforms') }}</option>
             @foreach ($options['platforms'] as $option)<option value="{{ $option->key }}">{{ $option->name }}</option>@endforeach
         </select>
@@ -77,16 +77,20 @@
                 <h1 @class(['font-display font-bold leading-tight mt-1', 'text-4xl lg:text-6xl' => $view !== 'week', 'text-3xl lg:text-4xl' => $view === 'week'])>
                     {{ $title }} <span class="text-primary">{{ $anchor->format('Y') }}</span>
                 </h1>
-                <dl class="mt-2 flex flex-wrap gap-x-6 gap-y-1">
-                    @foreach (['posts' => 'post|posts', 'videos' => 'video|videos', 'static' => 'static|static', 'offers' => 'offer|offers'] as $key => $label)
+                {{-- As on the printed plan: posts = videos + static; offers are static or video posts. --}}
+                <dl class="mt-2 flex flex-wrap items-baseline gap-x-6 gap-y-1">
+                    @foreach (['posts' => 'post|posts', 'videos' => 'video|videos', 'static' => 'static|static'] as $key => $label)
                         <div class="flex items-baseline gap-1.5">
                             <dd class="font-display font-bold text-3xl tabular-nums">{{ $this->stats[$key] }}</dd>
                             <dt class="eyebrow text-muted">{{ trans_choice($label, $this->stats[$key]) }}</dt>
                         </div>
                     @endforeach
+                    @if ($this->stats['offers'])
+                        <div class="text-muted">{{ trans_choice('including :count offer|including :count offers', $this->stats['offers']) }}</div>
+                    @endif
                 </dl>
             </div>
-            <div class="text-right ml-auto">
+            <div class="sm:text-right sm:ml-auto">
                 @if ($brand)
                     <p class="flex items-center justify-end gap-2 font-display font-bold text-xl"><x-brand-mark :brand="$brand" size="size-9" /> {{ $brand->name }}</p>
                     @if ($brand->postingSlots->count())
@@ -94,7 +98,7 @@
                         <p class="text-muted">{{ $brand->rhythmLabel() }}</p>
                     @endif
                 @else
-                    <p class="text-muted">{{ __('All brands') }}</p>
+                    <p class="text-muted hidden sm:block">{{ __('All brands') }}</p>
                 @endif
             </div>
         </header>
@@ -197,10 +201,13 @@
                                 <button type="button" x-on:click="$dispatch('new-post', { date: '{{ $key }}' })" class="no-print ml-auto btn btn-ghost btn-sm px-1.5" title="{{ __('New post on :date', ['date' => $day->isoFormat('D MMM')]) }}"><x-icon name="plus" class="size-4" /><span class="sr-only">{{ __('New post on :date', ['date' => $day->isoFormat('D MMM')]) }}</span></button>
                             @endif
                         </div>
-                        @foreach ($dayEvents as $event)
-                            <p class="px-1 pt-1 text-sm text-muted truncate">{{ $event->name() }}</p>
-                        @endforeach
-                        <ul class="flex-1 flex flex-col gap-2 pt-2 min-h-24"
+                        {{-- Same height in every column, so the cards line up. --}}
+                        <div class="min-h-7 px-1 pt-1">
+                            @foreach ($dayEvents as $event)
+                                <p class="text-sm text-muted truncate">{{ $event->name() }}</p>
+                            @endforeach
+                        </div>
+                        <ul class="flex-1 flex flex-col gap-2 pt-1 min-h-24"
                             @if ($canMove) wire:sort="handleSort" wire:sort:config="{ forceFallback: true, fallbackTolerance: 4 }" wire:sort:group="calendar" wire:sort:group-id="{{ $key }}" @endif>
                             @foreach ($dayPosts as $post)
                                 <li wire:key="wpost-{{ $post->id }}" @if ($canMove) wire:sort:item="{{ $post->id }}" @endif>
@@ -244,7 +251,12 @@
                                     <td><x-kind-chip :post="$post" /></td>
                                     <td><span class="flex flex-wrap gap-1">@foreach ($post->variants as $variant)<x-platform-chip :platform="$variant->platform" :status="$variant->status" />@endforeach</span></td>
                                     <td class="whitespace-nowrap">{{ $post->owner?->name ?? '-' }}</td>
-                                    <td class="whitespace-nowrap">{{ $post->stage->label() }}</td>
+                                    <td class="whitespace-nowrap">
+                                        {{ $post->stage->label() }}
+                                        @if ($post->variants->contains(fn ($v) => $v->isOverdue()))
+                                            <span class="chip bg-primary-ink text-white ml-1"><x-icon name="alert" class="size-3.5" /> {{ __('Overdue') }}</span>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -295,8 +307,12 @@
                     @foreach (['theme' => __('Theme'), 'offer' => __('Offer focus'), 'dates' => __('Key dates')] as $part => $label)
                         <section class="card p-4">
                             <h2 class="eyebrow text-muted">{{ $label }}</h2>
-                            <p class="font-display font-semibold mt-2" dir="auto">{{ $note?->{$part.'_title'} ?: '-' }}</p>
-                            <p class="text-muted mt-1" dir="auto">{{ $note?->{$part.'_body'} }}</p>
+                            @if ($note?->{$part.'_title'} || $note?->{$part.'_body'})
+                                <p class="font-display font-semibold mt-2" dir="auto">{{ $note->{$part.'_title'} }}</p>
+                                <p class="text-muted mt-1" dir="auto">{{ $note->{$part.'_body'} }}</p>
+                            @else
+                                <p class="text-muted mt-2">{{ __('Not set yet') }}</p>
+                            @endif
                         </section>
                     @endforeach
                 </div>
@@ -320,6 +336,9 @@
             <p class="text-muted mb-3">{{ $canMove ? __('Drag an idea onto a day to schedule it, or drag a post here to unschedule it.') : __('Ideas waiting for a date.') }}</p>
             <ul class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 min-h-16 rounded-[12px] border border-dashed border-line p-2"
                 @if ($canMove) wire:sort="handleSort" wire:sort:config="{ forceFallback: true, fallbackTolerance: 4 }" wire:sort:group="calendar" wire:sort:group-id="ideas" @endif>
+                @if ($this->ideas->isEmpty())
+                    <li class="col-span-full grid place-items-center text-muted py-4 pointer-events-none" wire:sort:ignore>{{ __('No ideas yet') }}</li>
+                @endif
                 @foreach ($this->ideas as $post)
                     <li wire:key="idea-{{ $post->id }}" @if ($canMove) wire:sort:item="{{ $post->id }}" @endif class="min-h-20">
                         <x-post-tile :post="$post" :show-brand="$showBrand" />

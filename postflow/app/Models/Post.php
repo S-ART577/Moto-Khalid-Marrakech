@@ -63,7 +63,7 @@ class Post extends Model
 
     public function variants(): HasMany
     {
-        return $this->hasMany(PostVariant::class)->orderBy('publish_at');
+        return $this->hasMany(PostVariant::class)->orderBy('platform_id');
     }
 
     public function assets(): HasMany

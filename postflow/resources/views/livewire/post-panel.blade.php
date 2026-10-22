@@ -5,7 +5,8 @@
             $post = $this->post;
             $brand = $this->brand;
             $isCm = ! auth()->user()->isAdmin();
-            $tabs = ['idea' => __('Idea'), 'platforms' => __('Platforms'), 'production' => __('Checklist and files'), 'discussion' => __('Comments')];
+            // [long label, short label for phones]
+            $tabs = ['idea' => [__('Idea'), __('Idea')], 'platforms' => [__('Platforms'), __('Platforms')], 'production' => [__('Checklist and files'), __('Files')], 'discussion' => [__('Comments'), __('Comments')]];
             $ratios = ['9:16', '4:5', '1:1', '16:9'];
         @endphp
         <div class="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="panel-title"
@@ -19,15 +20,15 @@
                         @if ($brand)<x-brand-mark :brand="$brand" size="size-9" />@endif
                         <div class="min-w-0 flex-1">
                             <p class="text-sm text-muted">{{ $brand?->name }} · {{ $postId ? __('Post') : __('New post') }}</p>
-                            <h2 id="panel-title" class="font-display font-semibold text-xl truncate" dir="auto">{{ $form['title'] ?: __('Untitled idea') }}</h2>
+                            <h2 id="panel-title" class="font-display font-semibold text-lg sm:text-xl line-clamp-2 break-words" dir="auto">{{ $form['title'] ?: __('Untitled idea') }}</h2>
                         </div>
                         <button type="button" wire:click="close" class="btn btn-ghost px-2" title="{{ __('Close') }}"><x-icon name="x" /><span class="sr-only">{{ __('Close') }}</span></button>
                     </div>
                     <div role="tablist" class="mt-3 -mb-3 flex gap-1 relative overflow-x-auto [scrollbar-width:none]">
-                        @foreach ($tabs as $key => $label)
+                        @foreach ($tabs as $key => [$label, $short])
                             <button type="button" role="tab" wire:click="$set('tab', '{{ $key }}')" aria-selected="{{ $tab === $key ? 'true' : 'false' }}" class="tab whitespace-nowrap"
                                     @if (! $postId && in_array($key, ['production', 'discussion'])) disabled title="{{ __('Save the post first') }}" @endif>
-                                {{ $label }}
+                                <span class="hidden sm:inline">{{ $label }}</span><span class="sm:hidden">{{ $short }}</span>
                                 @if ($key === 'production' && $post)
                                     @php
                                         [$done, $total] = $post->checklistProgress();
@@ -142,6 +143,9 @@
 
                     {{-- Platforms --}}
                     <div @class(['hidden' => $tab !== 'platforms', 'space-y-4']) role="tabpanel">
+                        @if ($isCm)
+                            <p class="text-muted flex gap-2"><x-icon name="eye" class="size-5" /> {{ __('Placement, ratio and times are set by the admin. You can edit captions and hashtags.') }}</p>
+                        @endif
                         @foreach ($this->platforms as $platform)
                             @php
                                 $row = $variants[$platform->id];
@@ -194,7 +198,7 @@
                                     </div>
                                     <div class="mt-3">
                                         <label class="label" for="v-h-{{ $platform->id }}">{{ __('Hashtags') }}</label>
-                                        <textarea id="v-h-{{ $platform->id }}" wire:model="variants.{{ $platform->id }}.hashtags" class="textarea min-h-0" rows="2" dir="auto" placeholder="#groshop #maroc"></textarea>
+                                        <textarea id="v-h-{{ $platform->id }}" wire:model="variants.{{ $platform->id }}.hashtags" class="textarea min-h-[76px]" rows="3" dir="auto" placeholder="#groshop #maroc"></textarea>
                                     </div>
                                     <button type="button" wire:click="copyCaptionToAll({{ $platform->id }})" class="btn btn-ghost btn-sm mt-2 whitespace-normal text-left h-auto py-2"><x-icon name="copy" class="size-4 shrink-0" /> {{ __('Use this caption on every platform') }}</button>
                                 @endif
@@ -212,9 +216,9 @@
                                         <li wire:key="check-{{ $item->id }}" class="flex items-center gap-2 rounded-[10px] hover:bg-light/5 px-2">
                                             <label class="flex items-center gap-3 flex-1 min-h-11 cursor-pointer">
                                                 <input type="checkbox" class="checkbox" wire:click="toggleChecklistItem({{ $item->id }})" @checked($item->done)>
-                                                <span @class(['line-through text-muted' => $item->done]) dir="auto">{{ $item->label }}</span>
+                                                <span @class(['line-through text-muted' => $item->done]) dir="auto">{{ __($item->label) }}</span>
                                             </label>
-                                            <button type="button" wire:click="removeChecklistItem({{ $item->id }})" class="btn btn-ghost btn-sm px-2" title="{{ __('Remove') }}"><x-icon name="x" class="size-4" /><span class="sr-only">{{ __('Remove') }} {{ $item->label }}</span></button>
+                                            <button type="button" wire:click="removeChecklistItem({{ $item->id }})" class="btn btn-ghost btn-sm px-2" title="{{ __('Remove') }}"><x-icon name="x" class="size-4" /><span class="sr-only">{{ __('Remove') }} {{ __($item->label) }}</span></button>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -241,7 +245,7 @@
                                         <li class="text-muted">{{ __('No file yet. Paste the Google Drive link of the final video or visual.') }}</li>
                                     @endforelse
                                 </ul>
-                                <div class="mt-3 grid gap-2 sm:grid-cols-[1fr_2fr_auto]">
+                                <div class="mt-3 grid gap-2 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]">
                                     <input wire:model="newAsset.label" class="input" placeholder="{{ __('Name, e.g. Final 9:16') }}" aria-label="{{ __('Name') }}" dir="auto">
                                     <input wire:model="newAsset.url" type="url" class="input" placeholder="https://drive.google.com/..." aria-label="{{ __('Link') }}">
                                     <button type="button" wire:click="addAsset" class="btn btn-secondary"><x-icon name="plus" class="size-4" /> {{ __('Add') }}</button>
@@ -293,6 +297,8 @@
                 <div class="px-4 sm:px-6 py-3 border-t border-line flex flex-wrap items-center gap-2 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
                     @if (in_array($tab, ['idea', 'platforms']))
                         <button type="submit" form="post-form" class="btn btn-primary" wire:loading.attr="disabled" wire:target="save">{{ __('Save') }}</button>
+                    @else
+                        <span class="text-sm text-muted px-2 min-h-11 inline-flex items-center">{{ __('Saved automatically') }}</span>
                     @endif
                     <button type="button" wire:click="close" class="btn btn-ghost">{{ __('Close') }}</button>
                     @if ($post && $master)

@@ -81,8 +81,8 @@
                                     <td>{{ $line['brand']?->name ?? '-' }}</td>
                                     <td dir="auto">{{ $line['title'] }}</td>
                                     <td class="whitespace-nowrap">{{ $line['format']->label() }}{{ $line['offer'] ? ' · '.__('Offer') : '' }}</td>
-                                    <td>{{ $line['platforms'] ? collect($line['platforms'])->map(fn ($key) => ucfirst($key))->implode(', ') : __('all') }}</td>
-                                    <td>@if ($line['errors'])<x-icon name="alert" class="size-4 inline text-primary" /> {{ implode(', ', $line['errors']) }}@endif</td>
+                                    <td>{{ $line['platforms'] ? collect($line['platforms'])->map(fn ($key) => $platformNames[$key] ?? ucfirst($key))->implode(', ') : __('all') }}</td>
+                                    <td class="min-w-40">@if ($line['errors'])<span class="whitespace-nowrap"><x-icon name="alert" class="size-4 inline text-primary" /> {{ implode(', ', $line['errors']) }}</span>@endif</td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -80,7 +80,7 @@
                 </div>
                 <div class="sm:col-span-2">
                     <label class="label" for="tone">{{ __('Tone of voice') }}</label>
-                    <textarea id="tone" wire:model="form.tone_notes" class="textarea" rows="5" dir="auto" placeholder="{{ __('How this brand talks: language, words to use and avoid, proof points, CTA...') }}"></textarea>
+                    <textarea id="tone" wire:model="form.tone_notes" class="textarea" rows="7" dir="auto" placeholder="{{ __('How this brand talks: language, words to use and avoid, proof points, CTA...') }}"></textarea>
                 </div>
             </div>
         </section>
@@ -164,7 +164,7 @@
                                 <input type="color" wire:model="series.{{ $i }}.color" class="h-11 w-11 rounded-[10px] border border-line bg-raised p-1" aria-label="{{ __('Colour') }}">
                                 <input wire:model="series.{{ $i }}.name" class="input" dir="auto" placeholder="{{ __('Series name') }}" aria-label="{{ __('Series name') }}">
                                 <button type="button" wire:click="removeRow('series', {{ $i }})" class="btn btn-ghost px-2" title="{{ __('Remove') }}"><x-icon name="trash" class="size-4" /><span class="sr-only">{{ __('Remove') }}</span></button>
-                                <textarea wire:model="series.{{ $i }}.description" class="textarea col-span-3 min-h-0" rows="2" dir="auto" placeholder="{{ __('What it is, the hook, the format') }}" aria-label="{{ __('Description') }}"></textarea>
+                                <textarea wire:model="series.{{ $i }}.description" class="textarea col-span-3" rows="3" dir="auto" placeholder="{{ __('What it is, the hook, the format') }}" aria-label="{{ __('Description') }}"></textarea>
                                 <label class="col-span-3 flex items-center gap-2 text-[15px]"><input type="checkbox" wire:model="series.{{ $i }}.active" class="checkbox"> {{ __('Active') }}</label>
                             </div>
                         @endforeach
@@ -196,13 +196,13 @@
         {{-- Rhythm + targets --}}
         <section id="rhythm" class="card p-5 lg:p-6 scroll-mt-36" aria-labelledby="rhythm-title">
             <h2 id="rhythm-title" class="font-display font-semibold text-lg mb-4">{{ __('Rhythm and targets') }}</h2>
-            <div class="grid gap-8 xl:grid-cols-[2fr_3fr]">
+            <div class="grid gap-8 xl:grid-cols-2">
                 <div>
                     <h3 class="font-semibold mb-1">{{ __('Weekly rhythm') }}</h3>
                     <p class="text-muted mb-3">{{ __('Your usual slots. "Fill empty slots" on the calendar creates drafts from them.') }}</p>
                     <div class="space-y-2">
                         @foreach ($postingSlots as $i => $row)
-                            <div wire:key="slot-{{ $row['id'] ?? 'new-'.$i }}" class="grid gap-2 grid-cols-2 sm:grid-cols-[1fr_1fr_130px_44px] items-center">
+                            <div wire:key="slot-{{ $row['id'] ?? 'new-'.$i }}" class="grid gap-2 grid-cols-2 sm:grid-cols-[minmax(7.5rem,1fr)_minmax(8.5rem,1fr)_7.5rem_auto] items-center">
                                 <select wire:model="postingSlots.{{ $i }}.weekday" class="select" aria-label="{{ __('Day') }}">
                                     @foreach ($weekdays as $value => $day)<option value="{{ $value }}">{{ ucfirst($day) }}</option>@endforeach
                                 </select>
@@ -210,7 +210,7 @@
                                     @foreach (\App\Enums\Format::cases() as $format)<option value="{{ $format->value }}">{{ $format->label() }}</option>@endforeach
                                 </select>
                                 <input type="time" wire:model="postingSlots.{{ $i }}.time" class="input" aria-label="{{ __('Time') }}">
-                                <button type="button" wire:click="removeRow('postingSlots', {{ $i }})" class="btn btn-ghost px-2 justify-self-end" title="{{ __('Remove') }}"><x-icon name="trash" class="size-4" /><span class="sr-only">{{ __('Remove') }}</span></button>
+                                <button type="button" wire:click="removeRow('postingSlots', {{ $i }})" class="btn btn-ghost px-2" title="{{ __('Remove') }}"><x-icon name="trash" class="size-4" /><span class="sr-only">{{ __('Remove') }}</span></button>
                             </div>
                         @endforeach
                     </div>

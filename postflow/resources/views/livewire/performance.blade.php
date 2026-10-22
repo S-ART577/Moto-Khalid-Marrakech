@@ -23,7 +23,7 @@
         <button type="button" role="tab" wire:click="$set('tab', 'enter')" aria-selected="{{ $tab === 'enter' ? 'true' : 'false' }}" class="tab">{{ __('Enter numbers') }}</button>
     </div>
 
-    <div id="performance-sheet" class="bg-bg">
+    <div id="performance-sheet">
     @if ($tab === 'leaderboard')
         @php
             $board = $this->leaderboard;
@@ -107,13 +107,13 @@
                     <h2 id="lb-top" class="font-display font-semibold text-lg mb-3">{{ __('Top posts') }}</h2>
                     <ol class="space-y-2">
                         @foreach ($board->topPosts($sort) as $variant)
-                            <li class="flex flex-wrap items-center gap-x-3 gap-y-1">
-                                <span class="font-display font-bold w-6 tabular-nums">{{ $loop->iteration }}</span>
-                                <button type="button" x-on:click="$dispatch('open-post', { id: {{ $variant->post_id }} })" class="flex-1 min-w-0 text-left hover:underline truncate" dir="auto">
-                                    {{ $variant->post->title }}
-                                </button>
-                                <span class="text-muted text-sm">{{ $showBrand ? $variant->post->brand->name.' · ' : '' }}{{ $variant->platform->name }} · {{ $variant->publish_at->isoFormat('D MMM') }}</span>
-                                <span class="tabular-nums font-semibold">{{ \App\Support\Leaderboard::format($sort, $board->single($variant)) }} <span class="font-normal text-muted">{{ mb_strtolower($metrics[$sort]) }}</span></span>
+                            <li class="grid grid-cols-[1.5rem_minmax(0,1fr)_auto] gap-x-3 items-start">
+                                <span class="font-display font-bold tabular-nums">{{ $loop->iteration }}</span>
+                                <span class="min-w-0">
+                                    <button type="button" x-on:click="$dispatch('open-post', { id: {{ $variant->post_id }} })" class="text-left hover:underline line-clamp-2" dir="auto" title="{{ $variant->post->title }}">{{ $variant->post->title }}</button>
+                                    <span class="block text-muted text-sm">{{ $showBrand ? $variant->post->brand->name.' · ' : '' }}{{ $variant->platform->name }} · {{ $variant->publish_at->isoFormat('D MMM') }}</span>
+                                </span>
+                                <span class="tabular-nums font-semibold whitespace-nowrap">{{ \App\Support\Leaderboard::format($sort, $board->single($variant)) }} <span class="font-normal text-muted">{{ mb_strtolower($metrics[$sort]) }}</span></span>
                             </li>
                         @endforeach
                     </ol>
@@ -178,7 +178,11 @@
                 <li>{{ __('File > Download > CSV, then import it here.') }}</li>
             </ol>
             <form wire:submit="importCsv" class="mt-4 flex flex-wrap items-center gap-3">
-                <input type="file" wire:model="file" accept=".csv,text/csv" class="text-[15px] file:mr-3 file:rounded-[10px] file:border file:border-line file:bg-raised file:text-ink file:px-4 file:py-2 file:font-semibold" aria-label="{{ __('CSV file') }}">
+                <label class="btn btn-secondary cursor-pointer">
+                    <x-icon name="upload" class="size-4" /> {{ __('Choose the CSV file') }}
+                    <input type="file" wire:model="file" accept=".csv,text/csv" class="sr-only">
+                </label>
+                @if ($file)<span class="text-muted">{{ $file->getClientOriginalName() }}</span>@endif
                 <button class="btn btn-primary" wire:loading.attr="disabled" wire:target="file,importCsv"><x-icon name="upload" class="size-4" /> {{ __('Import') }}</button>
             </form>
             @error('file')<p class="mt-2"><x-icon name="alert" class="size-4 inline text-primary" /> {{ $message }}</p>@enderror

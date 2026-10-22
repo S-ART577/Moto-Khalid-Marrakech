@@ -18,7 +18,8 @@
  * brand (Brands > Identity), so every brand can use its own palette.
  * Defaults = GROSHOP.
  */
-:root {
+/* :where() keeps these defaults weaker than the brand colours the layout writes. */
+:where(:root) {
     --pf-bg: #102533;
     --pf-bg-2: #17344c;
     --pf-primary: #f02443;
@@ -38,7 +39,7 @@
     --color-raised: color-mix(in srgb, var(--pf-bg-2) 86%, var(--pf-light));
     --color-line: color-mix(in srgb, var(--pf-light) 14%, transparent);
     --color-ink: var(--pf-light);
-    --color-muted: color-mix(in srgb, var(--pf-light) 72%, var(--pf-bg-2));
+    --color-muted: color-mix(in srgb, var(--pf-light) 80%, var(--pf-bg-2));
     --color-primary: var(--pf-primary);         /* accents, bars, dots: never small text */
     --color-primary-ink: var(--pf-primary-text); /* tiles and buttons that carry white text */
     --color-light: var(--pf-light);
@@ -51,6 +52,7 @@
 @layer base {
     html {
         -webkit-text-size-adjust: 100%;
+        color-scheme: dark;
     }
 
     body {
@@ -92,7 +94,7 @@
     }
 
     .input, .select, .textarea {
-        @apply w-full rounded-[10px] bg-raised border border-line px-3 py-2 text-[15px] text-ink placeholder:text-muted/80;
+        @apply w-full rounded-[10px] bg-raised border border-line px-3 py-2 text-[15px] text-ink placeholder:text-muted;
         min-height: 44px;
     }
 
@@ -115,10 +117,24 @@
     .textarea {
         @apply leading-relaxed;
         min-height: 96px;
+        field-sizing: content;
+        max-height: 18rem;
     }
 
+    /* Custom checkbox: readable when checked and when disabled. */
     .checkbox {
-        @apply size-5 rounded border-line bg-raised accent-[var(--pf-primary-text)];
+        @apply size-5 shrink-0 appearance-none rounded-[5px] border-2 border-line bg-raised cursor-pointer;
+        border-color: color-mix(in srgb, var(--pf-light) 45%, transparent);
+    }
+
+    .checkbox:checked {
+        border-color: transparent;
+        background: var(--pf-primary-text) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 14px no-repeat;
+    }
+
+    .checkbox:disabled {
+        @apply cursor-not-allowed;
+        opacity: 0.7;
     }
 
     .btn {
@@ -147,8 +163,8 @@
         @apply bg-light text-navy hover:brightness-95;
     }
 
-    .btn:disabled {
-        @apply opacity-50 cursor-not-allowed;
+    .btn:disabled, .btn[aria-disabled='true'] {
+        @apply opacity-70 cursor-not-allowed border-dashed;
     }
 
     .chip {
@@ -170,6 +186,7 @@
 
     .kind-offer {
         @apply bg-white text-navy;
+        box-shadow: inset 0 4px 0 var(--pf-primary);
     }
 
     .tab {

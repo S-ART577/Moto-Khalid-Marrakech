@@ -28,7 +28,7 @@ class RadarTest extends TestCase
 
     private function texts(): array
     {
-        return array_column((new Radar(collect([$this->groshop])))->warnings(), 'text');
+        return array_map(fn ($w) => ($w['subject'] ? $w['subject'].': ' : '').$w['text'], (new Radar(collect([$this->groshop])))->warnings());
     }
 
     private function assertWarning(string $needle): void

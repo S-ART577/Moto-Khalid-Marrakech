@@ -101,6 +101,7 @@ class ImportExport extends Component
         return view('livewire.import-export', [
             'columnOptions' => collect($this->headers)->mapWithKeys(fn ($header) => [Csv::key($header) => $header])->all(),
             'exportFrom' => CarbonImmutable::parse($this->from ?: now()),
+            'platformNames' => \App\Models\Platform::pluck('name', 'key'),
         ])->title(__('Import / export'));
     }
 }

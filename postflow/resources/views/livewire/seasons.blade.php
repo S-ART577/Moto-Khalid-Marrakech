@@ -81,7 +81,7 @@
         </form>
     @endif
 
-    <div id="seasons-sheet" class="bg-bg">
+    <div id="seasons-sheet">
     @foreach ($sections as $key => $label)
         @continue($groups[$key]->isEmpty())
         <section class="mb-8" aria-labelledby="seasons-{{ $key }}" @if ($key === 'past') x-data="{ open: false }" @endif>
@@ -127,9 +127,10 @@
                             @if ($key !== 'past')
                                 <dl class="mt-2 grid grid-cols-2 gap-2 text-[15px]">
                                     @foreach ([[__('Shoot by'), $shoot], [__('Design by'), $design]] as [$what, $info])
-                                        <div @class(['rounded-[10px] px-3 py-2', 'bg-raised' => $info['state'] === 'ok', 'border-2 border-primary' => $info['state'] === 'soon', 'border border-line text-muted line-through decoration-1' => $info['state'] === 'passed'])>
+                                        <div @class(['rounded-[10px] px-3 py-2', 'bg-raised' => $info['state'] === 'ok', 'border-2 border-primary' => $info['state'] === 'soon', 'border border-line text-muted' => $info['state'] === 'passed'])>
                                             <dt class="text-sm text-muted no-underline">{{ $what }}</dt>
-                                            <dd class="font-semibold">{{ $info['text'] }} <span class="font-normal text-muted">· {{ $info['when'] }}</span></dd>
+                                            <dd @class(['font-semibold', 'line-through' => $info['state'] === 'passed'])>{{ $info['text'] }}</dd>
+                                            <dd class="text-sm text-muted whitespace-nowrap">{{ $info['when'] }}</dd>
                                         </div>
                                     @endforeach
                                 </dl>

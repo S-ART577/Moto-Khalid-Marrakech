@@ -44,9 +44,9 @@
         </select>
     </div>
 
-    <div id="pipeline-sheet" class="bg-bg">
+    <div id="pipeline-sheet">
     @if ($view === 'board')
-        <div class="-mx-4 lg:-mx-8 px-4 lg:px-8 relative overflow-x-auto pb-4 snap-x snap-mandatory lg:snap-none">
+        <div class="-mx-4 lg:-mx-8 px-4 lg:px-8 relative overflow-x-auto pb-4 snap-x snap-mandatory scroll-px-4 lg:snap-none">
             <div class="grid grid-flow-col auto-cols-[minmax(260px,82vw)] sm:auto-cols-[minmax(260px,300px)] gap-3 items-start">
                 @foreach (\App\Enums\Stage::cases() as $stage)
                     @php
@@ -104,11 +104,16 @@
                                         <span class="block text-sm text-muted mt-0.5">{{ $showBrand ? $post->brand->name.' · ' : '' }}{{ $post->series?->name }}</span>
                                     </button>
                                 </td>
-                                <td class="whitespace-nowrap">{{ $post->planned_at ? ucfirst($post->planned_at->isoFormat('ddd D MMM, HH:mm')) : __('No date') }}</td>
-                                <td class="whitespace-nowrap">{{ $post->owner?->name ?? '-' }}</td>
+                                <td class="whitespace-nowrap">
+                                    {{ $post->planned_at ? ucfirst($post->planned_at->isoFormat('ddd D MMM, HH:mm')) : __('No date') }}
+                                    @if ($post->variants->contains(fn ($v) => $v->isOverdue()))
+                                        <span class="chip bg-primary-ink text-white ml-1"><x-icon name="alert" class="size-3.5" /> {{ __('Overdue') }}</span>
+                                    @endif
+                                </td>
+                                <td class="whitespace-nowrap">{{ $post->owner?->name ?? '—' }}</td>
                                 <td @class(['whitespace-nowrap', 'font-semibold' => $late])>
                                     @if ($late)<x-icon name="alert" class="size-4 inline text-primary" /> {{ __('Late') }} ·@endif
-                                    {{ $post->due_on?->isoFormat('ddd D MMM') ?? '-' }}
+                                    {{ $post->due_on ? ucfirst($post->due_on->isoFormat('ddd D MMM')) : '—' }}
                                 </td>
                                 <td class="tabular-nums">{{ $total ? $done.'/'.$total : '-' }}</td>
                                 <td>

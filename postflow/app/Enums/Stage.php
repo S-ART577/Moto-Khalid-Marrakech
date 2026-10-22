@@ -18,7 +18,7 @@ enum Stage: string
         return match ($this) {
             self::Brief => __('Brief'),
             self::Shoot => __('Shoot'),
-            self::Edit => __('Edit'),
+            self::Edit => __('Editing'),
             self::Design => __('Design'),
             self::Review => __('Review'),
             self::Scheduled => __('Scheduled'),

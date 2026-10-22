@@ -92,27 +92,27 @@
 
                                 {{-- Step 1-3: copy, get the file, open the app --}}
                                 <div class="grid grid-cols-2 gap-2">
-                                    <button type="button" class="btn btn-secondary" @disabled(blank($variant->caption))
+                                    <button type="button" class="btn btn-secondary px-2 gap-1.5 text-[14px]" @disabled(blank($variant->caption))
                                             x-on:click="if (await window.pfCopy(@js($variant->caption))) flash('caption')">
                                         <x-icon name="copy" class="size-4" />
                                         <span x-show="copied !== 'caption'">{{ __('Copy caption') }}</span>
                                         <span x-show="copied === 'caption'" x-cloak>{{ __('Copied') }}</span>
                                     </button>
-                                    <button type="button" class="btn btn-secondary" @disabled(blank($variant->hashtags))
+                                    <button type="button" class="btn btn-secondary px-2 gap-1.5 text-[14px]" @disabled(blank($variant->hashtags))
                                             x-on:click="if (await window.pfCopy(@js($variant->hashtags))) flash('tags')">
                                         <x-icon name="copy" class="size-4" />
                                         <span x-show="copied !== 'tags'">{{ __('Copy hashtags') }}</span>
                                         <span x-show="copied === 'tags'" x-cloak>{{ __('Copied') }}</span>
                                     </button>
                                     @forelse ($assets as $asset)
-                                        <a href="{{ $asset->downloadUrl() ?? $asset->url }}" target="_blank" rel="noopener" class="btn btn-secondary" title="{{ $asset->label }}">
+                                        <a href="{{ $asset->downloadUrl() ?? $asset->url }}" target="_blank" rel="noopener" class="btn btn-secondary px-2 gap-1.5 text-[14px]" title="{{ $asset->label }}">
                                             <x-icon :name="$asset->downloadUrl() ? 'download' : 'external'" class="size-4" />
                                             <span class="truncate">{{ $asset->downloadUrl() ? __('Download') : __('Open file') }}</span>
                                         </a>
                                     @empty
-                                        <span class="btn btn-secondary opacity-50 cursor-not-allowed" aria-disabled="true"><x-icon name="link" class="size-4" /> {{ __('No file') }}</span>
+                                        <span class="btn btn-secondary px-2 gap-1.5 text-[14px]" aria-disabled="true"><x-icon name="link" class="size-4" /> {{ __('No file') }}</span>
                                     @endforelse
-                                    <a href="{{ $variant->platform->openUrlFor($post->brand) }}" target="_blank" rel="noopener" class="btn btn-light">
+                                    <a href="{{ $variant->platform->openUrlFor($post->brand) }}" target="_blank" rel="noopener" class="btn btn-light px-2 gap-1.5 text-[14px]">
                                         <x-icon name="external" class="size-4" /> {{ __('Open :platform', ['platform' => $variant->platform->name]) }}
                                     </a>
                                 </div>
@@ -130,7 +130,7 @@
                                             </button>
                                         </div>
                                         @error('urls.'.$variant->id)<p class="text-sm"><x-icon name="alert" class="size-4 inline text-primary" /> {{ $message }}</p>@enderror
-                                        <div class="flex flex-wrap gap-2">
+                                        <div class="flex gap-2">
                                             <button type="button" wire:click="markPosted({{ $variant->id }})" class="btn btn-primary flex-1"><x-icon name="check" class="size-4" /> {{ __('Confirm posted') }}</button>
                                             <button type="button" wire:click="$set('confirming', null)" class="btn btn-ghost">{{ __('Cancel') }}</button>
                                         </div>

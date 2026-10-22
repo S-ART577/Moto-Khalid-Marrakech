@@ -43,7 +43,7 @@
 
                     <dl class="text-[15px] space-y-1">
                         <div class="flex gap-2"><dt class="text-muted shrink-0">{{ __('Rhythm') }}</dt><dd>{{ $brand->rhythmLabel() ?: '-' }}</dd></div>
-                        <div class="flex gap-2"><dt class="text-muted shrink-0">{{ __('Series') }}</dt><dd>{{ $brand->series->pluck('name')->implode(', ') ?: '-' }}</dd></div>
+                        <div class="flex gap-2"><dt class="text-muted shrink-0">{{ __('Content series') }}</dt><dd>{{ $brand->series->pluck('name')->implode(', ') ?: '-' }}</dd></div>
                         <div class="flex gap-2"><dt class="text-muted shrink-0">{{ __('Team') }}</dt><dd>{{ $brand->users->pluck('name')->implode(', ') ?: __('Admin only') }}</dd></div>
                     </dl>
 

@@ -67,6 +67,9 @@
                             <button type="button" wire:click="deleteMember({{ $person->id }})" wire:confirm="{{ __('Remove :name from the team?', ['name' => $person->name]) }}" class="btn btn-ghost btn-sm" title="{{ __('Remove') }}">
                                 <x-icon name="trash" class="size-4" /><span class="sr-only">{{ __('Remove') }}</span>
                             </button>
+                        @else
+                            {{-- Keeps the Edit buttons aligned --}}
+                            <span class="inline-block w-9" aria-hidden="true"></span>
                         @endif
                     </li>
                 @endforeach

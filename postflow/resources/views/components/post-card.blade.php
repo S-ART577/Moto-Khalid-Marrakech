@@ -22,7 +22,6 @@
     </span>
     <span class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
         <x-avatar :user="$post->owner" size="size-6" />
-        <span>{{ $post->stage->label() }}</span>
-        @if ($total)<span class="tabular-nums" title="{{ __('Checklist') }}">{{ $done }}/{{ $total }}</span>@endif
+        <span class="whitespace-nowrap">{{ $post->stage->label() }}@if ($total) · <span class="tabular-nums" title="{{ __('Checklist') }}">{{ $done }}/{{ $total }}</span>@endif</span>
     </span>
 </button>

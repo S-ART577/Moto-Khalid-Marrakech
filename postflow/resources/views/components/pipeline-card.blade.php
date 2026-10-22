@@ -9,6 +9,9 @@
         <span class="flex flex-wrap items-center gap-x-2 gap-y-1">
             <x-kind-chip :post="$post" />
             <span class="text-sm text-muted">{{ $post->planned_at ? ucfirst($post->planned_at->isoFormat('ddd D MMM')) : __('No date') }}</span>
+            @if ($post->variants->contains(fn ($v) => $v->isOverdue()))
+                <span class="chip bg-primary-ink text-white"><x-icon name="alert" class="size-3.5" /> {{ __('Overdue') }}</span>
+            @endif
         </span>
         <span class="font-display font-semibold leading-snug" dir="auto">{{ $post->title }}</span>
         <span class="text-sm text-muted">{{ $showBrand ? $post->brand->name.' · ' : '' }}{{ $post->series?->name ?? __('No series') }}</span>
@@ -16,7 +19,8 @@
     <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
         <x-avatar :user="$post->owner" size="size-6" />
         @if ($post->due_on)
-            <span @class(['flex items-center gap-1', 'text-ink font-semibold' => $late])>
+            <span @class(['flex items-center gap-1', 'text-ink font-semibold' => $late]) title="{{ __('Production due') }}">
+                <span class="sr-only">{{ __('Production due') }}</span>
                 <x-icon :name="$late ? 'alert' : 'clock'" @class(['size-4', 'text-primary' => $late]) />
                 {{ $late ? __('Late') . ' · ' : '' }}{{ $post->due_on->isoFormat('D MMM') }}
             </span>

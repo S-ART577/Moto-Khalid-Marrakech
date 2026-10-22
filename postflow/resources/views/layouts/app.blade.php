@@ -89,16 +89,17 @@
                             <li>
                                 <a href="{{ route('brand.switch', ['brand' => 'all']) }}"
                                    @class(['chip h-10 px-3 border', 'border-primary bg-raised text-ink' => ! $currentBrand, 'border-line text-muted hover:text-ink' => $currentBrand])
-                                   @if (! $currentBrand) aria-current="true" @endif>{{ __('All brands') }}</a>
+                                   @if (! $currentBrand) aria-current="true" @endif><span class="hidden sm:inline">{{ __('All brands') }}</span><span class="sm:hidden">{{ __('All') }}</span></a>
                             </li>
                         @endif
                         @foreach ($context->brands() as $brand)
                             <li>
                                 <a href="{{ route('brand.switch', ['brand' => $brand->id]) }}"
-                                   @class(['chip h-10 pl-1.5 pr-3 border', 'border-primary bg-raised text-ink' => $currentBrand?->is($brand), 'border-line text-muted hover:text-ink' => ! $currentBrand?->is($brand)])
-                                   @if ($currentBrand?->is($brand)) aria-current="true" @endif>
+                                   @class(['chip h-10 pl-1.5 pr-1.5 sm:pr-3 border', 'border-primary bg-raised text-ink' => $currentBrand?->is($brand), 'border-line text-muted hover:text-ink' => ! $currentBrand?->is($brand)])
+                                   @if ($currentBrand?->is($brand)) aria-current="true" @endif title="{{ $brand->name }}">
                                     <x-brand-mark :brand="$brand" size="size-7" />
-                                    {{ $brand->name }}
+                                    {{-- On a phone only the logo shows, so every brand fits. --}}
+                                    <span class="hidden sm:inline">{{ $brand->name }}</span><span class="sr-only sm:hidden">{{ $brand->name }}</span>
                                 </a>
                             </li>
                         @endforeach
@@ -121,7 +122,7 @@
 </div>
 
 {{-- Mobile bottom navigation --}}
-<nav aria-label="{{ __('Main') }}" class="no-print lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-line bg-bg/95 backdrop-blur pb-[env(safe-area-inset-bottom)]"
+<nav aria-label="{{ __('Main') }}" class="no-print lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-line bg-bg pb-[env(safe-area-inset-bottom)]"
      x-data="{ more: false }" x-on:keydown.escape.window="more = false">
     <ul class="grid grid-cols-5">
         @foreach ($mobileMain as $item)
@@ -140,6 +141,7 @@
             </button>
         </li>
     </ul>
+    <div x-show="more" x-cloak class="fixed inset-0 -z-10 bg-navy/70" x-on:click="more = false" aria-hidden="true"></div>
     <div id="more-menu" x-show="more" x-cloak x-on:click.outside="more = false" class="absolute bottom-full inset-x-3 mb-2 card p-2 shadow-2xl">
         @foreach ($mobileMore as $item)
             <a href="{{ route($item['route']) }}" class="flex items-center gap-3 rounded-[10px] px-3 py-3 font-medium hover:bg-light/5">

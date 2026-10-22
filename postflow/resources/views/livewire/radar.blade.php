@@ -6,7 +6,7 @@
     $showBrand = $this->brands->count() > 1;
     $levels = [
         'urgent' => ['label' => __('Now'), 'class' => 'bg-primary-ink text-white'],
-        'soon' => ['label' => __('This week'), 'class' => 'bg-light text-navy'],
+        'soon' => ['label' => __('Next 7 days'), 'class' => 'bg-light text-navy'],
         'gap' => ['label' => __('Gap'), 'class' => 'bg-raised text-ink'],
         'info' => ['label' => __('Season'), 'class' => 'bg-raised text-ink'],
     ];
@@ -17,7 +17,7 @@
             <x-export-menu target="radar-sheet" :filename="'radar-'.$month->format('Y-m')" />
         </x-slot:actions>
     </x-page-header>
-    <div id="radar-sheet" class="bg-bg">
+    <div id="radar-sheet">
 
     {{-- Needs attention --}}
     <section class="mb-8" aria-labelledby="attention-title">
@@ -32,7 +32,12 @@
                             <x-icon :name="$warning['icon']" class="size-4" /> {{ $levels[$warning['level']]['label'] }}
                         </span>
                         <p class="basis-full sm:basis-auto order-last sm:order-none flex-1 min-w-0 pt-0.5" dir="auto">
-                            @if ($showBrand && $warning['brand'])<span class="font-semibold">{{ $warning['brand']->name }}</span> · @endif{{ $warning['text'] }}
+                            @if ($warning['subject'] || ($showBrand && $warning['brand']))
+                                <span class="block font-semibold">
+                                    @if ($showBrand && $warning['brand']){{ $warning['brand']->name }}@if ($warning['subject']) · @endif@endif{{ $warning['subject'] }}
+                                </span>
+                            @endif
+                            <span class="block">{{ $warning['text'] }}</span>
                         </p>
                         @if ($warning['post_id'])
                             <button type="button" x-on:click="$dispatch('open-post', { id: {{ $warning['post_id'] }} })" class="btn btn-ghost btn-sm shrink-0 ml-auto sm:ml-0">{{ __('Open') }}</button>
@@ -97,7 +102,7 @@
                                                             'inline-flex items-center justify-center gap-1 min-w-16 rounded-md px-2 py-1 tabular-nums font-semibold',
                                                             'bg-light text-navy' => $short <= 0,
                                                             'border-2 border-primary text-ink' => $short > 0 && ! $cell['past'],
-                                                            'border border-line text-muted' => $short > 0 && $cell['past'],
+                                                            'border border-dashed border-muted text-muted' => $short > 0 && $cell['past'],
                                                         ]) title="{{ __(':planned planned, target :target', ['planned' => $cell['planned'], 'target' => $cell['target']]) }}">
                                                             @if ($short <= 0)<x-icon name="check" class="size-3.5" />@endif
                                                             {{ $cell['planned'] }}/{{ $cell['target'] }}
@@ -113,7 +118,7 @@
                             <p class="mt-2 text-sm text-muted flex flex-wrap gap-x-4 gap-y-1">
                                 <span class="flex items-center gap-1.5"><span class="size-3 rounded-sm bg-light" aria-hidden="true"></span>{{ __('Target met') }}</span>
                                 <span class="flex items-center gap-1.5"><span class="size-3 rounded-sm border-2 border-primary" aria-hidden="true"></span>{{ __('Still missing') }}</span>
-                                <span class="flex items-center gap-1.5"><span class="size-3 rounded-sm border border-line" aria-hidden="true"></span>{{ __('Past week, missed') }}</span>
+                                <span class="flex items-center gap-1.5"><span class="size-3 rounded-sm border border-dashed border-muted" aria-hidden="true"></span>{{ __('Past week, missed') }}</span>
                             </p>
                         @endif
                     </div>
@@ -137,8 +142,8 @@
                                 @if ($loop->first || $mix[$loop->index - 1]['group'] !== $row['group'])
                                     <dt class="eyebrow text-muted pt-2">{{ $row['group'] }}</dt>
                                 @endif
-                                <dd class="grid grid-cols-[minmax(0,9rem)_1fr_3.5rem] items-center gap-3" title="{{ $tooltip }}">
-                                    <span class="truncate text-[15px]">{{ $row['label'] }}</span>
+                                <dd class="grid grid-cols-[minmax(0,12rem)_1fr_3.5rem] items-center gap-3" title="{{ $tooltip }}">
+                                    <span class="break-words leading-snug text-[15px]">{{ $row['label'] }}</span>
                                     <span class="relative h-5 flex items-center" aria-hidden="true">
                                         <span class="absolute inset-x-0 h-px bg-line"></span>
                                         <span class="relative h-3 rounded-r-[4px] bg-light" style="width: {{ $plannedPct }}%"></span>

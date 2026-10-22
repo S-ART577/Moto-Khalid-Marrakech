@@ -61,9 +61,9 @@ class Radar
             ->whereHas('variants', fn ($q) => $q->where('status', VariantStatus::Planned)->where('publish_at', '<', $this->now))
             ->get();
 
-        return $posts->map(fn (Post $post) => $this->warning('urgent', 'alert', $brand, $this->postPrefix($post).__(':platforms not marked as posted', [
+        return $posts->map(fn (Post $post) => $this->warning('urgent', 'alert', $brand, __(':platforms not marked as posted', [
             'platforms' => $post->variants->filter->isOverdue()->map(fn ($v) => $v->platform->name)->implode(', '),
-        ]), $post->id))->all();
+        ]), $post->id, $this->subject($post)))->all();
     }
 
     /** What is still missing on the posts of the next 7 days: captions, files, production. */
@@ -93,7 +93,7 @@ class Radar
 
             if ($issues) {
                 $level = $post->planned_at->lte($this->now->addHours(48)) ? 'urgent' : 'soon';
-                $warnings[] = $this->warning($level, 'clock', $brand, $this->postPrefix($post).implode(' · ', $issues), $post->id);
+                $warnings[] = $this->warning($level, 'clock', $brand, implode(' · ', $issues), $post->id, $this->subject($post));
             }
         }
 
@@ -292,13 +292,14 @@ class Radar
             ->get();
     }
 
-    private function postPrefix(Post $post): string
+    /** "Sat 24 Oct · Livraison Day #1", shown above the problem. */
+    private function subject(Post $post): string
     {
-        return ucfirst($post->planned_at?->isoFormat('ddd D MMM') ?? '').' · '.$post->title.': ';
+        return ucfirst($post->planned_at?->isoFormat('ddd D MMM') ?? '').' · '.$post->title;
     }
 
-    private function warning(string $level, string $icon, ?Brand $brand, string $text, ?int $postId = null): array
+    private function warning(string $level, string $icon, ?Brand $brand, string $text, ?int $postId = null, ?string $subject = null): array
     {
-        return ['level' => $level, 'icon' => $icon, 'brand' => $brand, 'text' => $text, 'post_id' => $postId];
+        return ['level' => $level, 'icon' => $icon, 'brand' => $brand, 'text' => $text, 'post_id' => $postId, 'subject' => $subject];
     }
 }
