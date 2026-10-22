@@ -12,6 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Hosting platforms (Laravel Cloud, etc.) sit behind a proxy that handles HTTPS.
+        $middleware->trustProxies(at: '*');
         $middleware->web(append: [\App\Http\Middleware\SetLocale::class]);
         $middleware->redirectGuestsTo('/login');
         $middleware->redirectUsersTo('/');

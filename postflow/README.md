@@ -66,6 +66,18 @@ calendar and set its date to today.
 php artisan test
 ```
 
+## 1b. Put it online without touching code (Laravel Cloud)
+
+1. Go to cloud.laravel.com and sign up with your GitHub account.
+2. Create a new application from the repository `S-ART577/Moto-Khalid-Marrakech`, branch
+   `claude/friendly-keller-q1uh2b`, folder `postflow`. Pick a region in Europe.
+3. Add a **MySQL database** to the environment (Cloud fills in the connection for you).
+4. In the deploy commands, keep `php artisan migrate --force` and add `php artisan postflow:install`
+   on the next line. It fills an empty database with the GROSHOP plan and the two logins, and does nothing afterwards.
+5. Click **Deploy**, then open the address Cloud gives you and log in. Change the passwords in **Settings**.
+
+Brand logos uploaded on Cloud need an object-storage bucket to survive a redeploy; without one, re-upload them after a deploy.
+
 ---
 
 ## 2. Where things are
