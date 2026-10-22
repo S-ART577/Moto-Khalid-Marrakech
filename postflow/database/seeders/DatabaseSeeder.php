@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             PlatformSeeder::class,
             SeasonalEventSeeder::class,
             DemoSeeder::class,
+            DemoHistorySeeder::class, // sample September history + numbers (remove to skip)
         ]);
     }
 }

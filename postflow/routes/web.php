@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\PushSubscriptionController;
 use App\Http\Controllers\SessionController;
 use App\Livewire;
@@ -28,6 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::livewire('/radar', Livewire\Radar::class)->name('radar');
     Route::livewire('/pipeline', Livewire\Pipeline::class)->name('pipeline');
     Route::livewire('/seasons', Livewire\Seasons::class)->name('seasons');
+    Route::livewire('/performance', Livewire\Performance::class)->name('performance');
+
+    Route::get('/export/posts.csv', [ExportController::class, 'posts'])->name('export.posts');
+    Route::get('/export/numbers.csv', [ExportController::class, 'metrics'])->name('export.metrics');
     Route::livewire('/settings', Livewire\Settings::class)->name('settings');
 
     Route::middleware('can:admin')->group(function () {
