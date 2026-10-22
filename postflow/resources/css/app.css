@@ -1,0 +1,210 @@
+@import 'tailwindcss';
+
+/* Fonts are bundled (no Google request): Poppins for titles, Inter for text,
+   IBM Plex Sans Arabic for Arabic / Darija captions. */
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/700.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/ibm-plex-sans-arabic/400.css';
+@import '@fontsource/ibm-plex-sans-arabic/600.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+/*
+ * Colour tokens. The --pf-* values are written by the layout from the selected
+ * brand (Brands > Identity), so every brand can use its own palette.
+ * Defaults = GROSHOP.
+ */
+:root {
+    --pf-bg: #102533;
+    --pf-bg-2: #17344c;
+    --pf-primary: #f02443;
+    --pf-primary-text: #d61e3a;
+    --pf-light: #dfebf7;
+    --pf-accent: #43dde6;
+}
+
+@theme inline {
+    --font-sans: 'Inter', 'IBM Plex Sans Arabic', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Poppins', 'IBM Plex Sans Arabic', ui-sans-serif, system-ui, sans-serif;
+    --font-arabic: 'IBM Plex Sans Arabic', 'Inter', sans-serif;
+
+    --color-bg: var(--pf-bg);
+    --color-bg2: var(--pf-bg-2);
+    --color-surface: var(--pf-bg-2);
+    --color-raised: color-mix(in srgb, var(--pf-bg-2) 86%, var(--pf-light));
+    --color-line: color-mix(in srgb, var(--pf-light) 14%, transparent);
+    --color-ink: var(--pf-light);
+    --color-muted: color-mix(in srgb, var(--pf-light) 72%, var(--pf-bg-2));
+    --color-primary: var(--pf-primary);         /* accents, bars, dots: never small text */
+    --color-primary-ink: var(--pf-primary-text); /* tiles and buttons that carry white text */
+    --color-light: var(--pf-light);
+    --color-accent: var(--pf-accent);           /* used rarely: focus ring, "today" marker, seasonal band */
+    --color-navy: #102533;
+
+    --radius-card: 12px;
+}
+
+@layer base {
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        @apply bg-bg text-ink font-sans antialiased;
+        font-size: 15px;
+        line-height: 1.5;
+        background-image: linear-gradient(180deg, var(--pf-bg) 0%, var(--pf-bg-2) 140%);
+        background-attachment: fixed;
+        min-height: 100dvh;
+    }
+
+    h1, h2, h3, .font-display {
+        font-family: var(--font-display);
+        letter-spacing: -0.01em;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--pf-accent);
+        outline-offset: 2px;
+        border-radius: 6px;
+    }
+
+    [dir='rtl'], .rtl-aware:dir(rtl) {
+        font-family: var(--font-arabic);
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+}
+
+@layer components {
+    .card {
+        @apply rounded-[12px] bg-surface border border-line;
+    }
+
+    .label {
+        @apply block text-sm font-medium text-muted mb-1;
+    }
+
+    .input, .select, .textarea {
+        @apply w-full rounded-[10px] bg-raised border border-line px-3 py-2 text-[15px] text-ink placeholder:text-muted/80;
+        min-height: 44px;
+    }
+
+    .input:disabled, .select:disabled, .textarea:disabled {
+        @apply opacity-60 cursor-not-allowed;
+    }
+
+    .select {
+        @apply pr-8 appearance-none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23dfebf7' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.6rem center;
+    }
+
+    .select option {
+        background: var(--pf-bg-2);
+        color: var(--pf-light);
+    }
+
+    .textarea {
+        @apply leading-relaxed;
+        min-height: 96px;
+    }
+
+    .checkbox {
+        @apply size-5 rounded border-line bg-raised accent-[var(--pf-primary-text)];
+    }
+
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-[10px] px-4 text-[15px] font-semibold whitespace-nowrap transition-colors select-none;
+        min-height: 44px;
+    }
+
+    .btn-sm {
+        @apply px-3 text-sm;
+        min-height: 36px;
+    }
+
+    .btn-primary {
+        @apply bg-primary-ink text-white hover:brightness-110;
+    }
+
+    .btn-secondary {
+        @apply bg-raised text-ink border border-line hover:bg-light/10;
+    }
+
+    .btn-ghost {
+        @apply text-ink hover:bg-light/10;
+    }
+
+    .btn-light {
+        @apply bg-light text-navy hover:brightness-95;
+    }
+
+    .btn:disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+
+    .chip {
+        @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-sm font-medium leading-6;
+    }
+
+    .eyebrow {
+        @apply text-[12px] font-semibold uppercase tracking-[0.08em];
+    }
+
+    /* Post colours, as on the printed calendar: video = red, static = light, offer = white. */
+    .kind-video {
+        @apply bg-primary-ink text-white;
+    }
+
+    .kind-static {
+        @apply bg-light text-navy;
+    }
+
+    .kind-offer {
+        @apply bg-white text-navy;
+    }
+
+    .tab {
+        @apply px-3 py-2 text-[15px] font-medium text-muted border-b-2 border-transparent hover:text-ink;
+    }
+
+    .tab[aria-selected='true'], .tab.is-active {
+        @apply text-ink border-primary;
+    }
+
+    .table-pf {
+        @apply w-full text-left text-[15px];
+    }
+
+    .table-pf th {
+        @apply px-3 py-2 text-sm font-medium text-muted border-b border-line whitespace-nowrap;
+    }
+
+    .table-pf td {
+        @apply px-3 py-2.5 border-b border-line align-top;
+    }
+}
+
+/* Printing / "Save as PDF": white paper, no navigation. */
+@media print {
+    body {
+        background: #fff !important;
+        color: #102533 !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .print-area {
+        color: #102533;
+    }
+}
