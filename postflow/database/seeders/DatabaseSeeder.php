@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             PlatformSeeder::class,
+            SeasonalEventSeeder::class,
             DemoSeeder::class,
         ]);
     }

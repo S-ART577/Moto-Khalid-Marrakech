@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Format;
 use App\Enums\Role;
 use App\Models\Brand;
 use App\Models\Platform;
+use App\Models\Post;
+use Carbon\CarbonImmutable;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -44,6 +47,217 @@ class DemoSeeder extends Seeder
         $moto = $this->motoKhalid();
 
         $this->cm->brands()->sync([$groshop->id, $moto->id]);
+
+        // Posts are only created once, so re-running the seeder never duplicates them.
+        if (! $groshop->posts()->exists()) {
+            $this->groshopOctoberPlan($groshop);
+        }
+        if (! $moto->posts()->exists()) {
+            $this->motoKhalidPosts($moto);
+        }
+    }
+
+    /**
+     * The GROSHOP October 2026 plan: 6 posts (4 video, 2 static) from Tue 20 Oct.
+     * Tue video · Thu static · Sat video.
+     */
+    private function groshopOctoberPlan(Brand $brand): void
+    {
+        $series = $brand->series()->pluck('id', 'name');
+        $family = $brand->productFamilies()->pluck('id', 'name');
+        $tags = '#groshop #growbeyond #maroc #marrakech #casablanca #tech';
+
+        $wait = $this->post($brand, [
+            'title' => 'Wait... same price? Earbuds alone vs the full pack',
+            'series_id' => $series['Wait... same price?'],
+            'product_family_id' => $family['Audio'],
+            'format' => 'video',
+            'planned_at' => '2026-10-20 20:00',
+            'stage' => 'posted',
+            'owner_id' => $this->admin->id,
+            'due_on' => '2026-10-18',
+            'brief' => "Hook: \"Wait... tqder tkhod l'écouteurs bo7dhom b [prix]...\" [pause 0.5 s] \"...wla takhod pack kamel b nefs taman?\"\nOn-screen: نفس الثمن؟\nFirst frame: earbuds alone, spotlight on navy.\nProof: paiement à la livraison. CTA: Sift GRO f DM.\nPrice: confirm with the shop before posting.",
+        ], [
+            'tiktok' => ['20:00', "Wait... tqder takhod pack kamel b nefs taman? Sift 'GRO' f DM. Livraison 24/48h, paiement à la livraison.", $tags.' #ecouteurs', 'posted'],
+            'instagram' => ['20:00', "Wait... nefs taman, pack kamel. Sauvegardi had reel 9bel ma t-nsah. Sift 'GRO' f DM.", $tags.' #ecouteurs', 'posted'],
+            'facebook' => ['20:15', "Wait... nefs taman, pack kamel? Commandez sur WhatsApp. Paiement à la livraison.", $tags, 'posted'],
+            'snapchat' => ['21:00', 'نفس الثمن؟ شوف الباك كامل. التوصيل 24/48 ساعة والدفع عند الاستلام.', '', 'planned'],
+        ], checklistDone: 6);
+
+        $verified = $this->post($brand, [
+            'title' => 'Verified by Groshop: carousel template',
+            'series_id' => $series['Verified by Groshop'],
+            'product_family_id' => $family['Montres connectées'],
+            'format' => 'static',
+            'planned_at' => '2026-10-22 18:00',
+            'stage' => 'scheduled',
+            'owner_id' => $this->cm->id,
+            'due_on' => '2026-10-21',
+            'brief' => "Carousel, 5 slides: 1 the watch, 2 what we test, 3 garantie jusqu'à 1 an, 4 SAV certifié, 5 CTA WhatsApp.\nThis becomes the template for every Verified by Groshop post.",
+        ], [
+            'instagram' => ['18:00', "Kol montre katdouz men 3ndna 9bel ma twsel lik: test, garantie, SAV. Verified by Groshop. Sauvegardi had post.", $tags.' #smartwatch', 'planned', 'carousel'],
+            'facebook' => ['18:30', "Avant d'arriver chez vous, chaque montre est testée. Garantie jusqu'à 1 an, SAV certifié. Verified by Groshop.", $tags.' #smartwatch', 'planned', 'carousel'],
+            'tiktok' => ['20:00', "Verified by Groshop: chno kan-testiw 9bel ma nbi3ou. Sift 'GRO' f DM.", $tags.' #smartwatch', 'planned', 'photo'],
+        ], checklistDone: 4, asset: ['Carousel 5 slides (final)', 'https://drive.google.com/file/d/1DemoVerifiedCarousel01/view']);
+
+        $livraison = $this->post($brand, [
+            'title' => 'Livraison Day #1: from the packing table to the door',
+            'series_id' => $series['Livraison Day'],
+            'format' => 'video',
+            'planned_at' => '2026-10-24 20:00',
+            'stage' => 'edit',
+            'owner_id' => $this->admin->id,
+            'due_on' => '2026-10-23',
+            'brief' => "Behind the scenes: packing, the courier picks up, a customer opens the box at the door.\nProof: paiement à la livraison, 24/48h. CTA: commandez sur WhatsApp.",
+        ], [
+            'tiktok' => ['20:00', "Livraison Day: men l'emballage 7tal bab dar. Paiement à la livraison.", $tags.' #livraison'],
+            'instagram' => ['20:00', '', $tags.' #livraison'],
+            'facebook' => ['20:15', '', $tags],
+            'snapchat' => ['21:00', '', ''],
+        ], checklistDone: 3, asset: ['Rushes 23 Oct', 'https://drive.google.com/drive/folders/1DemoLivraisonRushes']);
+
+        $this->post($brand, [
+            'title' => 'Wait... same price? Smartwatch alone vs the pack',
+            'series_id' => $series['Wait... same price?'],
+            'product_family_id' => $family['Montres connectées'],
+            'format' => 'video',
+            'planned_at' => '2026-10-27 20:00',
+            'stage' => 'shoot',
+            'owner_id' => $this->admin->id,
+            'due_on' => '2026-10-25',
+        ], [
+            'tiktok' => ['20:00', '', $tags], 'instagram' => ['20:00', '', $tags], 'facebook' => ['20:15', '', $tags], 'snapchat' => ['21:00', '', ''],
+        ], checklistDone: 1);
+
+        $this->post($brand, [
+            'title' => 'Black Friday early access: message us on WhatsApp',
+            'series_id' => $series['Offer & Seasonal'],
+            'format' => 'static',
+            'is_offer' => true,
+            'planned_at' => '2026-10-29 20:00',
+            'stage' => 'design',
+            'owner_id' => $this->cm->id,
+            'due_on' => '2026-10-27',
+            'brief' => "Ask followers to message the shop on WhatsApp to hear the Black Friday offers first. Black Friday is 27 Nov.\nNo prices yet.",
+        ], [
+            'instagram' => ['20:00', "Black Friday jay. Bghiti tkoun l'awel? Sift 'BF' f WhatsApp w ghadi nsiftou lik l'offres 9bel ga3.", $tags.' #blackfriday', 'planned', 'post'],
+            'facebook' => ['20:00', 'Black Friday arrive. Envoyez "BF" sur WhatsApp pour recevoir les offres en avant-première.', $tags.' #blackfriday', 'planned', 'post'],
+            'tiktok' => ['20:30', '', $tags.' #blackfriday', 'planned', 'photo'],
+            'snapchat' => ['21:00', '', '', 'planned', 'story'],
+        ], checklistDone: 1);
+
+        $this->post($brand, [
+            'title' => 'Akha, check again: the smartphone deal',
+            'series_id' => $series['Akha, check again'],
+            'product_family_id' => $family['Smartphones'],
+            'format' => 'video',
+            'planned_at' => '2026-10-31 20:00',
+            'stage' => 'brief',
+            'owner_id' => $this->admin->id,
+            'due_on' => '2026-10-29',
+            'brief' => "\"Akha... hadchi ma ymkench ykoun s7i7. Khellini n3awed nchouf.\" Re-reads the price on the phone, then confirms.\nUnity Day is on the same day: keep it light, no hard sell.",
+        ], [
+            'tiktok' => ['20:00', '', $tags], 'instagram' => ['20:00', '', $tags], 'facebook' => ['20:15', '', $tags], 'snapchat' => ['21:00', '', ''],
+        ]);
+
+        // Ideas without a date yet.
+        $this->post($brand, ['title' => 'Verified by Groshop: what is in the box', 'series_id' => $series['Verified by Groshop'], 'format' => 'video', 'planned_at' => null], []);
+        $this->post($brand, ['title' => '11.11 teaser: 24 h flash deals', 'series_id' => $series['Offer & Seasonal'], 'format' => 'static', 'is_offer' => true, 'planned_at' => null], []);
+
+        $livraison->comments()->create(['user_id' => $this->cm->id, 'body' => 'Courier confirmed for Saturday, 10:00.']);
+        $livraison->comments()->create(['user_id' => $this->admin->id, 'body' => 'Good. I shoot the packing at 9:30, edit in the afternoon.']);
+        $verified->comments()->create(['user_id' => $this->admin->id, 'body' => 'Final slides are on Drive. Post Instagram first, then Facebook.']);
+        $wait->comments()->create(['user_id' => $this->cm->id, 'body' => 'Snapchat story still to post, I was out of battery.']);
+    }
+
+    private function motoKhalidPosts(Brand $brand): void
+    {
+        $series = $brand->series()->pluck('id', 'name');
+        $family = $brand->productFamilies()->pluck('id', 'name');
+        $tags = '#motokhalid #marrakech #moto #scooter';
+
+        $this->post($brand, [
+            'title' => 'Atelier: tyre change in 30 seconds',
+            'series_id' => $series['Atelier'],
+            'product_family_id' => $family['Scooters'],
+            'format' => 'video',
+            'planned_at' => '2026-10-21 19:00',
+            'stage' => 'posted',
+            'owner_id' => $this->admin->id,
+        ], [
+            'instagram' => ['19:00', "Changement de pneu en 30 secondes. Passez à l'atelier ou appelez-nous.", $tags, 'posted'],
+            'tiktok' => ['19:00', "Pneu jdid f 30 seconde. Dowzo l'atelier.", $tags, 'posted'],
+            'facebook' => ['19:30', 'Changement de pneu en 30 secondes. Atelier ouvert tous les jours.', $tags, 'posted'],
+        ], checklistDone: 6);
+
+        $this->post($brand, [
+            'title' => 'Nouvel arrivage: 125 cc scooters',
+            'series_id' => $series['Nouvel arrivage'],
+            'product_family_id' => $family['Scooters'],
+            'format' => 'video',
+            'planned_at' => '2026-10-25 12:00',
+            'stage' => 'edit',
+            'owner_id' => $this->admin->id,
+        ], [
+            'instagram' => ['12:00', '', $tags], 'tiktok' => ['12:00', '', $tags], 'facebook' => ['12:30', '', $tags],
+        ], checklistDone: 3);
+
+        $this->post($brand, [
+            'title' => 'Conseil entretien: clean your chain',
+            'series_id' => $series['Conseil entretien'],
+            'product_family_id' => $family['Motos'],
+            'format' => 'video',
+            'planned_at' => '2026-10-28 19:00',
+            'stage' => 'brief',
+            'owner_id' => $this->admin->id,
+        ], [
+            'instagram' => ['19:00', '', $tags], 'tiktok' => ['19:00', '', $tags], 'facebook' => ['19:30', '', $tags],
+        ]);
+    }
+
+    /**
+     * @param  array<string, array>  $variants  platform key => [time, caption, hashtags, status = planned, placement = default]
+     */
+    private function post(Brand $brand, array $attributes, array $variants, int $checklistDone = 0, ?array $asset = null): Post
+    {
+        $format = Format::from($attributes['format']);
+        $post = $brand->posts()->create($attributes + ['created_by' => $this->admin->id, 'stage' => 'brief']);
+        $platforms = Platform::pluck('id', 'key');
+        $day = $post->planned_at?->toDateString();
+
+        foreach ($variants as $key => $row) {
+            [$time, $caption, $hashtags] = $row;
+            $status = $row[3] ?? 'planned';
+            $placement = $row[4] ?? $format->placements($key)[0];
+            $publishAt = $day ? CarbonImmutable::parse($day.' '.$time) : null;
+
+            $post->variants()->create([
+                'platform_id' => $platforms[$key],
+                'placement' => $placement,
+                'aspect_ratio' => $format->defaultRatio($placement),
+                'caption' => $caption ?: null,
+                'hashtags' => $hashtags ?: null,
+                'publish_at' => $publishAt,
+                'status' => $status,
+                'posted_at' => $status === 'posted' ? $publishAt?->addMinutes(3) : null,
+                'posted_by' => $status === 'posted' ? $this->cm->id : null,
+                'post_url' => $status === 'posted' ? 'https://example.com/demo/'.$key.'/'.$post->id : null,
+                // Past reminders are considered sent.
+                'reminded_at' => $publishAt?->isPast() ? $publishAt : null,
+            ]);
+        }
+
+        foreach (Post::CHECKLIST[$format->value] as $position => $label) {
+            $post->checklistItems()->create(['label' => $label, 'position' => $position, 'done' => $position < $checklistDone]);
+        }
+
+        if ($asset) {
+            $post->assets()->create(['label' => $asset[0], 'url' => $asset[1]]);
+        }
+
+        $post->syncStageFromVariants();
+
+        return $post;
     }
 
     private function groshop(): Brand

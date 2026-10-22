@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/brand/{brand}', [SessionController::class, 'switchBrand'])->name('brand.switch');
     Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 
+    Route::livewire('/calendar', Livewire\Calendar::class)->name('calendar');
     Route::livewire('/settings', Livewire\Settings::class)->name('settings');
 
     Route::middleware('can:admin')->group(function () {

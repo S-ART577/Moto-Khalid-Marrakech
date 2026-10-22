@@ -22,6 +22,14 @@ class Post extends Model
 {
     use SoftDeletes;
 
+    /** Checklist added to every new post. Edit freely. */
+    public const CHECKLIST = [
+        'video' => ['Hook + script', 'Shoot', 'Edit + subtitles', 'Cover frame', 'Captions + hashtags', 'Final file on Drive'],
+        'static' => ['Brief + copy', 'Design', 'Captions + hashtags', 'Final file on Drive'],
+    ];
+
+    protected $attributes = ['stage' => 'brief', 'is_offer' => false];
+
     protected function casts(): array
     {
         return [
@@ -71,6 +79,38 @@ class Post extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class)->latest();
+    }
+
+    /**
+     * Create a draft post with one version per brand platform and the default checklist.
+     * Used by "Fill empty slots" and the CSV import.
+     */
+    public static function draft(Brand $brand, Format $format, ?CarbonInterface $at, array $attributes = []): self
+    {
+        $post = $brand->posts()->create($attributes + [
+            'title' => $format === Format::Video ? __('Video idea') : __('Static idea'),
+            'format' => $format,
+            'planned_at' => $at,
+            'stage' => Stage::Brief,
+            'owner_id' => auth()->id(),
+            'created_by' => auth()->id(),
+        ]);
+
+        foreach ($brand->platforms as $platform) {
+            $placement = $format->placements($platform->key)[0];
+            $post->variants()->create([
+                'platform_id' => $platform->id,
+                'placement' => $placement,
+                'aspect_ratio' => $format->defaultRatio($placement),
+                'publish_at' => $at,
+            ]);
+        }
+
+        foreach (self::CHECKLIST[$format->value] as $position => $label) {
+            $post->checklistItems()->create(['label' => __($label), 'position' => $position]);
+        }
+
+        return $post;
     }
 
     /** Only posts of the given brands. */

@@ -112,7 +112,7 @@ Browser and phone notifications only work over **HTTPS**.
 |---|---|---|
 | 0 | Foundation: login, roles, layout, colours, FR/EN, installable app | Done |
 | 1 | Multi-brand workspace | Done |
-| 2 | Calendar (month / week / list) with drag-and-drop | |
+| 2 | Calendar (month / week / list) with drag-and-drop, post panel | Done |
 | 3 | Quota and gap radar | |
 | 4 | Production pipeline | |
 | 5 | Today screen + reminders | |

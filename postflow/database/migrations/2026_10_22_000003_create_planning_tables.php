@@ -47,7 +47,7 @@ return new class extends Migration
             $table->foreignId('brand_id')->nullable()->constrained()->cascadeOnDelete();
             $table->nullableMorphs('subject');
             $table->string('action');
-            $table->json('changes')->nullable();
+            $table->json('details')->nullable(); // what changed, e.g. {"to": "28 Oct"}
             $table->timestamp('created_at')->nullable();
         });
 

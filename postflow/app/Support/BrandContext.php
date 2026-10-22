@@ -13,6 +13,8 @@ class BrandContext
 {
     private ?Collection $brands = null;
 
+    private ?int $userId = null;
+
     public static function make(): self
     {
         return app(self::class);
@@ -21,7 +23,15 @@ class BrandContext
     /** @return Collection<int, Brand> brands this person may see */
     public function brands(): Collection
     {
-        return $this->brands ??= auth()->user()?->accessibleBrands() ?? new Collection;
+        $user = auth()->user();
+
+        // Cached for the request, per person.
+        if ($this->brands === null || $this->userId !== $user?->id) {
+            $this->userId = $user?->id;
+            $this->brands = $user?->accessibleBrands() ?? new Collection;
+        }
+
+        return $this->brands;
     }
 
     public function current(): ?Brand
