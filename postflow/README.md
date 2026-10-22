@@ -104,6 +104,25 @@ Any PHP host with MySQL works (shared hosting included).
 
 Browser and phone notifications only work over **HTTPS**.
 
+### Reminders (email + phone notifications)
+
+PostFlow sends, for each platform of each post:
+
+- a reminder **X minutes before** the publish time (each person sets X in **Settings**, default 30),
+- one **nudge when it is 15 minutes late** and still not marked as posted,
+- a **morning summary at 08:30** of everything to post today.
+
+They go to the community managers of the brand and to the owner of the post.
+
+1. **Email**: put your mail settings in `.env` (`MAIL_MAILER=smtp`, `MAIL_HOST`, `MAIL_PORT`,
+   `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_FROM_ADDRESS`). Locally emails go to `storage/logs/laravel.log`.
+2. **Phone / browser notifications**: run once `php artisan postflow:vapid --write` (creates the keys in `.env`).
+   Then on the phone: open PostFlow, **Add to home screen** (required on iPhone), open **Today** and tap
+   **Turn on**.
+3. **The cron job** above runs everything. To test by hand: `php artisan postflow:remind` and `php artisan postflow:digest`.
+
+WhatsApp reminders are a later step (they need a WhatsApp Business API account).
+
 ---
 
 ## 4. Build log (slices)
@@ -115,7 +134,7 @@ Browser and phone notifications only work over **HTTPS**.
 | 2 | Calendar (month / week / list) with drag-and-drop, post panel | Done |
 | 3 | Quota and gap radar | Done |
 | 4 | Production pipeline | Done |
-| 5 | Today screen + reminders | |
+| 5 | Today screen + reminders | Done |
 | 6 | Seasonal and offer calendar | |
 | 7 | Performance log | |
 | 8 | Import / export | |

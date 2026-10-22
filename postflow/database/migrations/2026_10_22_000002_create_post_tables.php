@@ -44,8 +44,6 @@ return new class extends Migration
             $table->string('post_url', 2048)->nullable();
             $table->dateTime('posted_at')->nullable();
             $table->foreignId('posted_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->dateTime('reminded_at')->nullable();
-            $table->dateTime('overdue_notified_at')->nullable();
             $table->timestamps();
             $table->unique(['post_id', 'platform_id']);
             $table->index(['publish_at', 'status']);

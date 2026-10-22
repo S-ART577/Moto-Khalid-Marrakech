@@ -271,9 +271,8 @@ class PostPanel extends Component
 
                 if ($master) {
                     $publishAt = $this->combine($row['date'], $row['time']);
-                    if ($variant->publish_at?->ne($publishAt)) {
-                        $variant->reminded_at = null;
-                        $variant->overdue_notified_at = null;
+                    if ($variant->exists && $variant->publish_at?->ne($publishAt)) {
+                        $variant->sentReminders()->delete();
                     }
                     $variant->placement = $row['placement'];
                     $variant->aspect_ratio = $row['aspect_ratio'];

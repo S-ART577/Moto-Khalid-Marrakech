@@ -51,6 +51,16 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
         });
 
+        // Which reminder went to whom, so nobody gets the same reminder twice.
+        Schema::create('sent_reminders', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('post_variant_id')->constrained()->cascadeOnDelete();
+            $table->string('kind'); // upcoming | overdue
+            $table->timestamp('created_at')->nullable();
+            $table->unique(['user_id', 'post_variant_id', 'kind']);
+        });
+
         Schema::create('push_subscriptions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
@@ -65,6 +75,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('push_subscriptions');
+        Schema::dropIfExists('sent_reminders');
         Schema::dropIfExists('activity_logs');
         Schema::dropIfExists('metrics');
         Schema::dropIfExists('seasonal_events');

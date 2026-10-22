@@ -10,12 +10,13 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 #[Fillable(['name', 'email', 'password', 'role', 'locale', 'notify_email', 'notify_push', 'reminder_minutes'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements HasLocalePreference
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
@@ -38,6 +39,12 @@ class User extends Authenticatable
             'notify_email' => 'boolean',
             'notify_push' => 'boolean',
         ];
+    }
+
+    /** Emails and notifications go out in the person's language. */
+    public function preferredLocale(): string
+    {
+        return $this->locale ?: config('app.locale');
     }
 
     public function isAdmin(): bool

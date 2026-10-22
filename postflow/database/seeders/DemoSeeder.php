@@ -242,8 +242,6 @@ class DemoSeeder extends Seeder
                 'posted_at' => $status === 'posted' ? $publishAt?->addMinutes(3) : null,
                 'posted_by' => $status === 'posted' ? $this->cm->id : null,
                 'post_url' => $status === 'posted' ? 'https://example.com/demo/'.$key.'/'.$post->id : null,
-                // Past reminders are considered sent.
-                'reminded_at' => $publishAt?->isPast() ? $publishAt : null,
             ]);
         }
 

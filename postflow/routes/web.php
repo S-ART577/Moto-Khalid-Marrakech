@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PushSubscriptionController;
 use App\Http\Controllers\SessionController;
 use App\Livewire;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/brand/{brand}', [SessionController::class, 'switchBrand'])->name('brand.switch');
     Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
+    Route::post('/push/subscribe', [PushSubscriptionController::class, 'store'])->name('push.subscribe');
 
+    Route::livewire('/today', Livewire\Today::class)->name('today');
     Route::livewire('/calendar', Livewire\Calendar::class)->name('calendar');
     Route::livewire('/radar', Livewire\Radar::class)->name('radar');
     Route::livewire('/pipeline', Livewire\Pipeline::class)->name('pipeline');

@@ -145,10 +145,9 @@ class Post extends Model
 
         foreach ($this->variants as $variant) {
             $variant->publish_at = ($variant->publish_at ?? $oldStart)->copy()->addSeconds($deltaSeconds);
-            // A post moved into the future needs fresh reminders.
-            $variant->reminded_at = null;
-            $variant->overdue_notified_at = null;
             $variant->save();
+            // A post moved to another time needs fresh reminders.
+            $variant->sentReminders()->delete();
         }
     }
 

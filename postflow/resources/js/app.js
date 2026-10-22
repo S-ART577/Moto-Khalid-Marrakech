@@ -23,6 +23,16 @@ window.pfCopy = async (text) => {
     }
 }
 
+// Paste the clipboard into an input (the post link after posting). The browser may ask for permission.
+window.pfPaste = async (input) => {
+    try {
+        input.value = (await navigator.clipboard.readText()).trim()
+        input.dispatchEvent(new Event('input'))
+    } catch (e) {
+        input.focus()
+    }
+}
+
 // Save an element as a PNG image (calendar, radar...). The library is loaded only when needed.
 window.pfExportPng = async (element, filename) => {
     let { toPng } = await import('html-to-image')

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[Fillable([
     'post_id', 'platform_id', 'placement', 'aspect_ratio', 'caption', 'hashtags', 'publish_at',
-    'status', 'post_url', 'posted_at', 'posted_by', 'reminded_at', 'overdue_notified_at',
+    'status', 'post_url', 'posted_at', 'posted_by',
 ])]
 class PostVariant extends Model
 {
@@ -21,8 +21,6 @@ class PostVariant extends Model
             'status' => VariantStatus::class,
             'publish_at' => 'datetime',
             'posted_at' => 'datetime',
-            'reminded_at' => 'datetime',
-            'overdue_notified_at' => 'datetime',
         ];
     }
 
@@ -44,6 +42,11 @@ class PostVariant extends Model
     public function assets(): HasMany
     {
         return $this->hasMany(Asset::class);
+    }
+
+    public function sentReminders(): HasMany
+    {
+        return $this->hasMany(SentReminder::class);
     }
 
     public function metric(): HasOne

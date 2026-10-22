@@ -199,7 +199,7 @@ class Calendar extends Component
                 return;
             }
             $post->update(['planned_at' => null]);
-            $post->variants()->update(['publish_at' => null, 'reminded_at' => null]);
+            $post->variants()->update(['publish_at' => null]);
             ActivityLog::record($post, 'moved', ['to' => __('Ideas')]);
             $this->dispatch('toast', message: __('Moved to ideas'));
 
