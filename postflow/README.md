@@ -135,6 +135,6 @@ WhatsApp reminders are a later step (they need a WhatsApp Business API account).
 | 3 | Quota and gap radar | Done |
 | 4 | Production pipeline | Done |
 | 5 | Today screen + reminders | Done |
-| 6 | Seasonal and offer calendar | |
+| 6 | Seasonal and offer calendar | Done |
 | 7 | Performance log | |
 | 8 | Import / export | |

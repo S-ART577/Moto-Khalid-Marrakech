@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::livewire('/calendar', Livewire\Calendar::class)->name('calendar');
     Route::livewire('/radar', Livewire\Radar::class)->name('radar');
     Route::livewire('/pipeline', Livewire\Pipeline::class)->name('pipeline');
+    Route::livewire('/seasons', Livewire\Seasons::class)->name('seasons');
     Route::livewire('/settings', Livewire\Settings::class)->name('settings');
 
     Route::middleware('can:admin')->group(function () {
