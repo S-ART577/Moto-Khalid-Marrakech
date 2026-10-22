@@ -22,4 +22,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
 
     Route::livewire('/settings', Livewire\Settings::class)->name('settings');
+
+    Route::middleware('can:admin')->group(function () {
+        Route::livewire('/brands', Livewire\Brands\Index::class)->name('brands.index');
+        Route::livewire('/brands/create', Livewire\Brands\Edit::class)->name('brands.create');
+        Route::livewire('/brands/{brand}', Livewire\Brands\Edit::class)->name('brands.edit');
+    });
 });

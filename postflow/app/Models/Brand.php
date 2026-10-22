@@ -24,6 +24,9 @@ class Brand extends Model
         'color_accent' => '#43dde6',
     ];
 
+    /** Same defaults as the database, so a new Brand object is complete before it is saved. */
+    protected $attributes = self::DEFAULT_COLORS + ['active' => true, 'position' => 0];
+
     protected function casts(): array
     {
         return ['active' => 'boolean'];

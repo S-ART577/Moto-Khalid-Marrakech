@@ -28,6 +28,7 @@ Create an empty MySQL database called `postflow`, then put your MySQL user and p
 
 ```bash
 php artisan migrate --seed     # creates the tables + the demo data
+php artisan storage:link       # lets brand logos show up
 npm run build                  # builds CSS/JS once (use `npm run dev` while you edit)
 php artisan serve              # http://localhost:8000
 ```
@@ -91,7 +92,7 @@ The community manager only sees the brands ticked for her in **Settings > Team**
 Any PHP host with MySQL works (shared hosting included).
 
 1. Upload the project, point the domain to the `public/` folder.
-2. Run `composer install --no-dev`, `php artisan migrate --force`, and upload the `public/build` folder
+2. Run `composer install --no-dev`, `php artisan migrate --force`, `php artisan storage:link`, and upload the `public/build` folder
    produced by `npm run build` on your computer.
 3. In `.env`: `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL=https://your-domain`, your MySQL
    and mail settings.
@@ -110,7 +111,7 @@ Browser and phone notifications only work over **HTTPS**.
 | Slice | What | Status |
 |---|---|---|
 | 0 | Foundation: login, roles, layout, colours, FR/EN, installable app | Done |
-| 1 | Multi-brand workspace | |
+| 1 | Multi-brand workspace | Done |
 | 2 | Calendar (month / week / list) with drag-and-drop | |
 | 3 | Quota and gap radar | |
 | 4 | Production pipeline | |
