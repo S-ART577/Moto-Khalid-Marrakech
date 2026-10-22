@@ -83,7 +83,7 @@
         <header class="no-print sticky top-0 z-30 border-b border-line bg-bg/95 backdrop-blur">
             <div class="flex items-center gap-2 px-3 lg:px-8 h-16">
                 <a href="{{ url('/') }}" class="lg:hidden size-9 rounded-lg bg-primary-ink grid place-items-center font-display font-bold text-white shrink-0" aria-label="PostFlow">P</a>
-                <nav aria-label="{{ __('Brands') }}" class="flex-1 min-w-0 overflow-x-auto [scrollbar-width:none]">
+                <nav aria-label="{{ __('Brands') }}" class="flex-1 min-w-0 relative overflow-x-auto [scrollbar-width:none]">
                     <ul class="flex items-center gap-1.5 w-max">
                         @if ($context->brands()->count() > 1)
                             <li>

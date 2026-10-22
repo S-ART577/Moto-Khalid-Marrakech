@@ -232,7 +232,7 @@
             @if ($this->posts->isEmpty())
                 <x-empty icon="list" :title="__('Nothing planned this month')" />
             @else
-                <div class="card overflow-x-auto hidden md:block">
+                <div class="card relative overflow-x-auto hidden md:block">
                     <table class="table-pf">
                         <thead>
                             <tr>

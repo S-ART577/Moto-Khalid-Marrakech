@@ -114,7 +114,7 @@ Browser and phone notifications only work over **HTTPS**.
 | 1 | Multi-brand workspace | Done |
 | 2 | Calendar (month / week / list) with drag-and-drop, post panel | Done |
 | 3 | Quota and gap radar | Done |
-| 4 | Production pipeline | |
+| 4 | Production pipeline | Done |
 | 5 | Today screen + reminders | |
 | 6 | Seasonal and offer calendar | |
 | 7 | Performance log | |

@@ -23,7 +23,7 @@
                         </div>
                         <button type="button" wire:click="close" class="btn btn-ghost px-2" title="{{ __('Close') }}"><x-icon name="x" /><span class="sr-only">{{ __('Close') }}</span></button>
                     </div>
-                    <div role="tablist" class="mt-3 -mb-3 flex gap-1 overflow-x-auto [scrollbar-width:none]">
+                    <div role="tablist" class="mt-3 -mb-3 flex gap-1 relative overflow-x-auto [scrollbar-width:none]">
                         @foreach ($tabs as $key => $label)
                             <button type="button" role="tab" wire:click="$set('tab', '{{ $key }}')" aria-selected="{{ $tab === $key ? 'true' : 'false' }}" class="tab whitespace-nowrap"
                                     @if (! $postId && in_array($key, ['production', 'discussion'])) disabled title="{{ __('Save the post first') }}" @endif>

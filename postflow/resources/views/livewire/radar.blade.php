@@ -65,7 +65,7 @@
                             <p class="text-muted">{{ __('No weekly target yet.') }} <a href="{{ route('brands.edit', $brand) }}#rhythm" class="underline">{{ __('Set targets') }}</a></p>
                         @else
                             {{-- Opens scrolled to the current week on small screens. --}}
-                            <div class="overflow-x-auto" x-data x-init="let cell = $el.querySelector('[data-current]'); if (cell) $el.scrollLeft = cell.offsetLeft - 140">
+                            <div class="relative overflow-x-auto" x-data x-init="let cell = $el.querySelector('[data-current]'); if (cell) $el.scrollLeft = cell.offsetLeft - 140">
                                 <table class="table-pf min-w-[560px]">
                                     <caption class="sr-only">{{ __('Planned vs target, week by week') }} · {{ $brand->name }}</caption>
                                     <thead>
